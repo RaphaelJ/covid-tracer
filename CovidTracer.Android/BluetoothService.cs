@@ -23,9 +23,7 @@ namespace CovidTracer
         public override StartCommandResult OnStartCommand(
             Intent intent, StartCommandFlags flags, int startId)
         {
-            Logger.write("BluetoothService started");
-
-            var tracer = new BluetoothTracer();
+            var tracer = CovidTracerService.getInstance();
             tracer.Start();
 
             return StartCommandResult.Sticky;

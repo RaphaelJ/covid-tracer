@@ -3,18 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CovidTracer.Views.CovidTracer">
 
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label HorizontalOptions="StartAndExpand"
+                   VerticalTextAlignment="Center"
+                   Text="{Binding Title}"
+                   FontSize="Title"
+                   TextColor="White"/>
+
+            <Button HorizontalOptions="End"
+                    Text="̀Informations"
+                    TextColor="White"
+                    BackgroundColor="Transparent"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
     <StackLayout
-        Margin="20,35,20,35"
+        Margin="15,25,15,35"
         VerticalOptions="FillAndExpand">
-        <Label Text="CovidTracer est actuellement actif"
-               FontSize="Title"
-               HorizontalOptions="Center"
-               FontAttributes="Bold" />
 
-        <Image Source="virus.png"
-               VerticalOptions="CenterAndExpand" />
+        <!-- Infection status -->
 
-        <Button Text="Me signaler comme Covid-19 positif"
+        <StackLayout Orientation="Horizontal"
+                     BackgroundColor="{Binding StatusBackgroundColor}"
+                     Padding="15">
+
+            <StackLayout>
+                <Label TextColor="{Binding StatusTextColor}"
+                       FontAttributes="Bold"
+                       FontSize="Body"
+                       Text="{Binding StatusTitle}"/>
+                <Label TextColor="{Binding StatusTextColor}"
+                       FontSize="Small"
+                       Text="{Binding StatusText}"/>
+            </StackLayout>
+
+            <Button Text="Details"
+                    VerticalOptions="Center"
+                    Clicked="StatusDetailsClicked"/>
+        </StackLayout>
+
+        <!-- -->
+
+        <StackLayout Margin="40"
+                     VerticalOptions="CenterAndExpand">
+            <Image Source="virus.png"/>
+        </StackLayout>
+
+        <Button Text="Me signaler comme positif au COVID-19"
                 BackgroundColor="#E50058"
                 TextColor="White"/>
 

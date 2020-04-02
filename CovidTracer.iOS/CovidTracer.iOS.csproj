@@ -122,6 +122,8 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <ImageAsset Include="Assets.xcassets\virus.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\virus.png.imageset\virus.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -141,5 +143,11 @@
       <Project>{2D477D5F-C387-4398-A020-BC4A89C13C1D}</Project>
       <Name>CovidTracer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\virus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\virus.png.imageset\" />
   </ItemGroup>
 </Project>
