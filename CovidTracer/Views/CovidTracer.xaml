@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CovidTracer.Views.CovidTracer">
+
+    <StackLayout
+        Margin="20,35,20,35"
+        VerticalOptions="FillAndExpand">
+        <Label Text="CovidTracer est actuellement actif"
+               FontSize="Title"
+               HorizontalOptions="Center"
+               FontAttributes="Bold" />
+
+        <Image Source="virus.png"
+               VerticalOptions="CenterAndExpand" />
+
+        <Button Text="Me signaler comme Covid-19 positif"
+                BackgroundColor="#E50058"
+                TextColor="White"/>
+
+        <Label
+               HorizontalTextAlignment="Center"
+               FontSize="Caption">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="CovidTracer respecte votre vie privée et ne transmet aucune
+                        donnée personelle sur Internet. " />
+                    <Span Text="En savoir plus"
+                        TextDecorations="Underline"/>
+                    <Span Text="."/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </StackLayout>
+</ContentPage>
