@@ -85,7 +85,5 @@ namespace CovidTracer.ViewModels
                 break;
             };
         }
-
-
     }
 }

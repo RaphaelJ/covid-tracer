@@ -1,17 +1,14 @@
-﻿
-using System;
-using System.Threading;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using CovidTracer.Services;
 
-namespace CovidTracer
+namespace CovidTracer.Droid
 {
     [Service]
-    public class BluetoothService : Service
+    public class AndroidCovidTracerService : Service
     {
-        public BluetoothService()
+        public AndroidCovidTracerService()
         {
         }
 
@@ -23,7 +20,9 @@ namespace CovidTracer
         public override StartCommandResult OnStartCommand(
             Intent intent, StartCommandFlags flags, int startId)
         {
-            var tracer = CovidTracerService.getInstance();
+            var bleServer = new AndroidBLEServer(this.ApplicationContext);
+
+            var tracer = CovidTracerService.getInstance(bleServer);
             tracer.Start();
 
             return StartCommandResult.Sticky;

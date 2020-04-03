@@ -1,10 +1,6 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Android.Content;
 using Android.Support.V4.App;
@@ -27,7 +23,7 @@ namespace CovidTracer.Droid
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            startBluetoothService();
+            StartCovidTracerService();
 
             // Starts the UI
 
@@ -40,10 +36,11 @@ namespace CovidTracer.Droid
             LoadApplication(new App());
         }
 
-        /** Tries to start the Bluetooth service if all permissions are granted.
+        /** Tries to start the CovidTracer service if all permissions are
+         * granted.
          *
          * Otherwise, repeatitly ask for the required permissions */
-        private void startBluetoothService()
+        private void StartCovidTracerService()
         {
             List<string> denied = new List<string>();
 
@@ -60,18 +57,22 @@ namespace CovidTracer.Droid
             if (denied.Count > 0) {
                 ActivityCompat.RequestPermissions(this, denied.ToArray(), 0);
             } else if (bluetoothService_ == null) {
-                bluetoothService_ =
-                    StartService(new Intent(this, typeof(BluetoothService)));
+                bluetoothService_ = StartService(
+                    new Intent(this, typeof(AndroidCovidTracerService)));
             }
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult(
+            int requestCode, string[] permissions,
+            [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(
+                requestCode, permissions, grantResults);
 
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(
+                requestCode, permissions, grantResults);
 
-            startBluetoothService();
+            StartCovidTracerService();
         }
     }
 }
