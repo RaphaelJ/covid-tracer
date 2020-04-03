@@ -4,26 +4,32 @@ using Android.Bluetooth;
 using Android.Bluetooth.LE;
 using Android.Content;
 using Android.OS;
+using CovidTracer.Models;
 
 namespace CovidTracer.Droid
 {
     public class AndroidBLEServer : Services.IBLEServer
 
     {
-        readonly Context context;
+        public readonly BluetoothManager manager;
+        public readonly BluetoothAdapter adapter;
+        public readonly BluetoothGattServer server;
+
 
         public AndroidBLEServer(Context context_)
         {
-            context = context_;
+            manager = (BluetoothManager) context_.GetSystemService(
+                Context.BluetoothService);
+            adapter = manager.Adapter;
+
+            server = manager.OpenGattServer(context_,
+                new AndroidBLEGattServerCallback(this));
         }
 
         public void AddReadOnlyService(
-            Guid serviceName, Dictionary<Guid, byte[]> characteristics)
+            CovidTracerID appId, Guid serviceName,
+            Dictionary<Guid, String> characteristics)
         {
-            var manager = (BluetoothManager) context.GetSystemService(
-                Context.BluetoothService);
-            var adapter = manager.Adapter;
-
             // Register for system Bluetooth events
             //IntentFilter filter = new IntentFilter(BluetoothAdapter.ActionStateChanged);
             //registerReceiver(mBluetoothReceiver, filter);
@@ -34,18 +40,19 @@ namespace CovidTracer.Droid
             //} else {
             //adapter.enable();
 
-            // Create a Gatt server with the requested service
+            // Creates a Gatt server with the requested service
 
             {
-                var server = manager.OpenGattServer(
-                    context, new AndroidBLEGattServerCallback(characteristics));
 
                 var service = new BluetoothGattService(AsJavaUUID(serviceName),
                     GattServiceType.Primary);
 
                 foreach (var i in characteristics) {
                     var ch = new BluetoothGattCharacteristic(AsJavaUUID(i.Key),
-                        GattProperty.Read, GattPermission.Read);
+                        GattProperty.Read | GattProperty.Notify,
+                        GattPermission.Read);
+
+                    ch.SetValue(i.Value);
 
                     service.AddCharacteristic(ch);
                 }
@@ -53,22 +60,19 @@ namespace CovidTracer.Droid
                 server.AddService(service);
             }
 
-            // Starts advertising for the service over BLE
+            // Starts advertising for the availaible services over BLE.
 
             {
                 var advertiser = adapter.BluetoothLeAdvertiser;
 
                 var setts = new AdvertiseSettings.Builder()
-                    .SetAdvertiseMode(AdvertiseMode.LowPower)
+                    .SetAdvertiseMode(AdvertiseMode.Balanced)
                     .SetConnectable(true)
                     .SetTimeout(0)
-                    .SetTxPowerLevel(AdvertiseTx.PowerLow)
+                    .SetTxPowerLevel(AdvertiseTx.PowerMedium)
                     .Build();
 
                 var data = new AdvertiseData.Builder()
-                    .SetIncludeDeviceName(true)
-                    .SetIncludeTxPowerLevel(false)
-                    .AddServiceUuid(AsParcelUUID(serviceName))
                     .Build();
 
                 var callback = new AndroidBLEAdvertiseCallback();
@@ -80,11 +84,6 @@ namespace CovidTracer.Droid
         static Java.Util.UUID AsJavaUUID(Guid guid)
         {
             return Java.Util.UUID.FromString(guid.ToString());
-        }
-
-        static ParcelUuid AsParcelUUID(Guid guid)
-        {
-            return ParcelUuid.FromString(guid.ToString());
         }
     }
 }

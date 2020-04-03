@@ -7,13 +7,13 @@ namespace CovidTracer.Droid
         public override void OnStartFailure(AdvertiseFailure error)
         {
             base.OnStartFailure(error);
-            Logger.write($"Advertise start failure: {error}");
+            Logger.Write($"Advertise start failure: {error}");
         }
 
         public override void OnStartSuccess(AdvertiseSettings settings)
         {
             base.OnStartSuccess(settings);
-            Logger.write($"Advertise start success: {settings.Mode}");
+            Logger.Write($"Advertise start success: {settings.Mode}");
         }
     }
 }

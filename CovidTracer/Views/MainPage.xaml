@@ -1,18 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" xmlns:views="clr-namespace:CovidTracer.Views" x:Class="CovidTracer.Views.MainPage">
-    <MasterDetailPage.Master>
-        <views:MenuPage />
-    </MasterDetailPage.Master>
-    <MasterDetailPage.Detail>
-        <NavigationPage>
-            <NavigationPage.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_feed.png" />
-                </OnPlatform>
-            </NavigationPage.Icon>
-            <x:Arguments>
-                <views:CovidTracer />
-            </x:Arguments>
-        </NavigationPage>
-    </MasterDetailPage.Detail>
-</MasterDetailPage>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CovidTracer.Views.MainPage">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label HorizontalOptions="StartAndExpand"
+                   VerticalTextAlignment="Center"
+                   Text="{Binding Title}"
+                   FontSize="Title"
+                   TextColor="White"/>
+
+            <Button HorizontalOptions="End"
+                    Text="̀Informations"
+                    TextColor="White"
+                    BackgroundColor="Transparent"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <StackLayout
+        Margin="15,25,15,35"
+        VerticalOptions="FillAndExpand">
+
+        <!-- Infection status -->
+
+        <StackLayout Orientation="Horizontal"
+                     BackgroundColor="{Binding StatusBackgroundColor}"
+                     Padding="15">
+
+            <StackLayout>
+                <Label TextColor="{Binding StatusTextColor}"
+                       FontAttributes="Bold"
+                       FontSize="Body"
+                       Text="{Binding StatusTitle}"/>
+                <Label TextColor="{Binding StatusTextColor}"
+                       FontSize="Small"
+                       Text="{Binding StatusText}"/>
+            </StackLayout>
+
+            <Button Text="Details"
+                    VerticalOptions="Center"
+                    Clicked="StatusDetailsClicked"/>
+        </StackLayout>
+
+        <!-- -->
+
+        <StackLayout Margin="40"
+                     VerticalOptions="CenterAndExpand">
+            <Image Source="virus.png"/>
+        </StackLayout>
+
+        <Button Text="Me signaler comme positif au COVID-19"
+                BackgroundColor="#E50058"
+                TextColor="White"/>
+
+        <Label
+               HorizontalTextAlignment="Center"
+               FontSize="Caption">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="CovidTracer respecte votre vie privée et ne transmet aucune
+                        donnée personelle sur Internet. " />
+                    <Span Text="En savoir plus"
+                        TextDecorations="Underline"/>
+                    <Span Text="."/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </StackLayout>
+</ContentPage>

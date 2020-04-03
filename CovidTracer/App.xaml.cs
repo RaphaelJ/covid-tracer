@@ -12,7 +12,7 @@ namespace CovidTracer
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new CovidTracer.Views.CovidTracer());
+            MainPage = new NavigationPage(new CovidTracer.Views.MainPage());
         }
 
         protected override void OnStart()

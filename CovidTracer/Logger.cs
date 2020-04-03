@@ -3,7 +3,7 @@ namespace CovidTracer
 {
     public static class Logger
     {
-        public static void write(string message)
+        public static void Write(string message)
         {
             Console.WriteLine("[CovidTracer] " + message);
         }

@@ -8,25 +8,33 @@ namespace CovidTracer.Droid
      */
     class AndroidBLEGattServerCallback : BluetoothGattServerCallback
     {
-        readonly Dictionary<Guid, byte[]> characteristics;
+        readonly AndroidBLEServer server;
 
-        public AndroidBLEGattServerCallback(
-            Dictionary<Guid, byte[]> characteristics_)
+        public AndroidBLEGattServerCallback(AndroidBLEServer server_)
         {
-            characteristics = characteristics_;
+            server = server_;
+        }
+
+        public override void OnConnectionStateChange(
+            BluetoothDevice device, ProfileState status, ProfileState newState)
+        {
+            base.OnConnectionStateChange(device, status, newState);
+
+            Logger.Write(
+                $"BLE device state change: {device.Address} is {newState}.");
         }
 
         public override void OnCharacteristicReadRequest(
             BluetoothDevice device, int requestId, int offset,
-            BluetoothGattCharacteristic dest)
+            BluetoothGattCharacteristic target)
         {
-            Logger.write($"BLE read request for {dest.Uuid}");
-            dest.SetValue(characteristics[AsGuid(dest.Uuid)]);
-        }
+            base.OnCharacteristicReadRequest(device, requestId, offset, target);
 
-        static Guid AsGuid(Java.Util.UUID uuid)
-        {
-            return Guid.Parse(uuid.ToString());
+            Logger.Write($"BLE characteristic read request for {target.Uuid}.");
+
+            server.server.SendResponse(
+                device, requestId, GattStatus.Success, offset,
+                target.GetValue());
         }
     }
 }

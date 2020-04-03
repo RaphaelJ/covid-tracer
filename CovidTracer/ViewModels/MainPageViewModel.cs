@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace CovidTracer.ViewModels
 {
-    public class CovidTracerViewModel : BaseViewModel
+    public class MainPageViewModel : BaseViewModel
     {
         //
         // Infection status
@@ -49,7 +49,7 @@ namespace CovidTracer.ViewModels
 
         // --
 
-        public CovidTracerViewModel()
+        public MainPageViewModel()
         {
             Title = "CovidTracer";
 

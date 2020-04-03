@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using CovidTracer.Models;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 
@@ -18,11 +19,13 @@ namespace CovidTracer.Services
         readonly Guid SERVICE_NAME =
             Guid.Parse("22FC7440-9ED6-48B8-85B3-DA69AF417AED");
         readonly Guid CHARACTERISTIC_NAME =
-            Guid.Parse("04B9494A-477F-4D46-B9A3-BD06C7E1E5E7");
+            Guid.Parse("04B9494A-477F-4D46-B9A3-BD06C7E1E5E6");
 
         readonly IBluetoothLE ble;
         readonly IAdapter adapter;
         readonly IBLEServer bleServer;
+
+        readonly CovidTracerID id;
 
         bool started = false;
 
@@ -43,6 +46,10 @@ namespace CovidTracer.Services
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             bleServer = bleServer_;
+
+            id = CovidTracerID.GetInstance();
+
+            Logger.Write($"CovidTracerService instanced with ID '{id.Value}'");
         }
 
         public void Start()
@@ -50,17 +57,14 @@ namespace CovidTracer.Services
             lock (this) {
                 if (!started) {
                     bleServer.AddReadOnlyService(
-                        SERVICE_NAME, new Dictionary<Guid, byte[]> {
-                            {
-                                CHARACTERISTIC_NAME,
-                                new byte[] { 1, 2, 3, 4 }
-                            }
+                        id, SERVICE_NAME, new Dictionary<Guid, String> {
+                            { CHARACTERISTIC_NAME, id.Value }
                         }
                     );
 
                     new Thread(() => ScanDevices()).Start();
 
-                    Logger.write("CovidTracerService started");
+                    Logger.Write("CovidTracerService started");
                     started = true;
                 }
             }
@@ -70,7 +74,7 @@ namespace CovidTracer.Services
         protected void ScanDevices()
         {
             ble.StateChanged += (s, e) => {
-                Logger.write($"Bluetooth state changed to {e.NewState}.");
+                Logger.Write($"Bluetooth state changed to {e.NewState}.");
             };
 
             adapter.DeviceDiscovered += (s, e) => {
@@ -81,12 +85,13 @@ namespace CovidTracer.Services
             adapter.ScanMode = ScanMode.LowPower;
 
             for (; ; ) {
-                Logger.write("Initiate new Bluetooth scan");
+                Logger.Write("Initiate new Bluetooth scan");
 
                 try {
                     adapter.StartScanningForDevicesAsync();
                 } catch (Exception e) {
-                    Logger.write($"Bluetooth exception: '{e.Message}'.");
+                    Logger.Write(
+                        $"Bluetooth scan device exception: '{e.Message}'.");
                 }
  
 
@@ -104,7 +109,7 @@ namespace CovidTracer.Services
                 return;
             }
 
-            Logger.write(
+            Logger.Write(
                 $"Bluetooth device discovered: " +
                 $"{device.Id}/{device.Name} ({device.Rssi} dBm)"
             );
@@ -113,23 +118,23 @@ namespace CovidTracer.Services
                 await adapter.ConnectToDeviceAsync(device);
                 var services = await device.GetServicesAsync();
 
-                Logger.write($"{services.Count} services discovered.");
+                Logger.Write($"{services.Count} services discovered.");
 
                 foreach (var service in services) {
-                    Logger.write(
+                    Logger.Write(
                         $"Service name: {service.Name} - Is primary: {service.IsPrimary}"
                     );
 
                     var characteristics = await service.GetCharacteristicsAsync();
 
-                    Logger.write($"{characteristics.Count} characteristics.");
+                    Logger.Write($"{characteristics.Count} characteristics.");
 
                     foreach (var charact in characteristics) {
-                        Logger.write($"{charact.Name}");
+                        Logger.Write($"{charact.Name}");
                     }
                 }
             } catch (Exception e) {
-                Logger.write($"Bluetooth exception: '{e.Message}'.");
+                Logger.Write($"Bluetooth exception: '{e.Message}'.");
             }
         }
     }

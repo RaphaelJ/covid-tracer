@@ -1,17 +1,26 @@
-﻿using Android.App;
+﻿using System.Collections.Generic;
+
+using Android;
+using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Android.Content;
 using Android.Support.V4.App;
-using Android;
 using Android.Support.V4.Content;
-using System.Collections.Generic;
 
 namespace CovidTracer.Droid
 {
-    [Activity(Label = "CovidTracer", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    [Activity(
+        Label = "CovidTracer",
+        Icon = "@mipmap/icon",
+        Theme = "@style/MainTheme",
+        MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.ScreenSize
+                               | ConfigChanges.Orientation,
+        ScreenOrientation = ScreenOrientation.Portrait)]
+    public class MainActivity
+        : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         readonly string[] PERMISSIONS = new string[] {
             Manifest.Permission.Bluetooth,
@@ -23,15 +32,16 @@ namespace CovidTracer.Droid
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            base.OnCreate(savedInstanceState);
+
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
             StartCovidTracerService();
 
             // Starts the UI
 
-            ToolbarResource = Resource.Layout.Toolbar;
+            ToolbarResource = Resource.Layout.Toolbar; // TODO Needed ?
 
-            base.OnCreate(savedInstanceState);
-
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
@@ -47,7 +57,7 @@ namespace CovidTracer.Droid
             foreach (string perm in PERMISSIONS) {
                 var permStatus = ContextCompat.CheckSelfPermission(this, perm);
 
-                Logger.write($"Permission '{perm}': {permStatus}");
+                Logger.Write($"Permission '{perm}': {permStatus}");
 
                 if (permStatus == Permission.Denied) {
                     denied.Add(perm);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CovidTracer.Models;
 
 namespace CovidTracer.Services
 {
@@ -9,6 +10,7 @@ namespace CovidTracer.Services
          * characteristics.
          */
         void AddReadOnlyService(
-            Guid serviceName, Dictionary<Guid, byte[]> characteristics);
+            CovidTracerID appId, Guid serviceName,
+            Dictionary<Guid, String> characteristics);
     }
 }

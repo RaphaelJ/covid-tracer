@@ -1,54 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using CovidTracer.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using CovidTracer.Models;
 
 namespace CovidTracer.Views
 {
+    // Learn more about making custom code visible in the Xamarin.Forms previewer
+    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    public partial class MainPage : MasterDetailPage
+    public partial class MainPage : ContentPage
     {
-        Dictionary<MenuItemType, NavigationPage> MenuPages =
-            new Dictionary<MenuItemType, NavigationPage>();
-
         public MainPage()
         {
+            BindingContext = new MainPageViewModel();
+
             InitializeComponent();
-
-            MasterBehavior = MasterBehavior.Popover;
-
-            MenuPages.Add(MenuItemType.CovidTracer, (NavigationPage) Detail);
         }
 
-        public async Task NavigateFromMenu(MenuItemType id)
+        void StatusDetailsClicked(System.Object sender, System.EventArgs e)
         {
-            if (!MenuPages.ContainsKey(id)) {
-                switch (id) {
-                case MenuItemType.CovidTracer:
-                    MenuPages.Add(id, new NavigationPage(new CovidTracer()));
-                    break;
-                case MenuItemType.About:
-                    MenuPages.Add(id, new NavigationPage(new AboutPage()));
-                    break;
-                }
+            var model = (MainPageViewModel) BindingContext;
+
+            Models.InfectionStatus newStatus;
+            switch (model.Status) {
+            case Models.InfectionStatus.Safe:
+                newStatus = Models.InfectionStatus.Symptomatic;
+                break;
+            case Models.InfectionStatus.Symptomatic:
+                newStatus = Models.InfectionStatus.Positive;
+                break;
+            case Models.InfectionStatus.Positive:
+            default:
+                newStatus = Models.InfectionStatus.Safe;
+                break;
             }
 
-            var newPage = MenuPages[id];
-
-            if (newPage != null && Detail != newPage) {
-                Detail = newPage;
-
-                if (Device.RuntimePlatform == Device.Android) { // ?
-                    await Task.Delay(100);
-                }
-
-
-                IsPresented = false;
-            }
+            model.ChangeStatus(newStatus);
         }
     }
 }
