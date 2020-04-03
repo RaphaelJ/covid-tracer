@@ -14,7 +14,8 @@
             <Button HorizontalOptions="End"
                     Text="̀Informations"
                     TextColor="White"
-                    BackgroundColor="Transparent"/>
+                    BackgroundColor="Transparent"
+                    Clicked="AboutClicked"/>
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -59,8 +60,8 @@
                FontSize="Caption">
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="CovidTracer respecte votre vie privée et ne transmet aucune
-                        donnée personelle sur Internet. " />
+                    <Span Text="CovidTracer respecte votre vie privée et ne
+transmet aucune donnée personelle sur Internet. " />
                     <Span Text="En savoir plus"
                         TextDecorations="Underline"/>
                     <Span Text="."/>

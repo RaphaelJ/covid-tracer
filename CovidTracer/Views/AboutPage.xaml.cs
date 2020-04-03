@@ -1,18 +1,23 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using CovidTracer.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace CovidTracer.Views
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
     public partial class AboutPage : ContentPage
     {
         public AboutPage()
         {
+            BindingContext = new AboutViewModel();
+
             InitializeComponent();
+        }
+
+        async void OnWebsiteClicked(System.Object sender, System.EventArgs e)
+        {
+            await Browser.OpenAsync("https://github.com/RaphaelJ/covid-tracer");
         }
     }
 }

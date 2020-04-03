@@ -11,14 +11,14 @@ namespace CovidTracer.Views
     {
         public MainPage()
         {
-            BindingContext = new MainPageViewModel();
+            BindingContext = new MainViewModel();
 
             InitializeComponent();
         }
 
         void StatusDetailsClicked(System.Object sender, System.EventArgs e)
         {
-            var model = (MainPageViewModel) BindingContext;
+            var model = (MainViewModel) BindingContext;
 
             Models.InfectionStatus newStatus;
             switch (model.Status) {
@@ -35,6 +35,11 @@ namespace CovidTracer.Views
             }
 
             model.ChangeStatus(newStatus);
+        }
+
+        async void AboutClicked(System.Object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new AboutPage());
         }
     }
 }
