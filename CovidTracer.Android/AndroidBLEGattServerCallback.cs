@@ -20,7 +20,7 @@ namespace CovidTracer.Droid
         {
             base.OnConnectionStateChange(device, status, newState);
 
-            Logger.Write(
+            Logger.Info(
                 $"BLE device state change: {device.Address} is {newState}.");
         }
 
@@ -30,7 +30,7 @@ namespace CovidTracer.Droid
         {
             base.OnCharacteristicReadRequest(device, requestId, offset, target);
 
-            Logger.Write($"BLE characteristic read request for {target.Uuid}.");
+            Logger.Info($"BLE characteristic read request for {target.Uuid}.");
 
             server.server.SendResponse(
                 device, requestId, GattStatus.Success, offset,

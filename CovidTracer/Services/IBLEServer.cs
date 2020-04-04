@@ -10,7 +10,6 @@ namespace CovidTracer.Services
          * characteristics.
          */
         void AddReadOnlyService(
-            CovidTracerID appId, Guid serviceName,
-            Dictionary<Guid, String> characteristics);
+            Guid serviceName, Dictionary<Guid, byte[]> characteristics);
     }
 }

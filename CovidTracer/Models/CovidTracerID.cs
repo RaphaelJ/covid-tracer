@@ -4,21 +4,31 @@ using Xamarin.Essentials;
 
 namespace CovidTracer.Models
 {
-    /** Uniquely identifies the app instance using a randomly generated
+    /** Uniquely identifies an app instance using a randomly generated
      * alphanumerical string. */
     public /* Singleton */ class CovidTracerID
     {
         public const int LEN = 8;
         public const string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-        const string PREFERENCE_KEY = "covid_tracer_id";
-
         public readonly string Value;
 
-        /** Fetches the previously generated ID from the preferences, or
-         * generates it if it does not exist yet. */
-        static public CovidTracerID GetInstance()
+        public CovidTracerID(string value_)
         {
+            Value = value_;
+        }
+
+        public CovidTracerID(byte[] value_)
+        {
+            Value = ASCIIEncoding.ASCII.GetString(value_);
+        }
+
+        /** Fetches the previously generated app ID from the preferences, or
+         * generates it if it does not exist yet. */
+        static public CovidTracerID GetCurrentInstance()
+        {
+            const string PREFERENCE_KEY = "covid_tracer_id";
+
             // FIXME Should be protected by a lock.
             if (Preferences.ContainsKey(PREFERENCE_KEY)) {
                 return new CovidTracerID(Preferences.Get(PREFERENCE_KEY, null));
@@ -42,14 +52,14 @@ namespace CovidTracer.Models
             Value = new String(value);
         }
 
-        protected CovidTracerID(string value_)
-        {
-            Value = value_;
-        }
-
-        public byte[] AsBytes()
+        public byte[] ToBytes()
         {
             return ASCIIEncoding.ASCII.GetBytes(Value);
+        }
+
+        public override string ToString()
+        {
+            return Value;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace CovidTracer.ViewModels
         public AboutViewModel()
         {
             Title = "Informations";
-            //OpenWebSiteCommand = new Command(async () => await Browser.OpenAsync("https://xamarin.com"));
         }
     }
 }

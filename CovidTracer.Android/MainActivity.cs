@@ -57,7 +57,7 @@ namespace CovidTracer.Droid
             foreach (string perm in PERMISSIONS) {
                 var permStatus = ContextCompat.CheckSelfPermission(this, perm);
 
-                Logger.Write($"Permission '{perm}': {permStatus}");
+                Logger.Info($"Permission '{perm}': {permStatus}");
 
                 if (permStatus == Permission.Denied) {
                     denied.Add(perm);

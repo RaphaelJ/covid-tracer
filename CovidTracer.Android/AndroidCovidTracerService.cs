@@ -22,7 +22,7 @@ namespace CovidTracer.Droid
         {
             var bleServer = new AndroidBLEServer(this.ApplicationContext);
 
-            var tracer = CovidTracerService.getInstance(bleServer);
+            var tracer = CovidTracerService.GetInstance(bleServer);
             tracer.Start();
 
             return StartCommandResult.Sticky;
