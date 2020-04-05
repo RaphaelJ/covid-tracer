@@ -197,7 +197,7 @@ namespace CovidTracer.Services
 
                 // Logs the successful encounter
 
-                ContactDatabase.GetInstance().NewEncounter(id);
+                ContactDatabase.GetInstance().NewContact(id);
             } catch (Exception e) {
                 Logger.Info($"Bluetooth exception: '{e.Message}'.");
                 Console.WriteLine(e.StackTrace);

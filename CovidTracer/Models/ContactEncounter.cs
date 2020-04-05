@@ -2,45 +2,47 @@
 
 namespace CovidTracer.Models
 {
-    /** Information about a single contact encounter.
+    /** Information about an encounter with another CovidTracer user.
      *
-     * Two encounters are considered equals if they happen during the same hour.
+     * An encounter is defined as a [BeginsAt..EndsAt( period.
      **/
     public class ContactEncounter : IComparable<ContactEncounter>
     {
-        public readonly int Year;
-        public readonly int Month;
-        public readonly int Day;
-        public readonly int Hour;
+        public readonly ContactEncounterTime BeginsAt;
+        public readonly ContactEncounterTime EndsAt;
 
-        public ContactEncounter(int year_, int month_, int day_, int hour_)
+        public ContactEncounter(ContactEncounterTime beginsAt_,
+            ContactEncounterTime endsAt_)
         {
-            Year = year_;
-            Month = month_;
-            Day = day_;
-            Hour = hour_;
+            BeginsAt = beginsAt_;
+            EndsAt = endsAt_;
         }
 
-        /** Creates a contact encouter with the current time. */
-        static public ContactEncounter Now()
+        /** Creates a one hour encounter from the given contact encounter time.
+         */
+        public ContactEncounter(ContactEncounterTime at)
         {
-            var now = DateTime.Now;
-            return new ContactEncounter(now.Year, now.Month, now.Day, now.Hour);
+            BeginsAt = at;
+            EndsAt = at.Next;
         }
 
-        public DateTime AsDateTime()
+        public bool Contains(ContactEncounterTime time)
         {
-            return new DateTime(Year, Month, Day, Hour, 0, 0);
+            return BeginsAt.CompareTo(time) <= 0
+                && EndsAt.CompareTo(time) > 0;
+        }
+
+        /** Returns true if the encounter's times match the given case
+         * infectious period. */
+        public bool Intersect(Case case_)
+        {
+            return BeginsAt.AsDateTime() < case_.EndsOn.AsDateTime()
+                && EndsAt.AsDateTime() > case_.BeginsOn.AsDateTime();
         }
 
         public int CompareTo(ContactEncounter other)
         {
-            return AsDateTime().CompareTo(other.AsDateTime());
-        }
-
-        public override string ToString()
-        {
-            return AsDateTime().ToString("YYYY-MM-DD HH:00");
+            return BeginsAt.CompareTo(other.BeginsAt);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using CovidTracer.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -15,7 +16,19 @@ namespace CovidTracer.Views
             InitializeComponent();
         }
 
-        async void OnWebsiteClicked(System.Object sender, System.EventArgs e)
+        int appIdClicked = 0;
+        async void OnAppIdClicked(object sender, EventArgs e)
+        {
+            // Clicking 10 times on the app ID unlock the debug detail page.
+
+            ++appIdClicked;
+
+            if (appIdClicked >= 10) {
+                await Navigation.PushAsync(new DetailsPage(true));
+            }
+        }
+
+        async void OnWebsiteClicked(object sender, EventArgs e)
         {
             await Browser.OpenAsync("https://github.com/RaphaelJ/covid-tracer");
         }

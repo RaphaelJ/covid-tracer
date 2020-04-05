@@ -16,7 +16,8 @@ namespace CovidTracer.Views
             InitializeComponent();
         }
 
-        void StatusDetailsClicked(System.Object sender, System.EventArgs e)
+        async void StatusDetailsClicked(
+            System.Object sender, System.EventArgs e)
         {
             var model = (MainViewModel) BindingContext;
 
@@ -35,6 +36,8 @@ namespace CovidTracer.Views
             }
 
             model.ChangeStatus(newStatus);
+
+            await Navigation.PushAsync(new DetailsPage(false));
         }
 
         async void AboutClicked(System.Object sender, System.EventArgs e)

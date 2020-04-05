@@ -7,24 +7,32 @@
     <StackLayout Margin="15,25,15,35">
 
         <StackLayout VerticalOptions="CenterAndExpand">
-            <Label Text="CovicTracer ID"
+            <Label Text="CovidTracer ID"
                    FontSize="Title"
                    HorizontalOptions="Center"/>
 
-            <Label Text="{Binding AppId}"
-                   FontSize="Title"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
+            <Button Text="{Binding AppId}"
+                    FontSize="Title"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    BackgroundColor="Transparent"
+                    TextColor="Black"
+                    Clicked="OnAppIdClicked"/>
 
             <Label FontSize="Caption"
                HorizontalOptions="Center"
                HorizontalTextAlignment="Center"
-               Text="Cet identifiant vous identifie anonymement auprès des autres utilisateurs de l'application."/>
+               Text="Cet code unique vous identifie anonymement auprès des autres utilisateurs de l'application."/>
         </StackLayout>
+
+        
+        <Label FontSize="Caption"
+               HorizontalTextAlignment="Center"
+               Text="Icones par Freepik de Flaticon"/>
 
         <Label FontSize="Caption"
                HorizontalTextAlignment="Center"
-               Text="CovidTracer est une application libre et gratuite."/>
+               Text="CovidTracer est une application libre."/>
 
         <Button FontSize="Caption"
                 Text="https://github.com/RaphaelJ/covid-tracer"

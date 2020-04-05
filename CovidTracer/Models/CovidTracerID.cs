@@ -7,6 +7,8 @@ namespace CovidTracer.Models
     /** Uniquely identifies an app instance using a randomly generated
      * alphanumerical string. */
     public /* Singleton */ class CovidTracerID
+        : IEquatable<CovidTracerID>
+        , IComparable<CovidTracerID>
     {
         public const int LEN = 8;
         public const string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -40,7 +42,7 @@ namespace CovidTracer.Models
         }
 
         /** Creates a new randomly generated ID. */
-        protected CovidTracerID()
+        public CovidTracerID()
         {
             Random random = new Random();
 
@@ -76,6 +78,21 @@ namespace CovidTracer.Models
             }
 
             return builder.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
+
+        public bool Equals(CovidTracerID other)
+        {
+            return Value.Equals(other.Value);
+        }
+
+        public int CompareTo(CovidTracerID other)
+        {
+            return Value.CompareTo(other.Value);
         }
     }
 }
