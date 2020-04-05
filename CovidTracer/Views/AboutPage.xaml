@@ -17,7 +17,7 @@
                     HorizontalOptions="Center"
                     BackgroundColor="Transparent"
                     TextColor="Black"
-                    Clicked="OnAppIdClicked"/>
+                    Clicked="AppIdClicked"/>
 
             <Label FontSize="Caption"
                HorizontalOptions="Center"
@@ -38,6 +38,6 @@
                 Text="https://github.com/RaphaelJ/covid-tracer"
                 BackgroundColor="Transparent"
                 TextColor="Blue"
-                Clicked="OnWebsiteClicked"/>
+                Clicked="WebsiteClicked"/>
     </StackLayout>
 </ContentPage>

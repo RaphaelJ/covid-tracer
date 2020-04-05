@@ -17,7 +17,7 @@ namespace CovidTracer.Views
         }
 
         int appIdClicked = 0;
-        async void OnAppIdClicked(object sender, EventArgs e)
+        async void AppIdClicked(object sender, EventArgs e)
         {
             // Clicking 10 times on the app ID unlock the debug detail page.
 
@@ -28,7 +28,7 @@ namespace CovidTracer.Views
             }
         }
 
-        async void OnWebsiteClicked(object sender, EventArgs e)
+        async void WebsiteClicked(object sender, EventArgs e)
         {
             await Browser.OpenAsync("https://github.com/RaphaelJ/covid-tracer");
         }

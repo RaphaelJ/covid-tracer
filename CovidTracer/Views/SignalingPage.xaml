@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CovidTracer.Views.SignalingPage"
+             Title="{Binding Title}">
+
+    <StackLayout>
+        <Label
+            Margin="15"
+            Padding="15"
+            TextColor="#856404"
+            BackgroundColor="#fff3cd"
+            FontSize="Small"
+            Text="En remplissant ce formulaire, les utilisateurs de CovidTracer avec qui vous auriez pu interagir au cours de votre période infectueuse seront notifiés anonymement."
+            />
+
+        <TableView
+            Intent="Form"
+            HasUnevenRows="True">
+            <TableRoot>
+                <TableSection>
+                    <ViewCell>
+                        <StackLayout
+                            Margin="10">
+                            <Label
+                                Text="Date d'apparition des premiers symptomes"
+                                />
+
+                            <DatePicker
+                                MinimumDate="02/01/2020"
+                                MaximumDate="{Binding CurrentDate}"
+                                Date="{Binding SymptomsDate}" />
+                        </StackLayout>
+                    </ViewCell>
+
+                    <ViewCell Tapped="TestedViewVellTapped">
+                        <StackLayout
+                            Margin="10"
+                            Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding Tested}"/>
+
+                            <Label
+                                VerticalTextAlignment="Center"
+                                Text="J'ai été testé positif au COVID-19"/>
+                        </StackLayout>
+                    </ViewCell>
+
+                    <ViewCell>
+                        <StackLayout
+                            Margin="10">
+                            <Label
+                                Text="Commentaire (optionnel)"
+                                />
+
+                            <Editor
+                                Text="{Binding Comment}"
+                                Keyboard="Text"
+                                MaxLength="1000"
+                                AutoSize="TextChanges"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+
+        <Button
+            Margin="0"
+            BackgroundColor="#E50058"
+            TextColor="White"
+            Text="Envoyer"/>
+    </StackLayout>
+</ContentPage>

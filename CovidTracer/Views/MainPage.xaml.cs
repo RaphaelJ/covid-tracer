@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using CovidTracer.ViewModels;
 using Xamarin.Forms;
 
@@ -40,9 +41,14 @@ namespace CovidTracer.Views
             await Navigation.PushAsync(new DetailsPage(false));
         }
 
-        async void AboutClicked(System.Object sender, System.EventArgs e)
+        async void AboutClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AboutPage());
+        }
+
+        async void SignalingClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SignalingPage());
         }
     }
 }
