@@ -24,7 +24,10 @@ namespace CovidTracer.Views
             ++appIdClicked;
 
             if (appIdClicked >= 10) {
+                var button = (Button)sender;
+                button.IsEnabled = false;
                 await Navigation.PushAsync(new DetailsPage(true));
+                button.IsEnabled = true;
             }
         }
 

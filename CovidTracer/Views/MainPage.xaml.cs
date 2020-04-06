@@ -17,9 +17,11 @@ namespace CovidTracer.Views
             InitializeComponent();
         }
 
-        async void StatusDetailsClicked(
-            System.Object sender, System.EventArgs e)
+        async void StatusDetailsClicked(object sender, EventArgs e)
         {
+            var button = (Button)sender;
+            button.IsEnabled = false;
+
             var model = (MainViewModel) BindingContext;
 
             Models.InfectionStatus newStatus;
@@ -39,16 +41,25 @@ namespace CovidTracer.Views
             model.ChangeStatus(newStatus);
 
             await Navigation.PushAsync(new DetailsPage(false));
+            button.IsEnabled = true;
         }
 
         async void AboutClicked(object sender, EventArgs e)
         {
+            var button = (Button)sender;
+            button.IsEnabled = false;
+
             await Navigation.PushAsync(new AboutPage());
+            button.IsEnabled = true;
         }
 
         async void SignalingClicked(object sender, EventArgs e)
         {
+            var button = (Button)sender;
+            button.IsEnabled = false;
+
             await Navigation.PushAsync(new SignalingPage());
+            button.IsEnabled = true;
         }
     }
 }

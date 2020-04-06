@@ -41,7 +41,8 @@
 
             <Button Text="Details"
                     VerticalOptions="Center"
-                    Clicked="StatusDetailsClicked"/>
+                    Clicked="StatusDetailsClicked"
+                    IsEnabled="{Binding !IsBusy}"/>
         </StackLayout>
 
         <!-- -->
@@ -54,7 +55,8 @@
         <Button Text="Me signaler comme positif au COVID-19"
                 BackgroundColor="#E50058"
                 TextColor="White"
-                Clicked="SignalingClicked"/>
+                Clicked="SignalingClicked"
+                IsEnabled="{Binding !IsBusy}"/>
 
         <Label
                HorizontalTextAlignment="Center"

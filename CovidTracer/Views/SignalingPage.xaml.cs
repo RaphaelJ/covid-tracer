@@ -19,7 +19,22 @@ namespace CovidTracer.Views
         void TestedViewVellTapped(object sender, EventArgs e)
         {
             var model = (SignalingViewModel)BindingContext;
-            model.Tested = !model.Tested;
+            model.IsTested = !model.IsTested;
+        }
+
+        async void SendButtonClicked(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            button.IsEnabled = false;
+
+            var model = (SignalingViewModel)BindingContext;
+
+            var result = Services.RestService.Notify(
+                model.SymptomsOnset, model.IsTested, model.Comment);
+
+            Logger.Info(result.ToString());
+
+            button.IsEnabled = true;
         }
     }
 }

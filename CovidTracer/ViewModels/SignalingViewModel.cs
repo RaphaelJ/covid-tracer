@@ -15,18 +15,18 @@ namespace CovidTracer.ViewModels
             set { SetProperty(ref currentDate, value); }
         }
 
-        DateTime symptomsDate;
-        public DateTime SymptomsDate
+        DateTime symptomsOnset;
+        public DateTime SymptomsOnset
         {
-            get { return symptomsDate; }
-            set { SetProperty(ref symptomsDate, value); }
+            get { return symptomsOnset; }
+            set { SetProperty(ref symptomsOnset, value); }
         }
 
-        bool tested;
-        public bool Tested
+        bool isTested;
+        public bool IsTested
         {
-            get { return tested; }
-            set { SetProperty(ref tested, value); }
+            get { return isTested; }
+            set { SetProperty(ref isTested, value); }
         }
 
         string comment;
@@ -42,8 +42,8 @@ namespace CovidTracer.ViewModels
 
             CurrentDate = DateTime.Now;
 
-            SymptomsDate = CurrentDate;
-            Tested = false;
+            SymptomsOnset = CurrentDate;
+            IsTested = false;
             Comment = "";
         }
     }

@@ -29,7 +29,7 @@
                             <DatePicker
                                 MinimumDate="02/01/2020"
                                 MaximumDate="{Binding CurrentDate}"
-                                Date="{Binding SymptomsDate}" />
+                                Date="{Binding SymptomsOnset}" />
                         </StackLayout>
                     </ViewCell>
 
@@ -37,7 +37,7 @@
                         <StackLayout
                             Margin="10"
                             Orientation="Horizontal">
-                            <CheckBox IsChecked="{Binding Tested}"/>
+                            <CheckBox IsChecked="{Binding IsTested}"/>
 
                             <Label
                                 VerticalTextAlignment="Center"
@@ -67,6 +67,7 @@
             Margin="0"
             BackgroundColor="#E50058"
             TextColor="White"
-            Text="Envoyer"/>
+            Text="Envoyer"
+            Clicked="SendButtonClicked"/>
     </StackLayout>
 </ContentPage>
