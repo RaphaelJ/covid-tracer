@@ -8,11 +8,14 @@ namespace CovidTracer.Droid
      */
     class AndroidBLEGattServerCallback : BluetoothGattServerCallback
     {
-        readonly AndroidBLEServer server;
+        readonly Dictionary<Guid, Func<byte[]>> characteristics;
 
-        public AndroidBLEGattServerCallback(AndroidBLEServer server_)
+        public BluetoothGattServer Server { get; set; }
+
+        public AndroidBLEGattServerCallback(
+            Dictionary<Guid, Func<byte[]>> characteristics_)
         {
-            server = server_;
+            characteristics = characteristics_;
         }
 
         public override void OnConnectionStateChange(
@@ -30,11 +33,25 @@ namespace CovidTracer.Droid
         {
             base.OnCharacteristicReadRequest(device, requestId, offset, target);
 
-            Logger.Info($"BLE characteristic read request for {target.Uuid}.");
+            var guid = AsGUID(target.Uuid);
 
-            server.server.SendResponse(
-                device, requestId, GattStatus.Success, offset,
-                target.GetValue());
+            Logger.Info($"BLE characteristic read request for {guid}.");
+
+            if (characteristics.ContainsKey(guid)) {
+                var value = characteristics[guid]();
+
+                Logger.Info($"Send {value.Length} bytes response for {guid}.");
+
+                target.SetValue(value);
+
+                Server.SendResponse(device, requestId, GattStatus.Success,
+                    offset, value);
+            }
+        }
+
+        static Guid AsGUID(Java.Util.UUID uuid)
+        {
+            return Guid.Parse(uuid.ToString());
         }
     }
 }

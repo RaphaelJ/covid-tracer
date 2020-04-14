@@ -3,37 +3,38 @@ using System.Collections.Generic;
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
 using Android.Content;
-using Android.OS;
-using CovidTracer.Models;
 
 namespace CovidTracer.Droid
 {
     public class AndroidBLEServer : Services.IBLEServer
-
     {
-        public readonly BluetoothManager manager;
-        public readonly BluetoothAdapter adapter;
-        public readonly BluetoothGattServer server;
-
+        public readonly Context context;
 
         public AndroidBLEServer(Context context_)
         {
-            manager = (BluetoothManager) context_.GetSystemService(
-                Context.BluetoothService);
-            adapter = manager.Adapter;
-
-            server = manager.OpenGattServer(context_,
-                new AndroidBLEGattServerCallback(this));
+            context = context_;
         }
 
         public void AddReadOnlyService(
-            Guid serviceName, Dictionary<Guid, byte[]> characteristics)
+            Guid serviceName, Dictionary<Guid, Func<byte[]>> characteristics)
         {
             // TODO: restart the server when the BLE adapter goes down.
+
+            var manager = (BluetoothManager)context.GetSystemService(
+                Context.BluetoothService);
+            var adapter = manager.Adapter;
 
             // Creates a Gatt server with the requested service
 
             {
+
+                var callback = new AndroidBLEGattServerCallback(
+                    characteristics);
+
+                var server = manager.OpenGattServer(context, callback);
+
+                callback.Server = server;
+
                 var service = new BluetoothGattService(AsJavaUUID(serviceName),
                     GattServiceType.Primary);
 
@@ -41,8 +42,6 @@ namespace CovidTracer.Droid
                     var ch = new BluetoothGattCharacteristic(AsJavaUUID(i.Key),
                         GattProperty.Read | GattProperty.Notify,
                         GattPermission.Read);
-
-                    ch.SetValue(i.Value);
 
                     service.AddCharacteristic(ch);
                 }
@@ -77,9 +76,9 @@ namespace CovidTracer.Droid
             return Java.Util.UUID.FromString(guid.ToString());
         }
 
-        static ParcelUuid AsParcelUuid(Guid guid)
-        {
-            return ParcelUuid.FromString(guid.ToString());
-        }
+        //static ParcelUuid AsParcelUuid(Guid guid)
+        //{
+        //    return ParcelUuid.FromString(guid.ToString());
+        //}
     }
 }

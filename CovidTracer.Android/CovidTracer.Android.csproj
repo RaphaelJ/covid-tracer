@@ -60,7 +60,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AndroidCovidTracerService.cs" />
+    <Compile Include="AndroidTracerService.cs" />
     <Compile Include="AndroidBLEServer.cs" />
     <Compile Include="AndroidBLEGattServerCallback.cs" />
     <Compile Include="AndroidBLEAdvertiseCallback.cs" />

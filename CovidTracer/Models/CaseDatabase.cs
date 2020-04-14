@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
+using CovidTracer.Models.Keys;
+using CovidTracer.Models.Time;
 
 namespace CovidTracer.Models
 {
     public /* Singleton */ class CaseDatabase
     {
-        public readonly IDictionary<CovidTracerID, Case> Cases =
-            new Dictionary<CovidTracerID, Case>();
+        public readonly IDictionary<HourlyTracerKey, Case> Cases =
+            new Dictionary<HourlyTracerKey, Case>();
 
         static private CaseDatabase instance = null;
 
@@ -21,35 +25,31 @@ namespace CovidTracer.Models
 
         private CaseDatabase()
         {
-            var id = new CovidTracerID("ABCDEFGH");
-            Cases.Add(id,
-                new Case(CaseType.Positive,
-                    new Date(2020, 3, 30), new Date(2020, 4, 15)));
-
-            Cases.Add(new CovidTracerID("12345678"),
-                new Case(CaseType.Symptomatic,
-                    new Date(2020, 3, 15), new Date(2020, 3, 30)));
-
-            Cases.Add(new CovidTracerID("A1B2C3D4"),
-                new Case(CaseType.Symptomatic,
-                    new Date(2020, 3, 15), new Date(2020, 4, 1)));
         }
 
         /** Classifies the contact's encounter based on the current case
          * database. */
-        public CaseType Classify(
-            CovidTracerID contact, ContactEncounter encounter)
+        public InfectionStatus Classify(HourlyTracerKey contact, DateHour time)
         {
             if (Cases.ContainsKey(contact)) {
                 var case_ = Cases[contact];
 
-                if (encounter.Intersect(case_)) {
-                    return case_.Type;
+                // FIXME We might relax this constraint a little bit by allowing
+                // some overlap with the previous and next day.
+                if (case_.Day == time.AsDate()) {
+                    switch (case_.Type) {
+                    case CaseType.Positive:
+                        return InfectionStatus.Positive;
+                    case CaseType.Symptomatic:
+                        return InfectionStatus.Symptomatic;
+                    default:
+                        throw new Exception("Invalid case type.");
+                    }
                 } else {
-                    return CaseType.Safe;
+                    return InfectionStatus.Safe;
                 }
             } else {
-                return CaseType.Safe;
+                return InfectionStatus.Safe;
             }
         }
     }

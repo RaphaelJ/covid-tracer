@@ -17,5 +17,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="Misc\" />
+    <Folder Include="Models\Keys\" />
+    <Folder Include="Models\Time\" />
   </ItemGroup>
 </Project>

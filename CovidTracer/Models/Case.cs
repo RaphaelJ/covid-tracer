@@ -1,44 +1,26 @@
-﻿using System;
+﻿using CovidTracer.Models.Keys;
+using CovidTracer.Models.Time;
+
 namespace CovidTracer.Models
 {
     public enum CaseType
     {
-        Safe, Symptomatic, Positive
+        Symptomatic, Positive
     }
 
-    public class Date
-    {
-        public readonly int Year;
-        public readonly int Month;
-        public readonly int Day;
-
-        public Date(int year_, int month_, int day_)
-        {
-            Year = year_;
-            Month = month_;
-            Day = day_;
-        }
-
-        public DateTime AsDateTime()
-        {
-            return new DateTime(Year, Month, Day);
-        }
-    }
-
-    /** A `Sympromatic` or `Positive` being contagious during the
-     * [BeginsOn..EndsOn( period.
+    /** A `Symptomatic` or `Positive` case being contagious on the given day.
      */
     public class Case
     {
+        public readonly DailyTracerKey Key;
         public readonly CaseType Type;
-        public readonly Date BeginsOn;
-        public readonly Date EndsOn;
+        public readonly Date Day;
 
-        public Case(CaseType type_, Date beginsOn_, Date endsOn_)
+        public Case(DailyTracerKey key_, CaseType type_, Date day_)
         {
+            Key = key_;
             Type = type_;
-            BeginsOn = beginsOn_;
-            EndsOn = endsOn_;
+            Day = day_;
         }
     }
 }

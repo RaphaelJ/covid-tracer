@@ -1,4 +1,4 @@
-﻿using CovidTracer.Models;
+﻿using CovidTracer.Models.Keys;
 
 namespace CovidTracer.ViewModels
 {
@@ -15,7 +15,7 @@ namespace CovidTracer.ViewModels
         {
             Title = "Informations";
 
-            AppId = CovidTracerID.GetCurrentInstance().ToHumanReadableString();
+            AppId = TracerKey.CurrentAppInstance().ToHumanReadableString();
         }
     }
 }

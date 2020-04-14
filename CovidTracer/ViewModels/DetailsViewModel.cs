@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CovidTracer.Models;
+using CovidTracer.Models.Keys;
+using CovidTracer.Models.Time;
 
 namespace CovidTracer.ViewModels
 {
@@ -10,12 +13,12 @@ namespace CovidTracer.ViewModels
         public string BackgroundColor
         {
             get {
-                switch (Type) {
-                case CaseType.Safe:
+                switch (Status) {
+                case InfectionStatus.Safe:
                     return "#e2e3e5";
-                case CaseType.Symptomatic:
+                case InfectionStatus.Symptomatic:
                     return "#fff3cd";
-                case CaseType.Positive:
+                case InfectionStatus.Positive:
                     return "#f8d7da";
                 default:
                     return null;
@@ -26,12 +29,12 @@ namespace CovidTracer.ViewModels
         public string TextColor
         {
             get {
-                switch (Type) {
-                case CaseType.Safe:
+                switch (Status) {
+                case InfectionStatus.Safe:
                     return "#383d41";
-                case CaseType.Symptomatic:
+                case InfectionStatus.Symptomatic:
                     return "#856404";
-                case CaseType.Positive:
+                case InfectionStatus.Positive:
                     return "#721c24";
                 default:
                     return null;
@@ -39,21 +42,21 @@ namespace CovidTracer.ViewModels
             }
         }
 
-        public string ID { get; set; }
+        public HourlyTracerKey Key { get; set; }
 
-        public bool ShowID { get; set; }
+        public bool ShowKey { get; set; }
 
-        public CaseType Type { get; set; }
+        public InfectionStatus Status { get; set; }
 
         public string Title
         {
             get {
-                switch (Type) {
-                case CaseType.Safe:
+                switch (Status) {
+                case InfectionStatus.Safe:
                     return "Interaction";
-                case CaseType.Symptomatic:
+                case InfectionStatus.Symptomatic:
                     return "Interaction suspecte";
-                case CaseType.Positive:
+                case InfectionStatus.Positive:
                     return "Interaction avec un cas positif";
                 default:
                     return null;
@@ -64,30 +67,31 @@ namespace CovidTracer.ViewModels
         public bool HasDescription
         {
             get {
-                return Type != CaseType.Safe;
+                return Status != InfectionStatus.Safe;
             }
         }
 
         public string Description
         {
             get {
-                switch(Type) {
-                case CaseType.Safe:
+                switch(Status) {
+                case InfectionStatus.Safe:
                     return null;
-                case CaseType.Symptomatic:
-                    return "Vous avez été à proximité d'une personne " +
-                        "ayant des symptomes similaires au COVID-19 aux " +
-                        "occasions suivantes:";
-                case CaseType.Positive:
-                    return "Vous avez été à proximité d'une personne " +
-                        "testée positive au COVID-19 aux occasions suivantes:";
+                case InfectionStatus.Symptomatic:
+                    return "Vous avez été à proximité d'une ou plusieurs " +
+                        "personnes ayant des symptomes similaires au " +
+                        "COVID-19 aux occasions suivantes:";
+                case InfectionStatus.Positive:
+                    return "Vous avez été à proximité d'une ou plusieurs " +
+                        "personnes testée positive au COVID-19 aux occasions " +
+                        "suivantes:";
                 default:
                     return null;
                 }
             }
         }
 
-        public readonly IList<ContactEncounter> Encounters;
+        public readonly IList<DateHour> Encounters;
 
         public string History
         {
@@ -95,41 +99,21 @@ namespace CovidTracer.ViewModels
                 var entries = new List<string>(Encounters.Count);
 
                 foreach (var encounter in Encounters) {
-                    var beginsAtDt = encounter.BeginsAt.AsDateTime();
-                    var endsAtDt = encounter.EndsAt.AsDateTime();
+                    var dt = encounter.AsDateTime();
 
-                    if (
-                        beginsAtDt.Year == endsAtDt.Year
-                        && beginsAtDt.Month == endsAtDt.Month
-                        && beginsAtDt.Day == endsAtDt.Day
-                    ) {
-                        // Encounters begins and ends on the same day.
-                        entries.Add(
-                            $"Le {beginsAtDt.ToLongDateString()} entre " +
-                            $"{beginsAtDt.ToShortTimeString()} et " +
-                            $"{endsAtDt.ToShortTimeString()}."
-                        );
-                    } else {
-                        entries.Add(
-                            $"Du {beginsAtDt.ToLongDateString()} à " +
-                            $"{beginsAtDt.ToShortTimeString()} au " +
-                            $"{endsAtDt.ToLongDateString()} à " +
-                            $"{endsAtDt.ToShortTimeString()}."
-                        );
-                    }
+                    entries.Add(
+                        $"Le {dt.ToLongDateString()} à " +
+                        $"{dt.ToShortTimeString()}."
+                    );
                 }
 
                 return string.Join("<br>", entries);
             }
         }
 
-        public ContactItem(
-            CovidTracerID id_, bool showId, CaseType type_,
-            IList<ContactEncounter> encounters_)
+        public ContactItem(InfectionStatus status_, IList<DateHour> encounters_)
         {
-            ID = id_.ToHumanReadableString();
-            ShowID = showId;
-            Type = type_;
+            Status = status_;
             Encounters = encounters_;
         }
     }
@@ -137,13 +121,6 @@ namespace CovidTracer.ViewModels
     public class DetailsViewModel : BaseViewModel
     {
         readonly ContactDatabase database = ContactDatabase.GetInstance();
-
-        string appId;
-        public string AppId
-        {
-            get { return appId; }
-            set { SetProperty(ref appId, value); }
-        }
 
         bool isContactListEmpty;
         public bool IsContactListEmpty
@@ -175,8 +152,6 @@ namespace CovidTracer.ViewModels
 
             Title = $"Details";
 
-            AppId = CovidTracerID.GetCurrentInstance().ToHumanReadableString();
-
             Contacts = AsContactItemList(database.Contacts);
 
             IsContactListEmpty = Contacts.Count == 0;
@@ -186,26 +161,27 @@ namespace CovidTracer.ViewModels
         /** Generates a list of ContactItem object sorted by the last time
          * the contacts have been seen. */
         public IList<ContactItem> AsContactItemList(
-            Dictionary<CovidTracerID, SortedSet<ContactEncounter>> contacts)
+            Dictionary<HourlyTracerKey, SortedSet<DateHour>> contacts)
         {
             var caseDb = CaseDatabase.GetInstance();
 
             return contacts
                 .SelectMany(contact => {
-                    var id = contact.Key;
+                    // Classified all the encounters with the contact key,
+                    // depending on time.
+                    var key = contact.Key;
 
-                    // Groups the encounters by classification and creates a
-                    // ContactItem for each of these classification.
                     return
                         from encounter in contact.Value
-                        group encounter by caseDb.Classify(id, encounter)
+                        group encounter by caseDb.Classify(key, encounter)
                             into groupedEncounters
                         select new ContactItem(
-                             id, isDebug, groupedEncounters.Key,
-                             groupedEncounters.ToList());
+                            groupedEncounters.Key,
+                            groupedEncounters.ToList()
+                        );
                 })
                 // Does not display safe cases if not in debug mode.
-                .Where(item => isDebug || item.Type != CaseType.Safe)
+                .Where(item => isDebug || item.Status != InfectionStatus.Safe)
                 .OrderBy(item => item.Encounters.Last())
                 .Reverse()
                 .ToList();

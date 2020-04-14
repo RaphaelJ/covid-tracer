@@ -7,7 +7,7 @@
     <StackLayout Margin="15,25,15,35">
 
         <StackLayout VerticalOptions="CenterAndExpand">
-            <Label Text="CovidTracer ID"
+            <Label Text="CovidTracer Key"
                    FontSize="Title"
                    HorizontalOptions="Center"/>
 

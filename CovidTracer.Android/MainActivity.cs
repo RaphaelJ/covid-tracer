@@ -36,30 +36,29 @@ namespace CovidTracer.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
-            StartCovidTracerService();
+            StartTracerService();
 
             // Starts the UI
 
-            ToolbarResource = Resource.Layout.Toolbar; // TODO Needed ?
+            ToolbarResource = Resource.Layout.Toolbar; // Needed ?
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
 
-        /** Tries to start the CovidTracer service if all permissions are
+        /** Tries to start the tracer racer service if all permissions are
          * granted.
          *
          * Otherwise, repeatitly ask for the required permissions */
-        private void StartCovidTracerService()
+        private void StartTracerService()
         {
             List<string> denied = new List<string>();
 
             foreach (string perm in PERMISSIONS) {
                 var permStatus = ContextCompat.CheckSelfPermission(this, perm);
 
-                Logger.Info($"Permission '{perm}': {permStatus}");
-
                 if (permStatus == Permission.Denied) {
+                    Logger.Info($"Permission '{perm}' denied.");
                     denied.Add(perm);
                 }
             }
@@ -68,7 +67,7 @@ namespace CovidTracer.Droid
                 ActivityCompat.RequestPermissions(this, denied.ToArray(), 0);
             } else if (bluetoothService_ == null) {
                 bluetoothService_ = StartService(
-                    new Intent(this, typeof(AndroidCovidTracerService)));
+                    new Intent(this, typeof(AndroidTracerService)));
             }
         }
 
@@ -82,7 +81,7 @@ namespace CovidTracer.Droid
             base.OnRequestPermissionsResult(
                 requestCode, permissions, grantResults);
 
-            StartCovidTracerService();
+            StartTracerService();
         }
     }
 }

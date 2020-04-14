@@ -2,23 +2,27 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CovidTracer.Models;
+
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 
+using CovidTracer.Models;
+using CovidTracer.Models.Keys;
+using CovidTracer.Models.Time;
+
 namespace CovidTracer.Services
 {
-    /** Periodically listen for Bluetooth LE devices and save them in an SQLite
-     * database.
+    /** Periodically listen for CovidTracer devices and save their tracer key in
+     * an SQLite database.
      */
-    public /* Singleton */ class CovidTracerService
+    public /* Singleton */ class TracerService
     {
         const int SCAN_TIMEOUT = 15 * 1000;
         const int SCAN_REPEAT = 60 * 1000;
         const int MIN_RSSI = -85; // Discards devices with a RSSI below
 
-        // Will timeout if one's device CovidTracer ID can't be retreived within
+        // Will timeout if one's device tracer key can't be retreived within
         // that delay.
         const int DEVICE_CONNECT_TIMEOUT = 20 * 1000;
 
@@ -31,31 +35,31 @@ namespace CovidTracer.Services
         readonly IAdapter adapter;
         readonly IBLEServer server;
 
-        readonly CovidTracerID id;
+        readonly TracerKey key;
 
         bool started = false;
 
-        static private CovidTracerService instance = null;
+        static TracerService instance = null;
 
-        static public CovidTracerService GetInstance(IBLEServer server)
+        static public TracerService GetInstance(IBLEServer server)
         {
             if (instance != null) { // FIXME Instance should be locked.
                 return instance;
             } else {
-                instance = new CovidTracerService(server);
+                instance = new TracerService(server);
                 return instance;
             }
         }
 
-        private CovidTracerService(IBLEServer server_)
+        TracerService(IBLEServer server_)
         {
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             server = server_;
 
-            id = CovidTracerID.GetCurrentInstance();
+            key = TracerKey.CurrentAppInstance();
 
-            Logger.Info($"CovidTracerService instanced with ID '{id.Value}'");
+            Logger.Info($"TracerService instanced with key '{key.ToString()}'");
         }
 
         public void Start()
@@ -63,24 +67,38 @@ namespace CovidTracer.Services
             lock (this) {
                 if (!started) {
                     server.AddReadOnlyService(
-                        SERVICE_NAME, new Dictionary<Guid, byte[]> {
-                            { CHARACTERISTIC_NAME, id.ToBytes() }
+                        SERVICE_NAME, new Dictionary<Guid, Func<byte[]>> {
+                            { CHARACTERISTIC_NAME, HandleReadCharacteristic }
                         }
                     );
 
                     new Thread(async () => await ScanDevicesAsync()).Start();
 
-                    Logger.Info("CovidTracerService started");
+                    Logger.Info("TracerService started");
                     started = true;
                 }
             }
+        }
+
+        /** Returns the current tracer key that should be sent over BLE. */
+        protected byte[] HandleReadCharacteristic()
+        {
+            var now = DateHour.Now;
+
+            // TODO: key generation could be cached instead of being recomputed
+            // at every characteristic read.
+            HourlyTracerKey currentKey = key
+                .DerivateDailyKey(now.AsDate())
+                .DerivateHourlyKey(now);
+
+            return currentKey.Value;
         }
 
         /** Repeatedly scan for nearby Bluetooth devices. */
         protected async Task ScanDevicesAsync()
         {
             ble.StateChanged += (s, e) => {
-                Logger.Info($"Bluetooth state changed to {e.NewState}.");
+                Logger.Info($"BLE state changed to {e.NewState}.");
             };
 
             adapter.ScanTimeout = SCAN_TIMEOUT;
@@ -95,7 +113,7 @@ namespace CovidTracer.Services
             for (; ; ) {
                 try {
                     if (ble.IsOn) {
-                        Logger.Info("Initiate new Bluetooth scan");
+                        Logger.Info("Initiate new BLE scan");
 
                         await adapter.StartScanningForDevicesAsync();
                         await adapter.StopScanningForDevicesAsync();
@@ -117,7 +135,7 @@ namespace CovidTracer.Services
                     }
                 } catch (Exception e) {
                     Logger.Info(
-                        $"Bluetooth scan device exception: '{e.Message}'.");
+                        $"BLE scan device exception: '{e.Message}'.");
                 }
 
                 Thread.Sleep(SCAN_REPEAT);
@@ -132,14 +150,14 @@ namespace CovidTracer.Services
         {
             if (device.Rssi < MIN_RSSI) {
                 Logger.Info(
-                    $"Bluetooth device ignored: {device.Id}/{device.Name} " +
+                    $"BLE device ignored: {device.Id}/{device.Name} " +
                     $"({device.Rssi} dBm)."
                 );
                 return;
             }
 
             Logger.Info(
-                $"Bluetooth device discovered: " +
+                $"BLE device discovered: " +
                 $"{device.Id}/{device.Name} ({device.Rssi} dBm)"
             );
 
@@ -170,8 +188,8 @@ namespace CovidTracer.Services
 
                 if (service == null) {
                     Logger.Info(
-                        $"Device {device.Id} does not support " +
-                        "CovidTracer service");
+                        $"Device {device.Id} does not have CovidTracer " +
+                        "service");
                     return;
                 }
 
@@ -180,24 +198,24 @@ namespace CovidTracer.Services
 
                 if (characteristic == null) {
                     Logger.Info(
-                        $"Device {device.Id} does not support " +
-                        "CovidTracer characteristic.");
+                        $"Device {device.Id} does not support CovidTracer " +
+                        "characteristic.");
                     return;
                 }
 
-                var idBytes = await characteristic.ReadAsync(token);
+                var keyBytes = await characteristic.ReadAsync(token);
 
-                if (idBytes == null) {
+                if (keyBytes == null) {
                     Logger.Info(
                         $"Device {device.Id} characteristic can not be read.");
                     return;
                 }
 
-                var id = new CovidTracerID(idBytes);
+                var key = new HourlyTracerKey(keyBytes);
 
                 // Logs the successful encounter
 
-                ContactDatabase.GetInstance().NewContact(id);
+                ContactDatabase.GetInstance().NewContact(key);
             } catch (Exception e) {
                 Logger.Info($"Bluetooth exception: '{e.Message}'.");
                 Console.WriteLine(e.StackTrace);

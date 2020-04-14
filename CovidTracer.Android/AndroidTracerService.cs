@@ -5,10 +5,11 @@ using CovidTracer.Services;
 
 namespace CovidTracer.Droid
 {
+    /** Runs the tracer service inside an Android service. */
     [Service]
-    public class AndroidCovidTracerService : Service
+    public class AndroidTracerService : Service
     {
-        public AndroidCovidTracerService()
+        public AndroidTracerService()
         {
         }
 
@@ -22,7 +23,7 @@ namespace CovidTracer.Droid
         {
             var bleServer = new AndroidBLEServer(this.ApplicationContext);
 
-            var tracer = CovidTracerService.GetInstance(bleServer);
+            var tracer = TracerService.GetInstance(bleServer);
             tracer.Start();
 
             return StartCommandResult.Sticky;
