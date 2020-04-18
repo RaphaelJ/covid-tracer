@@ -27,7 +27,7 @@ namespace CovidTracer.Models.Keys
         public TracerKey(byte[] key)
         {
             if (key.Length != Length) {
-                throw new Exception("Key should be 256 bits long.");
+                throw new Exception($"Key should be {Length * 8} bits long.");
             }
 
             Value = key;

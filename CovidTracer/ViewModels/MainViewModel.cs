@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows.Input;
-using CovidTracer.Models;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+﻿using CovidTracer.Models;
 
 namespace CovidTracer.ViewModels
 {

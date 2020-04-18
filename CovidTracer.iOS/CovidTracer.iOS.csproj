@@ -114,18 +114,15 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <BundleResource Include="Resources\tab_about.png" />
-    <BundleResource Include="Resources\tab_about%402x.png" />
-    <BundleResource Include="Resources\tab_about%403x.png" />
-    <BundleResource Include="Resources\tab_feed.png" />
-    <BundleResource Include="Resources\tab_feed%402x.png" />
-    <BundleResource Include="Resources\tab_feed%403x.png" />
-    <BundleResource Include="Resources\xamarin_logo.png" />
-    <BundleResource Include="Resources\xamarin_logo%402x.png" />
-    <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <ImageAsset Include="Assets.xcassets\virus.png.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\virus.png.imageset\virus.png" />
+    <ImageAsset Include="Assets.xcassets\bluetooth.png.imageset\bluetooth.png" />
+    <ImageAsset Include="Assets.xcassets\bluetooth.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\recommended_uses.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\recommended_uses.png.imageset\recommended_uses.png" />
+    <ImageAsset Include="Assets.xcassets\shield.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\shield.png.imageset\shield.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -147,9 +144,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\virus.png" />
+    <Folder Include="Assets.xcassets\virus.png.imageset\" />
+    <Folder Include="Assets.xcassets\bluetooth.png.imageset\" />
+    <Folder Include="Assets.xcassets\recommended_uses.png.imageset\" />
+    <Folder Include="Assets.xcassets\shield.png.imageset\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets.xcassets\virus.png.imageset\" />
+    <BundleResource Include="Resources\virus.png" />
+    <BundleResource Include="Resources\bluetooth.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </BundleResource>
+    <BundleResource Include="Resources\recommended_uses.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </BundleResource>
+    <BundleResource Include="Resources\shield.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </BundleResource>
   </ItemGroup>
 </Project>

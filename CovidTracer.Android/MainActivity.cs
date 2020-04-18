@@ -36,14 +36,13 @@ namespace CovidTracer.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
-            StartTracerService();
-
             // Starts the UI
 
             ToolbarResource = Resource.Layout.Toolbar; // Needed ?
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+
+            LoadApplication(new App(StartTracerService));
         }
 
         /** Tries to start the tracer racer service if all permissions are

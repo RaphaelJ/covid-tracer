@@ -87,12 +87,19 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
-    <AndroidResource Include="Resources\drawable\xamarin_logo.png" />
-    <AndroidResource Include="Resources\drawable\radar.png">
+    <AndroidResource Include="Resources\drawable\virus.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\virus.png">
+    <AndroidResource Include="Resources\drawable\bluetooth.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\recommended_uses.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\shield.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
