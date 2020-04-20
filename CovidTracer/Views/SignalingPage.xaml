@@ -6,7 +6,7 @@
 
     <StackLayout>
         <Label
-            Margin="15"
+            Margin="15,25"
             Padding="15"
             TextColor="#856404"
             BackgroundColor="#fff3cd"

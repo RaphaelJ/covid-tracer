@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using SQLite;
 
 using CovidTracer.Models;
 using CovidTracer.Models.Keys;
@@ -16,7 +18,7 @@ namespace CovidTracer.Services
     /** Periodically listen for CovidTracer devices and save their tracer key in
      * an SQLite database.
      */
-    public /* Singleton */ class TracerService
+    public class TracerService
     {
         const int SCAN_TIMEOUT = 15 * 1000;
         const int SCAN_REPEAT = 60 * 1000;
@@ -31,35 +33,23 @@ namespace CovidTracer.Services
         readonly Guid CHARACTERISTIC_NAME =
             Guid.Parse("04B9494A-477F-4D46-B9A3-BD06C7E1E5E6");
 
-        readonly IBluetoothLE ble;
-        readonly IAdapter adapter;
-        readonly IBLEServer server;
+        public readonly TracerKey Key;
 
-        readonly TracerKey key;
+        public readonly ContactDatabase Contacts;
+
+        readonly IBLEServer server;
 
         bool started = false;
 
-        static TracerService instance = null;
-
-        static public TracerService GetInstance(IBLEServer server)
+        public TracerService(IBLEServer server_)
         {
-            if (instance != null) { // FIXME Instance should be locked.
-                return instance;
-            } else {
-                instance = new TracerService(server);
-                return instance;
-            }
-        }
+            Key = TracerKey.CurrentAppInstance();
 
-        TracerService(IBLEServer server_)
-        {
-            ble = CrossBluetoothLE.Current;
-            adapter = CrossBluetoothLE.Current.Adapter;
+            Contacts = new ContactDatabase();
+
             server = server_;
 
-            key = TracerKey.CurrentAppInstance();
-
-            Logger.Info($"TracerService instanced with key '{key.ToString()}'");
+            Logger.Info($"TracerService instanced with key '{Key.ToString()}'");
         }
 
         public void Start()
@@ -85,9 +75,9 @@ namespace CovidTracer.Services
         {
             var now = DateHour.Now;
 
-            // TODO: key generation could be cached instead of being recomputed
+            // TODO key generation could be cached instead of being recomputed
             // at every characteristic read.
-            HourlyTracerKey currentKey = key
+            HourlyTracerKey currentKey = Key
                 .DerivateDailyKey(now.AsDate())
                 .DerivateHourlyKey(now);
 
@@ -97,6 +87,9 @@ namespace CovidTracer.Services
         /** Repeatedly scan for nearby Bluetooth devices. */
         protected async Task ScanDevicesAsync()
         {
+            var ble = CrossBluetoothLE.Current;
+            var adapter = CrossBluetoothLE.Current.Adapter;
+
             ble.StateChanged += (s, e) => {
                 Logger.Info($"BLE state changed to {e.NewState}.");
             };
@@ -126,7 +119,7 @@ namespace CovidTracer.Services
                         // discovered devices.
 
                         foreach (var device in lastScanDevices) {
-                            await DiscoverDevice(device);
+                            await DiscoverDevice(adapter, device);
                         }
 
                         lastScanDevices.Clear();
@@ -146,7 +139,7 @@ namespace CovidTracer.Services
          *
          * Adds the device to the persistent data-store when required.
          */
-        protected async Task DiscoverDevice(IDevice device)
+        protected async Task DiscoverDevice(IAdapter adapter, IDevice device)
         {
             if (device.Rssi < MIN_RSSI) {
                 Logger.Info(
@@ -215,7 +208,7 @@ namespace CovidTracer.Services
 
                 // Logs the successful encounter
 
-                ContactDatabase.GetInstance().NewContact(key);
+                Contacts.NewContact(key);
             } catch (Exception e) {
                 Logger.Info($"Bluetooth exception: '{e.Message}'.");
                 Console.WriteLine(e.StackTrace);

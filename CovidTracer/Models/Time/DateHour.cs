@@ -54,6 +54,12 @@ namespace CovidTracer.Models.Time
             return new Date(Year, Month, Day);
         }
 
+        /** Returns a ISO 8601 formatted date and hour string. */
+        public override string ToString()
+        {
+            return $"{AsDate()}T{Hour:D2}";
+        }
+
         public int CompareTo(DateHour other)
         {
             var date = AsDate();
@@ -74,10 +80,23 @@ namespace CovidTracer.Models.Time
                 && Hour == other.Hour;
         }
 
-        /** Returns a ISO 8601 formatted date and hour string. */
-        public override string ToString()
+        public override bool Equals(object other)
         {
-            return $"{AsDate()}T{Hour:D2}";
+            if (other is DateHour) {
+                return Equals((DateHour)other);
+            } else {
+                return false;
+            }
+        }
+
+        public static bool operator ==(DateHour lhs, DateHour rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        public static bool operator !=(DateHour lhs, DateHour rhs)
+        {
+            return !(lhs == rhs);
         }
     }
 }

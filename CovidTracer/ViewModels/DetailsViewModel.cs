@@ -4,93 +4,19 @@ using System.Linq;
 using CovidTracer.Models;
 using CovidTracer.Models.Keys;
 using CovidTracer.Models.Time;
+using CovidTracer.Services;
 
 namespace CovidTracer.ViewModels
 {
     public class ContactItem
     {
-        public string BackgroundColor
-        {
-            get {
-                switch (Status) {
-                case InfectionStatus.Safe:
-                    return "#e2e3e5";
-                case InfectionStatus.Symptomatic:
-                    return "#fff3cd";
-                case InfectionStatus.Positive:
-                    return "#f8d7da";
-                default:
-                    return null;
-                }
-            }
-        }
+        public string BackgroundColor { get; protected set; }
+        public string TextColor { get; protected set; }
 
-        public string TextColor
-        {
-            get {
-                switch (Status) {
-                case InfectionStatus.Safe:
-                    return "#383d41";
-                case InfectionStatus.Symptomatic:
-                    return "#856404";
-                case InfectionStatus.Positive:
-                    return "#721c24";
-                default:
-                    return null;
-                }
-            }
-        }
+        public string Title { get; protected set; }
+        public string Description { get; protected set; }
 
-        public HourlyTracerKey Key { get; set; }
-
-        public bool ShowKey { get; set; }
-
-        public InfectionStatus Status { get; set; }
-
-        public string Title
-        {
-            get {
-                switch (Status) {
-                case InfectionStatus.Safe:
-                    return "Interaction";
-                case InfectionStatus.Symptomatic:
-                    return "Interaction suspecte";
-                case InfectionStatus.Positive:
-                    return "Interaction avec un cas positif";
-                default:
-                    return null;
-                }
-            }
-        }
-
-        public bool HasDescription
-        {
-            get {
-                return Status != InfectionStatus.Safe;
-            }
-        }
-
-        public string Description
-        {
-            get {
-                switch(Status) {
-                case InfectionStatus.Safe:
-                    return null;
-                case InfectionStatus.Symptomatic:
-                    return "Vous avez été à proximité d'une ou plusieurs " +
-                        "personnes ayant des symptomes similaires au " +
-                        "COVID-19 aux occasions suivantes:";
-                case InfectionStatus.Positive:
-                    return "Vous avez été à proximité d'une ou plusieurs " +
-                        "personnes testée positive au COVID-19 aux occasions " +
-                        "suivantes:";
-                default:
-                    return null;
-                }
-            }
-        }
-
-        public readonly IList<DateHour> Encounters;
+        public readonly SortedSet<DateHour> Encounters;
 
         public string History
         {
@@ -98,7 +24,7 @@ namespace CovidTracer.ViewModels
                 var entries = new List<string>(Encounters.Count);
 
                 foreach (var encounter in Encounters) {
-                    var dt = encounter.AsDateTime();
+                    var dt = encounter.AsDateTime().ToLocalTime();
 
                     entries.Add(
                         $"Le {dt.ToLongDateString()} à " +
@@ -110,80 +36,85 @@ namespace CovidTracer.ViewModels
             }
         }
 
-        public ContactItem(InfectionStatus status_, IList<DateHour> encounters_)
+        public ContactItem(
+            string backgroundColor_, string textColor_, string title_,
+            string description_, SortedSet<DateHour> encounters_
+        )
         {
-            Status = status_;
+            BackgroundColor = backgroundColor_;
+            TextColor = textColor_;
+
+            Title = title_;
+            Description = description_;
+
             Encounters = encounters_;
         }
     }
 
     public class DetailsViewModel : BaseViewModel
     {
-        readonly ContactDatabase database = ContactDatabase.GetInstance();
-
-        bool isContactListEmpty;
-        public bool IsContactListEmpty
+        bool isItemsEmpty;
+        public bool IsItemsEmpty
         {
-            get { return isContactListEmpty; }
-            set { SetProperty(ref isContactListEmpty, value); }
+            get { return isItemsEmpty; }
+            set { SetProperty(ref isItemsEmpty, value); }
         }
 
-        bool isContactListNonEmpty;
-        public bool IsContactListNonEmpty
+        bool isItemsNonEmpty;
+        public bool IsItemsNonEmpty
         {
-            get { return isContactListNonEmpty; }
-            set { SetProperty(ref isContactListNonEmpty, value); }
+            get { return isItemsNonEmpty; }
+            set { SetProperty(ref isItemsNonEmpty, value); }
         }
-        IList<ContactItem> contacts;
-        public IList<ContactItem> Contacts
+
+        IList<ContactItem> items;
+        public IList<ContactItem> Items
         {
-            get { return contacts; }
-            set { SetProperty(ref contacts, value); }
+            get { return items; }
+            set { SetProperty(ref items, value); }
         }
 
         private readonly bool isDebug;
 
-        /** Show encounters with non-positive people and tracer IDs if `debug_`
-         * is true. */
-        public DetailsViewModel(bool isDebug_)
+        public DetailsViewModel(ContactDatabase contacts)
         {
-            isDebug = isDebug_;
-
             Title = $"Details";
 
-            Contacts = AsContactItemList(database.Contacts);
-
-            IsContactListEmpty = Contacts.Count == 0;
-            IsContactListNonEmpty = !IsContactListEmpty;
+            OnMatchesChange(this, contacts.Matches);
+            contacts.MatchesChange += OnMatchesChange;
         }
-        
-        /** Generates a list of ContactItem object sorted by the last time
-         * the contacts have been seen. */
-        public IList<ContactItem> AsContactItemList(
-            Dictionary<HourlyTracerKey, SortedSet<DateHour>> contacts)
+
+        /** Updates the encounters detail list. */
+        protected void OnMatchesChange(object sender,
+            ContactDatabase.ContactMatches matches)
         {
-            var caseDb = CaseDatabase.GetInstance();
+            lock (matches) {
+                var items = new List<ContactItem>();
 
-            return contacts
-                .SelectMany(contact => {
-                    // Classified all the encounters with the contact key,
-                    // depending on time.
-                    var key = contact.Key;
+                if (matches.Positives.Count > 0) {
+                    items.Add(new ContactItem(
+                        "#f8d7da", "#721c24", "Interaction avec un cas positif",
+                        "Vous avez été à proximité d'une ou plusieurs " +
+                        "personnes testées positive au nouveau coronavirus.",
+                        matches.Positives
+                    ));
+                }
 
-                    return
-                        from encounter in contact.Value
-                        group encounter by caseDb.Classify(key, encounter)
-                            into groupedEncounters
-                        select new ContactItem(
-                            groupedEncounters.Key,
-                            groupedEncounters.ToList()
-                        );
-                })
-                // Does not display safe cases if not in debug mode.
-                .Where(item => isDebug || item.Status != InfectionStatus.Safe)
-                .OrderBy(item => item.Encounters.Last())
-                .Reverse()
-                .ToList();
+                if (matches.Symptomatics.Count > 0) {
+                    items.Add(new ContactItem(
+                        "#fff3cd", "#856404", "Interaction suspecte",
+                        "Vous avez été à proximité d'une ou plusieurs " +
+                        "personnes ayant des symptomes similaires au " +
+                        "nouveau coronavirus.",
+                        matches.Symptomatics
+                    ));
+                }
+
+                Items = items;
+
+                IsItemsEmpty = items.Count == 0;
+                IsItemsNonEmpty = !IsItemsEmpty;
+            }
         }
     }
 }

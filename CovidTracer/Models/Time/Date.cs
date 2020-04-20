@@ -32,9 +32,20 @@ namespace CovidTracer.Models.Time
             }
         }
 
+        public DateHour WithHour(int hour)
+        {
+            return new DateHour(Year, Month, Day, hour);
+        }
+
         public DateTime AsDateTime()
         {
             return new DateTime(Year, Month, Day);
+        }
+
+        /** Returns a ISO 8601 formatted date string. */
+        public override string ToString()
+        {
+            return $"{Year:D4}-{Month:D2}-{Day:D2}";
         }
 
         public int CompareTo(Date other)
@@ -57,10 +68,23 @@ namespace CovidTracer.Models.Time
                 && Day == other.Day;
         }
 
-        /** Returns a ISO 8601 formatted date string. */
-        public override string ToString()
+        public override bool Equals(object other)
         {
-            return $"{Year:D4}-{Month:D2}-{Day:D2}";
+            if (other is Date) {
+                return Equals((Date)other);
+            } else {
+                return false;
+            }
+        }
+
+        public static bool operator ==(Date lhs, Date rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        public static bool operator !=(Date lhs, Date rhs)
+        {
+            return !(lhs == rhs);
         }
     }
 }

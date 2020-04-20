@@ -1,8 +1,10 @@
 ﻿using System;
+
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using CovidTracer.Views;
 using Xamarin.Essentials;
+
+using CovidTracer.Services;
+using CovidTracer.Views;
 
 namespace CovidTracer
 {
@@ -10,13 +12,20 @@ namespace CovidTracer
     {
         const string ONBOARDING_DONE_KEY = "onboarding_done";
 
+        public readonly TracerService TracerService;
+
         /** Starts the CovidTracer mobile app.
          *
-         * Accepts an action that will start the `TracerService` in the platform
-         * specific background-process system.
+         * Accepts an action that will be called by the app when the
+         * `TracerService` instance shall be started in the platform specific
+         * background-process system (by calling the `Start()` method).
+         * E.g. on Android, the action will call `TracerService.Start()` in a
+         * `Service` process.
          */
-        public App(Action startTracerService)
+        public App(TracerService tracerService_, Action startTracerService)
         {
+            TracerService = tracerService_;
+
             InitializeComponent();
 
             // Opens the onboarding page if it's the first time the app is
@@ -28,16 +37,16 @@ namespace CovidTracer
             } else {
                 MainPage = new OnboardingPage(() => {
                     Preferences.Set(ONBOARDING_DONE_KEY, true);
-
                     StartApp(startTracerService);
                 });
             }
         }
 
+        /** Starts the tracer background service and shows the main page. */
         protected void StartApp(Action startTracerService)
         {
             startTracerService();
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new MainPage(TracerService));
         }
     }
 }

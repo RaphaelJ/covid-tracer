@@ -3,6 +3,7 @@ using System.ComponentModel;
 
 using Xamarin.Forms;
 
+using CovidTracer.Services;
 using CovidTracer.ViewModels;
 
 namespace CovidTracer.Views
@@ -10,9 +11,13 @@ namespace CovidTracer.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        TracerService tracerService;
+
+        public MainPage(TracerService tracerService_)
         {
-            BindingContext = new MainViewModel();
+            tracerService = tracerService_;
+
+            BindingContext = new MainViewModel(tracerService.Contacts);
 
             InitializeComponent();
         }
@@ -22,25 +27,7 @@ namespace CovidTracer.Views
             var button = (Button)sender;
             button.IsEnabled = false;
 
-            var model = (MainViewModel) BindingContext;
-
-            Models.InfectionStatus newStatus;
-            switch (model.Status) {
-            case Models.InfectionStatus.Safe:
-                newStatus = Models.InfectionStatus.Symptomatic;
-                break;
-            case Models.InfectionStatus.Symptomatic:
-                newStatus = Models.InfectionStatus.Positive;
-                break;
-            case Models.InfectionStatus.Positive:
-            default:
-                newStatus = Models.InfectionStatus.Safe;
-                break;
-            }
-
-            model.ChangeStatus(newStatus);
-
-            await Navigation.PushAsync(new DetailsPage(false));
+            await Navigation.PushAsync(new DetailsPage(tracerService, false));
             button.IsEnabled = true;
         }
 
@@ -49,7 +36,7 @@ namespace CovidTracer.Views
             var button = (Button)sender;
             button.IsEnabled = false;
 
-            await Navigation.PushAsync(new AboutPage());
+            await Navigation.PushAsync(new AboutPage(tracerService));
             button.IsEnabled = true;
         }
 

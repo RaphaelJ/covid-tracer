@@ -1,4 +1,4 @@
-﻿using CovidTracer.Models;
+﻿using CovidTracer.Services;
 
 namespace CovidTracer.ViewModels
 {
@@ -8,8 +8,8 @@ namespace CovidTracer.ViewModels
         // Infection status
         //
 
-        InfectionStatus status;
-        public InfectionStatus Status
+        ContactDatabase.InfectionStatus status;
+        public ContactDatabase.InfectionStatus Status
         {
             get { return status; }
             set { SetProperty(ref status, value); }
@@ -45,26 +45,28 @@ namespace CovidTracer.ViewModels
 
         // --
 
-        public MainViewModel()
+        public MainViewModel(ContactDatabase contacts)
         {
             Title = "CovidTracer";
 
-            ChangeStatus(InfectionStatus.Safe);
+            OnInfectionStatusChange(this, contacts.CurrentInfectionStatus);
+            contacts.CurrentInfectionStatusChange += OnInfectionStatusChange;
         }
 
-        public void ChangeStatus(InfectionStatus newStatus)
+        public void OnInfectionStatusChange(object sender,
+            ContactDatabase.InfectionStatus newStatus)
         {
             Status = newStatus;
 
             switch (newStatus) {
-            case InfectionStatus.Safe:
+            case ContactDatabase.InfectionStatus.Safe:
                 StatusTitle = "Rien à signaler";
                 StatusText = "Aucune interaction avec une personne " +
                              "infectée n'a été détectée.";
                 StatusTextColor = "#313a33";
                 StatusBackgroundColor = "#d4edda";
                 break;
-            case InfectionStatus.Symptomatic:
+            case ContactDatabase.InfectionStatus.Symptomatic:
                 StatusTitle = "Risque modéré";
                 StatusText = "Vous avez été en contact rapproché avec " +
                              "un ou plusieurs cas suspectés d'infection " +
@@ -72,7 +74,7 @@ namespace CovidTracer.ViewModels
                 StatusTextColor = "#856404";
                 StatusBackgroundColor = "#fff3cd";
                 break;
-            case InfectionStatus.Positive:
+            case ContactDatabase.InfectionStatus.Positive:
                 StatusTitle = "Risque important";
                 StatusText = "Vous avez été en contact avec un ou plusieurs " +
                              "cas COVID-19 déclarés.";

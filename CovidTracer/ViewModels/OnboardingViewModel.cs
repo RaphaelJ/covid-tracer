@@ -24,8 +24,8 @@ namespace CovidTracer.ViewModels
             get { return currentPaneIndex; }
             set
             {
-                SetProperty(ref currentPaneIndex, value);
                 CurrentPane = Panes[value];
+                SetProperty(ref currentPaneIndex, value);
             }
         }
 

@@ -4,9 +4,14 @@
              x:Class="CovidTracer.Views.AboutPage"
              Title="{Binding Title}">
 
-    <StackLayout Margin="15,25,15,35">
+    <StackLayout Margin="15,25">
 
         <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Text="{Binding Debug}"
+                   IsVisible="{Binding ShowDebug}"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center"/>
+
             <Label Text="CovidTracer Key"
                    FontSize="Title"
                    HorizontalOptions="Center"/>
@@ -22,7 +27,7 @@
             <Label FontSize="Caption"
                HorizontalOptions="Center"
                HorizontalTextAlignment="Center"
-               Text="Cet code unique vous identifie anonymement auprès des autres utilisateurs de l'application."/>
+               Text="Ce code unique vous identifie anonymement auprès des autres utilisateurs de l'application."/>
         </StackLayout>
 
         

@@ -4,26 +4,18 @@
              x:Class="CovidTracer.Views.DetailsPage"
              Title="{Binding Title}">
 
-    <StackLayout Margin="15,25,15,35">
-        
-        <Label Padding="15"
-               TextColor="#0c5460"
-               BackgroundColor="#d1ecf1"
-               FontSize="Small"
-               Text="Pour une utilisation optimale, laissez l'application ouverte ou en arrière plan lorsque vous interagissez avec des personnes extérieures à votre foyer (transports en commun, travail, supermarchés, sorties extérieures ...)."
-               />
+    <StackLayout Margin="15,25">
 
-        <Label IsVisible="{Binding IsContactListEmpty}"
+        <Label IsVisible="{Binding IsItemsEmpty}"
                VerticalOptions="CenterAndExpand"
+               VerticalTextAlignment="Center"
                HorizontalTextAlignment="Center"
-               FontSize="Title"
                Text="Aucune interaction à risque détectée."/>
 
         <ListView
-            Margin="0,15,0,0"
-            IsVisible="{Binding IsContactListNonEmpty}"
+            IsVisible="{Binding IsItemsNonEmpty}"
             VerticalOptions="CenterAndExpand"
-            ItemsSource="{Binding Contacts}"
+            ItemsSource="{Binding Items}"
             HasUnevenRows="True"
             SelectionMode="None"
             SeparatorVisibility="None">
@@ -34,25 +26,15 @@
                         <StackLayout
                             BackgroundColor="{Binding BackgroundColor}"
                             Padding="15"
-                            Margin="0,10">
-                            <StackLayout Orientation="Horizontal">
-                                <Label
-                                    TextColor="{Binding TextColor}"
-                                    FontAttributes="Bold"
-                                    FontSize="Body"
-                                    Text="{Binding Title}"/>
-
-                                <Label
-                                    TextColor="{Binding TextColor}"
-                                    FontAttributes="Bold"
-                                    FontSize="Body"
-                                    Text="{Binding ID}"
-                                    IsVisible="{Binding ShowID}"
-                                    HorizontalOptions="EndAndExpand"/>
-                            </StackLayout>
+                            Margin="0,5">
 
                             <Label
-                                IsVisible="{Binding HasDescription}"
+                                TextColor="{Binding TextColor}"
+                                FontAttributes="Bold"
+                                FontSize="Body"
+                                Text="{Binding Title}"/>
+
+                            <Label
                                 TextColor="{Binding TextColor}"
                                 FontSize="Small"
                                 Text="{Binding Description}"/>

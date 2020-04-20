@@ -20,7 +20,7 @@
     </NavigationPage.TitleView>
 
     <StackLayout
-        Margin="15,25,15,35"
+        Margin="15,25"
         VerticalOptions="FillAndExpand">
 
         <!-- Infection status -->
@@ -52,7 +52,7 @@
             <Image Source="virus.png"/>
         </StackLayout>
 
-        <Button Text="Me signaler comme positif au COVID-19"
+        <Button Text="Signaler mon infection au coronavirus"
                 BackgroundColor="#E50058"
                 TextColor="White"
                 Clicked="SignalingClicked"

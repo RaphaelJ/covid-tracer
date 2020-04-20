@@ -9,6 +9,8 @@ using Android.Content;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
 
+using CovidTracer.Services;
+
 namespace CovidTracer.Droid
 {
     [Activity(
@@ -28,6 +30,10 @@ namespace CovidTracer.Droid
             Manifest.Permission.AccessCoarseLocation,
         };
 
+        public static TracerService TracerService = null;
+
+        App app;
+
         ComponentName bluetoothService_ = null;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -39,10 +45,16 @@ namespace CovidTracer.Droid
             // Starts the UI
 
             ToolbarResource = Resource.Layout.Toolbar; // Needed ?
-
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            LoadApplication(new App(StartTracerService));
+            if (TracerService == null) {
+                var bleServer = new AndroidBLEServer(this.ApplicationContext);
+                TracerService = new TracerService(bleServer);
+            }
+
+            app = new App(TracerService, StartTracerService);
+
+            LoadApplication(app);
         }
 
         /** Tries to start the tracer racer service if all permissions are

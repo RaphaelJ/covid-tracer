@@ -8,7 +8,8 @@ namespace CovidTracer.Models
         Symptomatic, Positive
     }
 
-    /** A `Symptomatic` or `Positive` case being contagious on the given day.
+    /** A `Symptomatic` or `Positive` case being contagious on the given day,
+     * as returned by the backend.
      */
     public class Case
     {

@@ -1,16 +1,18 @@
 ﻿using System.ComponentModel;
-using CovidTracer.ViewModels;
-using Xamarin.Essentials;
+
 using Xamarin.Forms;
+
+using CovidTracer.ViewModels;
+using CovidTracer.Services;
 
 namespace CovidTracer.Views
 {
     [DesignTimeVisible(false)]
     public partial class DetailsPage : ContentPage
     {
-        public DetailsPage(bool isDebug)
+        public DetailsPage(TracerService tracerService, bool isDebug)
         {
-            BindingContext = new DetailsViewModel(isDebug);
+            BindingContext = new DetailsViewModel(tracerService.Contacts);
 
             InitializeComponent();
         }

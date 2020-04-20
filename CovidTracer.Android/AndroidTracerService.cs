@@ -21,10 +21,7 @@ namespace CovidTracer.Droid
         public override StartCommandResult OnStartCommand(
             Intent intent, StartCommandFlags flags, int startId)
         {
-            var bleServer = new AndroidBLEServer(this.ApplicationContext);
-
-            var tracer = TracerService.GetInstance(bleServer);
-            tracer.Start();
+            MainActivity.TracerService.Start();
 
             return StartCommandResult.Sticky;
         }

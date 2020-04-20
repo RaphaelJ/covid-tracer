@@ -1,17 +1,24 @@
 ﻿using System;
 using System.ComponentModel;
-using CovidTracer.ViewModels;
+
 using Xamarin.Essentials;
 using Xamarin.Forms;
+
+using CovidTracer.Services;
+using CovidTracer.ViewModels;
 
 namespace CovidTracer.Views
 {
     [DesignTimeVisible(false)]
     public partial class AboutPage : ContentPage
     {
-        public AboutPage()
+        TracerService tracerService;
+
+        public AboutPage(TracerService tracerService_)
         {
-            BindingContext = new AboutViewModel();
+            tracerService = tracerService_;
+
+            BindingContext = new AboutViewModel(tracerService);
 
             InitializeComponent();
         }
@@ -19,15 +26,12 @@ namespace CovidTracer.Views
         int appIdClicked = 0;
         async void AppIdClicked(object sender, EventArgs e)
         {
-            // Clicking 10 times on the app ID unlock the debug detail page.
+            // Clicking 10 times on the app ID unlock the debug details".
 
             ++appIdClicked;
 
             if (appIdClicked >= 10) {
-                var button = (Button)sender;
-                button.IsEnabled = false;
-                await Navigation.PushAsync(new DetailsPage(true));
-                button.IsEnabled = true;
+                ((AboutViewModel)BindingContext).EnableDebug();
             }
         }
 
