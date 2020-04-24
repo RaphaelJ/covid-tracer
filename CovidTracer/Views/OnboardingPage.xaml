@@ -5,11 +5,11 @@
 
     <ContentPage.Content>
         <StackLayout
-            Margin="15,25,15,35">
+            Margin="15,25,15,25">
             <Label
                 Margin="0,30"
                 HorizontalTextAlignment="Center"
-                FontSize="Large"
+                FontSize="Body"
                 Text="{Binding CurrentPane.Text}"/>
 
             <Image Source="{Binding CurrentPane.ImageSource}"

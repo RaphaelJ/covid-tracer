@@ -156,7 +156,7 @@ namespace CovidTracer.Services
                     && c.Day == time.Day
                     && c.Hour == time.Hour
                     && c.Key == key.Value
-                ) == null;
+                ) != null;
 
                 if (!exists) {
                     Logger.Info($"New contact: {key} at {time}.");

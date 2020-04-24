@@ -7,22 +7,17 @@
     <StackLayout Margin="15,25">
 
         <StackLayout VerticalOptions="CenterAndExpand">
-            <Label Text="{Binding Debug}"
-                   IsVisible="{Binding ShowDebug}"
-                   VerticalOptions="Start"
-                   HorizontalOptions="Center"/>
-
             <Label Text="CovidTracer Key"
                    FontSize="Title"
                    HorizontalOptions="Center"/>
 
-            <Button Text="{Binding AppId}"
+            <Button Text="{Binding TracerKey}"
                     FontSize="Title"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
                     BackgroundColor="Transparent"
                     TextColor="Black"
-                    Clicked="AppIdClicked"/>
+                    Clicked="TracerKeyClicked"/>
 
             <Label FontSize="Caption"
                HorizontalOptions="Center"

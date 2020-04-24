@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using SQLite;
 
-using CovidTracer.Models;
 using CovidTracer.Models.Keys;
 using CovidTracer.Models.Time;
+using System.Linq;
 
 namespace CovidTracer.Services
 {
@@ -124,10 +122,10 @@ namespace CovidTracer.Services
 
                         lastScanDevices.Clear();
                     } else {
-                        Logger.Info("Bluetooth is OFF, skip scan");
+                        Logger.Warning("Bluetooth is OFF, skip scan");
                     }
                 } catch (Exception e) {
-                    Logger.Info(
+                    Logger.Error(
                         $"BLE scan device exception: '{e.Message}'.");
                 }
 
@@ -141,9 +139,11 @@ namespace CovidTracer.Services
          */
         protected async Task DiscoverDevice(IAdapter adapter, IDevice device)
         {
+            var deviceIdStr = FormatDeviceId(device.Id);
+
             if (device.Rssi < MIN_RSSI) {
                 Logger.Info(
-                    $"BLE device ignored: {device.Id}/{device.Name} " +
+                    $"BLE device ignored: {deviceIdStr}/{device.Name} " +
                     $"({device.Rssi} dBm)."
                 );
                 return;
@@ -151,7 +151,7 @@ namespace CovidTracer.Services
 
             Logger.Info(
                 $"BLE device discovered: " +
-                $"{device.Id}/{device.Name} ({device.Rssi} dBm)"
+                $"{deviceIdStr}/{device.Name} ({device.Rssi} dBm)"
             );
 
             // Cancellation token that will abort the discovery process after
@@ -173,7 +173,7 @@ namespace CovidTracer.Services
                 }
 
                 if (device.State != DeviceState.Connected) {
-                    Logger.Info($"Failed to connect to {device.Id}");
+                    Logger.Warning($"Failed to connect to {deviceIdStr}");
                     return;
                 }
 
@@ -181,7 +181,7 @@ namespace CovidTracer.Services
 
                 if (service == null) {
                     Logger.Info(
-                        $"Device {device.Id} does not have CovidTracer " +
+                        $"Device {deviceIdStr} does not have CovidTracer " +
                         "service");
                     return;
                 }
@@ -191,7 +191,7 @@ namespace CovidTracer.Services
 
                 if (characteristic == null) {
                     Logger.Info(
-                        $"Device {device.Id} does not support CovidTracer " +
+                        $"Device {deviceIdStr} does not support CovidTracer " +
                         "characteristic.");
                     return;
                 }
@@ -199,8 +199,9 @@ namespace CovidTracer.Services
                 var keyBytes = await characteristic.ReadAsync(token);
 
                 if (keyBytes == null) {
-                    Logger.Info(
-                        $"Device {device.Id} characteristic can not be read.");
+                    Logger.Error(
+                        $"Device {deviceIdStr} characteristic can not be read."
+                    );
                     return;
                 }
 
@@ -210,11 +211,19 @@ namespace CovidTracer.Services
 
                 Contacts.NewContact(key);
             } catch (Exception e) {
-                Logger.Info($"Bluetooth exception: '{e.Message}'.");
-                Console.WriteLine(e.StackTrace);
+                Logger.Error($"Bluetooth exception: '{e.Message}'.");
             } finally {
                 tokenSource.Dispose();
+                device.Dispose();
             };
+        }
+
+        /** Formats the Mac address of a Bluetooth device as an hexadecimal
+         * string. */
+        static private string FormatDeviceId(Guid deviceId)
+        {
+            var idBytes = deviceId.ToByteArray().Skip(10).ToArray();
+            return Misc.Hex.ToHumanReadableString(idBytes, 2, ":");
         }
     }
 }

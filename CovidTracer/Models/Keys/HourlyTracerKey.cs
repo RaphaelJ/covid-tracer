@@ -24,5 +24,10 @@ namespace CovidTracer.Models.Keys
         {
             return Misc.Hex.ToString(Value);
         }
+
+        public string ToHumanReadableString()
+        {
+            return Misc.Hex.ToHumanReadableString(Value);
+        }
     }
 }

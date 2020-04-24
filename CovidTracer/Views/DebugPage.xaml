@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CovidTracer.Views.DebugPage"
+             Title="{Binding Title}">
+
+    <TableView Intent="Data" HasUnevenRows="True">
+        <TableRoot>
+            <TableSection Title="Information">
+                <TextCell Text="Tracer key"
+                          Detail="{Binding TracerKey}"/>
+                <TextCell Text="Current day key"
+                          Detail="{Binding CurrentDayKey}"/>
+                <TextCell Text="Current hour key"
+                          Detail="{Binding CurrentHourKey}"/>
+
+                <TextCell Text="Contact count"
+                          Detail="{Binding ContactCount}"/>
+
+                <TextCell Text="Case count"
+                          Detail="{Binding CaseCount}"/>
+            </TableSection>
+
+            <TableSection Title="Messages"
+                          x:Name="Messages">
+            </TableSection>
+        </TableRoot>
+    </TableView>
+</ContentPage>

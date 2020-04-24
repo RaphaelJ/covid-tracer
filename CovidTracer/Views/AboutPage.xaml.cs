@@ -23,15 +23,19 @@ namespace CovidTracer.Views
             InitializeComponent();
         }
 
-        int appIdClicked = 0;
-        async void AppIdClicked(object sender, EventArgs e)
+        int tracerKeyClicked = 0;
+        async void TracerKeyClicked(object sender, EventArgs e)
         {
             // Clicking 10 times on the app ID unlock the debug details".
 
-            ++appIdClicked;
+            ++tracerKeyClicked;
 
-            if (appIdClicked >= 10) {
-                ((AboutViewModel)BindingContext).EnableDebug();
+            if (tracerKeyClicked >= 10) {
+                var button = (Button)sender;
+                button.IsEnabled = false;
+
+                await Navigation.PushAsync(new DebugPage(tracerService));
+                button.IsEnabled = true;
             }
         }
 

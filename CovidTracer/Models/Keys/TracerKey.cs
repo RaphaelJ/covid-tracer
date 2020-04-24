@@ -72,22 +72,9 @@ namespace CovidTracer.Models.Keys
             return Misc.Hex.ToString(Value);
         }
 
-        /** Returns the tracer key as a string with spaces separators to improve
-         * readability. */
         public string ToHumanReadableString()
         {
-            var asString = ToString();
-                
-            var builder = new StringBuilder();
-
-            for (int i = 0; i < asString.Length; ++i) {
-                if (i > 0 && i % 4 == 0) {
-                    builder.Append(' ');
-                }
-                builder.Append(asString[i]);
-            }
-
-            return builder.ToString();
+            return Misc.Hex.ToHumanReadableString(Value);
         }
     }
 }

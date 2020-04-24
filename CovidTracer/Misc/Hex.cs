@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CovidTracer.Misc
 {
@@ -12,6 +13,28 @@ namespace CovidTracer.Misc
         static public string ToString(byte[] value)
         {
             return BitConverter.ToString(value).Replace("-", "");
+        }
+
+        /** Returns the tracer key as a string with a separators to improve
+         * readability. */
+        static public string ToHumanReadableString(
+            byte[] value,
+            int groupSize = 4,
+            string sepatator = " "
+            )
+        {
+            var asString = ToString(value);
+
+            var builder = new StringBuilder();
+
+            for (int i = 0; i < asString.Length; ++i) {
+                if (i > 0 && i % groupSize == 0) {
+                    builder.Append(sepatator);
+                }
+                builder.Append(asString[i]);
+            }
+
+            return builder.ToString();
         }
 
         static public byte[] FromString(string value)
