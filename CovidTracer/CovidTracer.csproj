@@ -23,4 +23,7 @@
     <Folder Include="Models\Time\" />
     <Folder Include="Models\SQLite\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Views\AboutPage %28copy%29.xaml.cs" />
+  </ItemGroup>
 </Project>
