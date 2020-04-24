@@ -48,7 +48,7 @@ namespace CovidTracer.ViewModels
                 new OnboardingPane(
                     "shield.png",
                     "CovidTracer est totalement anonyme et ne collecte " +
-                    "ni donnée personelle, ni votre localisation. " +
+                    "ni vos données personelles, ni votre localisation. " +
                     "CovidTracer respecte ainsi votre vie privée."
                 ),
                 new OnboardingPane(

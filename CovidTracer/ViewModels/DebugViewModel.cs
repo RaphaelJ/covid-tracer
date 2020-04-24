@@ -1,4 +1,5 @@
-﻿using CovidTracer.Models.Keys;
+﻿using System.Collections.Generic;
+using CovidTracer.Models.Keys;
 using CovidTracer.Models.Time;
 using CovidTracer.Services;
 
@@ -11,7 +12,7 @@ namespace CovidTracer.ViewModels
             public string TextColor { get; protected set; }
             public string Text { get; protected set; }
 
-            public MessageItem(Logger.MessageArgs message)
+            public MessageItem(Logger.Message message)
             {
                 switch (message.Type) {
                 case Logger.MessageType.Error:
@@ -25,7 +26,7 @@ namespace CovidTracer.ViewModels
                     break;
                 };
 
-                Text = message.Message;
+                Text = message.Value;
             }
         }
 
@@ -66,6 +67,9 @@ namespace CovidTracer.ViewModels
             set { SetProperty(ref caseCount, value); }
         }
 
+        public readonly Queue<MessageItem> MessageItems =
+            new Queue<MessageItem>();
+
         public delegate void NewMessageItemHandler(MessageItem message);
         public event NewMessageItemHandler NewMessageItem;
 
@@ -87,7 +91,14 @@ namespace CovidTracer.ViewModels
             ContactCount = (int) stats["contacts.Count"];
             CaseCount = (int) stats["cases.Count"];
 
-            Logger.NewMessage += OnNewMessage;
+            // Adds the messages from the backlog.
+            lock (Logger.Backlog) {
+                foreach (var message in Logger.Backlog) {
+                    OnNewMessage(message);
+                }
+
+                Logger.NewMessage += OnNewMessage;
+            }
         }
 
         ~DebugViewModel()
@@ -95,9 +106,11 @@ namespace CovidTracer.ViewModels
             Logger.NewMessage -= OnNewMessage;
         }
 
-        private void OnNewMessage(Logger.MessageArgs message)
+        private void OnNewMessage(Logger.Message message)
         {
-            NewMessageItem?.Invoke(new MessageItem(message));
+            var item = new MessageItem(message);
+            MessageItems.Enqueue(item);
+            NewMessageItem?.Invoke(item);
         }
     }
 }

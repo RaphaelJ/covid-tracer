@@ -47,7 +47,7 @@
         </StackLayout>
 
         <StackLayout
-            Margin="80"
+            Margin="60"
             VerticalOptions="Center">
             <Image Source="virus.png"/>
         </StackLayout>

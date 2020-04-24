@@ -17,11 +17,16 @@ namespace CovidTracer.Views
         {
             tracerService = tracerService_;
 
-            BindingContext = new DebugViewModel(tracerService);
-
-            ((DebugViewModel)BindingContext).NewMessageItem += OnNewMessageItem;
+            var vm = new DebugViewModel(tracerService);
+            BindingContext = vm;
 
             InitializeComponent();
+
+            foreach (var item in vm.MessageItems) {
+                OnNewMessageItem(item);
+            }
+
+            vm.NewMessageItem += OnNewMessageItem;
         }
 
         ~DebugPage()

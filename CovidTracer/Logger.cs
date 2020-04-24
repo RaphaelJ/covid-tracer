@@ -1,48 +1,63 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CovidTracer
 {
     public static class Logger
     {
+        // Number of logger messages kept before being discarded.
+        public const int BACKLOG_SIZE = 250;
+
         public enum MessageType { Error, Info, Warning };
 
-        public class MessageArgs : EventArgs
+        public class Message : EventArgs
         {
             public readonly MessageType Type;
-            public readonly string Message;
+            public readonly string Value;
 
-            public MessageArgs(MessageType type_, string message_)
+            public Message(MessageType type_, string value_)
             {
                 Type = type_;
-                Message = message_;
+                Value = value_;
             }
         }
 
-        public delegate void NewMessageHandler(MessageArgs message);
+        public delegate void NewMessageHandler(Message message);
         /** Emitted a new nessage is logged. */
         public static event NewMessageHandler NewMessage;
 
-        public static void Error(string message)
+        public static readonly Queue<Message> Backlog =
+            new Queue<Message>();
+
+        public static void Error(string value_)
         {
-            Log(MessageType.Error, message);
+            Log(MessageType.Error, value_);
         }
 
-        public static void Info(string message)
+        public static void Info(string value_)
         {
-            Log(MessageType.Info, message);
+            Log(MessageType.Info, value_);
         }
 
-        public static void Warning(string message)
+        public static void Warning(string value_)
         {
-            Log(MessageType.Warning, message);
+            Log(MessageType.Warning, value_);
         }
 
-        private static void Log(MessageType type_, string message)
+        private static void Log(MessageType type_, string value_)
         {
-            var args = new MessageArgs(type_, message);
-            NewMessage?.Invoke(args);
+            var message = new Message(type_, value_);
 
-            Console.WriteLine("[CovidTracer] " + message);
+            lock (Backlog) {
+                while (Backlog.Count >= BACKLOG_SIZE) {
+                    Backlog.Dequeue();
+                }
+
+                Backlog.Enqueue(message);
+
+                Console.WriteLine("[CovidTracer] " + value_);
+                NewMessage?.Invoke(message);
+            }
         }
     }
 }

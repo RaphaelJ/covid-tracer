@@ -32,12 +32,8 @@ namespace CovidTracer.Droid
 
             var guid = AsGUID(target.Uuid);
 
-            Logger.Info($"BLE characteristic read request for {guid}.");
-
             if (characteristics.ContainsKey(guid)) {
                 var value = characteristics[guid]();
-
-                Logger.Info($"Send {value.Length} bytes response for {guid}.");
 
                 target.SetValue(value);
 

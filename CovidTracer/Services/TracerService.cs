@@ -90,6 +90,8 @@ namespace CovidTracer.Services
                 .DerivateDailyKey(now.AsDate())
                 .DerivateHourlyKey(now);
 
+            Logger.Info($"BLE characteristic read request.");
+
             return currentKey.Value;
         }
 
@@ -164,7 +166,7 @@ namespace CovidTracer.Services
                             Logger.Info(
                                 $"Scan finished, found " +
                                 $"{lastScanDevices.Count} devices " +
-                                $"({ignored} of which were ignored)."
+                                $"(of which {ignored} were ignored)."
                             );
 
                             lastScanDevices.Clear();

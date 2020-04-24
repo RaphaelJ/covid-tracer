@@ -12,8 +12,10 @@
                 FontSize="Body"
                 Text="{Binding CurrentPane.Text}"/>
 
-            <Image Source="{Binding CurrentPane.ImageSource}"
-                   VerticalOptions="CenterAndExpand"/>
+            <Image
+                Margin="45"
+                Source="{Binding CurrentPane.ImageSource}"
+                VerticalOptions="CenterAndExpand"/>
 
             <Button
                 BackgroundColor="#E50058"
