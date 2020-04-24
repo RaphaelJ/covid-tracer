@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
 using Android.Content;
@@ -18,11 +20,15 @@ namespace CovidTracer.Droid
         public void AddReadOnlyService(
             Guid serviceName, Dictionary<Guid, Func<byte[]>> characteristics)
         {
-            // TODO: restart the server when the BLE adapter goes down.
-
             var manager = (BluetoothManager)context.GetSystemService(
                 Context.BluetoothService);
             var adapter = manager.Adapter;
+
+            if (!adapter.IsEnabled) {
+                // TODO: restarts the server when the BLE adapter goes down.
+                adapter.Enable();
+                Thread.Sleep(10 * 1000);
+            }
 
             // Creates a Gatt server with the requested service
 
