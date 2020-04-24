@@ -25,9 +25,11 @@
 
         <!-- Infection status -->
 
-        <StackLayout Orientation="Horizontal"
-                     BackgroundColor="{Binding StatusBackgroundColor}"
-                     Padding="15">
+        <StackLayout
+            VerticalOptions="StartAndExpand"
+            Orientation="Horizontal"
+            BackgroundColor="{Binding StatusBackgroundColor}"
+            Padding="15">
 
             <StackLayout>
                 <Label TextColor="{Binding StatusTextColor}"
@@ -44,22 +46,24 @@
                     Clicked="StatusDetailsClicked"/>
         </StackLayout>
 
-        <!-- -->
-
-        <StackLayout Margin="40"
-                     VerticalOptions="CenterAndExpand">
+        <StackLayout
+            Margin="80"
+            VerticalOptions="Center">
             <Image Source="virus.png"/>
         </StackLayout>
 
-        <Button Text="Signaler mon infection au coronavirus"
-                BackgroundColor="#E50058"
-                TextColor="White"
-                Clicked="SignalingClicked"/>
+        <Button
+            VerticalOptions="EndAndExpand"
+            Text="Signaler mon infection au coronavirus"
+            BackgroundColor="#E50058"
+            TextColor="White"
+            Clicked="SignalingClicked"/>
 
         <Label
-               HorizontalTextAlignment="Center"
-               FontSize="Caption"
-               Text="CovidTracer respecte votre vie privée et ne transmet aucune donnée personelle sur Internet. Respectez autant que possible les mesures de distanciation sociale recommandées par votre gouvernement."
-               />
+            VerticalOptions="EndAndExpand"
+            HorizontalTextAlignment="Center"
+            FontSize="Caption"
+            Text="CovidTracer respecte votre vie privée et ne transmet aucune donnée personelle sur Internet. Respectez autant que possible les mesures de distanciation sociale recommandées par votre gouvernement."
+            />
     </StackLayout>
 </ContentPage>

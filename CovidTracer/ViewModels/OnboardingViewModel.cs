@@ -43,7 +43,7 @@ namespace CovidTracer.ViewModels
                     "bluetooth.png",
                     "CovidTracer utilise la technologie Bluetooth pour vous " +
                     "notifier anonymement des interactions que vous auriez " +
-                    "peu avoir avec des personnes infectées au coronavirus."
+                    "pu avoir avec des personnes infectées au coronavirus."
                 ),
                 new OnboardingPane(
                     "shield.png",

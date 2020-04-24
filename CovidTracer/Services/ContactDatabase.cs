@@ -159,7 +159,9 @@ namespace CovidTracer.Services
                 ) != null;
 
                 if (!exists) {
-                    Logger.Info($"New contact: {key} at {time}.");
+                    Logger.Info(
+                        $"New contact: {key.ToHumanReadableString()} at {time}."
+                    );
 
                     db.Insert(new Contact {
                         Key = key.Value,

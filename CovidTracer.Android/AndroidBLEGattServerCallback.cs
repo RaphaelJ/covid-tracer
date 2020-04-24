@@ -22,9 +22,6 @@ namespace CovidTracer.Droid
             BluetoothDevice device, ProfileState status, ProfileState newState)
         {
             base.OnConnectionStateChange(device, status, newState);
-
-            Logger.Info(
-                $"BLE device state change: {device.Address} is {newState}.");
         }
 
         public override void OnCharacteristicReadRequest(

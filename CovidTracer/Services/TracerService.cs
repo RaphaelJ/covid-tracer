@@ -18,13 +18,22 @@ namespace CovidTracer.Services
      */
     public class TracerService
     {
+        // The duration of a scan.
         const int SCAN_TIMEOUT = 15 * 1000;
-        const int SCAN_REPEAT = 60 * 1000;
-        const int MIN_RSSI = -85; // Discards devices with a RSSI below
+
+        // Delay between two Bluetooth scans.
+        const int SCAN_REPEAT = 45 * 1000;
+
+        // Discards devices with a RSSI below that value
+        const int MIN_RSSI = -85; 
 
         // Will timeout if one's device tracer key can't be retreived within
         // that delay.
         const int DEVICE_CONNECT_TIMEOUT = 20 * 1000;
+
+        // Does not try to discover the tracer key of a device a second time
+        // until that amount of time.
+        const int DISCOVERY_COOLDOWN = 15 * 60 * 1000;
 
         readonly Guid SERVICE_NAME =
             Guid.Parse("22FC7440-9ED6-48B8-85B3-DA69AF417AED");
@@ -47,7 +56,9 @@ namespace CovidTracer.Services
 
             server = server_;
 
-            Logger.Info($"TracerService instanced with key '{Key.ToString()}'");
+            Logger.Info(
+                $"TracerService instanced with key " +
+                $"'{Key.ToHumanReadableString()}'");
         }
 
         public void Start()
@@ -95,11 +106,15 @@ namespace CovidTracer.Services
             adapter.ScanTimeout = SCAN_TIMEOUT;
             adapter.ScanMode = ScanMode.LowPower;
 
-            // Devices 
+            // Will contain the devices discovered during the asynchonous scan.
             var lastScanDevices = new List<IDevice>();
             adapter.DeviceDiscovered += (s, e) => {
                 lastScanDevices.Add(e.Device);
             };
+
+            // Will ignore the devices that have already been discovered less
+            // than `DISCOVERY_COOLDOWN` ago.
+            var discoveredDevices = new Dictionary<Guid, DateTime>();
 
             for (; ; ) {
                 try {
@@ -109,18 +124,51 @@ namespace CovidTracer.Services
                         await adapter.StartScanningForDevicesAsync();
                         await adapter.StopScanningForDevicesAsync();
 
-                        Logger.Info(
-                            $"Scan finished, found {lastScanDevices.Count} " +
-                            "devices.");
+                        var now = DateTime.UtcNow;
+
+                        // Removes devices that have been discovered more than
+                        // `DISCOVERY_COOLDOWN` ago from `discoveredDevices`.
+                        {
+                            var expirationDate = now
+                                .AddMilliseconds(-DISCOVERY_COOLDOWN);
+                            var expired = discoveredDevices
+                                .Where(d => d.Value < expirationDate);
+
+                            foreach (var d in expired) {
+                                discoveredDevices.Remove(d.Key);
+                            }
+                        }
 
                         // Scan finished, now connect and retreive the
                         // discovered devices.
 
-                        foreach (var device in lastScanDevices) {
-                            await DiscoverDevice(adapter, device);
-                        }
+                        {
+                            int ignored = 0;
 
-                        lastScanDevices.Clear();
+                            foreach (var device in lastScanDevices) {
+                                if (device.Rssi < MIN_RSSI) {
+                                    ++ignored;
+                                    continue;
+                                }
+
+                                if (discoveredDevices.ContainsKey(device.Id)) {
+                                    ++ignored;
+                                    continue;
+                                }
+
+                                await DiscoverDevice(adapter, device);
+
+                                discoveredDevices.Add(device.Id, now);
+                            }
+
+                            Logger.Info(
+                                $"Scan finished, found " +
+                                $"{lastScanDevices.Count} devices " +
+                                $"({ignored} of which were ignored)."
+                            );
+
+                            lastScanDevices.Clear();
+                        }
                     } else {
                         Logger.Warning("Bluetooth is OFF, skip scan");
                     }
@@ -141,16 +189,8 @@ namespace CovidTracer.Services
         {
             var deviceIdStr = FormatDeviceId(device.Id);
 
-            if (device.Rssi < MIN_RSSI) {
-                Logger.Info(
-                    $"BLE device ignored: {deviceIdStr}/{device.Name} " +
-                    $"({device.Rssi} dBm)."
-                );
-                return;
-            }
-
             Logger.Info(
-                $"BLE device discovered: " +
+                $"Discovering BLE device: " +
                 $"{deviceIdStr}/{device.Name} ({device.Rssi} dBm)"
             );
 
