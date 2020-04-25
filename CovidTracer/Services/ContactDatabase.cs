@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using CovidTracer.Models.Keys;
 using CovidTracer.Models.SQLite;
 using CovidTracer.Models.Time;
+using System.Threading.Tasks;
 
 namespace CovidTracer.Services
 {
@@ -43,7 +44,10 @@ namespace CovidTracer.Services
 
         const string DB_FILENAME = "covid_tracer.sqlite3";
 
-        SQLiteConnection db;
+        // Will refresh the case database every 6 hours.
+        const int CASES_REFRESH_DELAY = 6 * 3600 * 1000;
+
+        readonly SQLiteConnection db;
 
         /** The currently detected positives and symptomatic contacts.
          *
@@ -86,23 +90,25 @@ namespace CovidTracer.Services
 
             ComputeMatches();
 
+            var _ = RefreshCases(); // Refresh cases asynchronously now
 
-            var date = DateHour.Now;
-
-            // Create a timer with a two second interval.
-            var aTimer = new System.Timers.Timer(10000);
-            
-            aTimer.Elapsed += (o, e) => {
-                lock (Matches) {
-                    Matches.Positives.Add(date);
-
-                    MatchesChange?.Invoke(this, Matches);
-                    CurrentInfectionStatusChange?.Invoke(this, CurrentInfectionStatus);
-                }
-                date = date.Next;
+            // Refresh cases every CASES_REFRESH_DELAY.
+            var caseRefreshTimer = new System.Timers.Timer(CASES_REFRESH_DELAY);
+            caseRefreshTimer.Elapsed += async (o, e) => {
+                await RefreshCases();
             };
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
+            caseRefreshTimer.AutoReset = true;
+            caseRefreshTimer.Enabled = true;
+        }
+
+        /** Replaces the current case database with the latest backend list. */
+        public async Task RefreshCases()
+        {
+            var cases = await RestService.Cases();
+
+            Logger.Info($"Retreived {cases.Count} case(s) from backend.");
+
+            LoadCases(cases);
         }
 
         /** Replaces the current case database with the provided new case set.
@@ -110,7 +116,7 @@ namespace CovidTracer.Services
         public void LoadCases(IEnumerable<Models.Case> cases)
         {
             db.RunInTransaction(() => {
-                db.DropTable<Case>();
+                db.DeleteAll<Case>();
 
                 foreach (var case_ in cases) {
                     // Creates an entry for every hourly derived key of the
@@ -123,13 +129,14 @@ namespace CovidTracer.Services
                         var hourlyKey = case_.Key.DerivateHourlyKey(
                             case_.Day.WithHour(hour));
 
-                        var sqlCase = new Case {
+                        db.Insert(new Case {
                             Key = hourlyKey.Value,
                             Type = caseType,
                             Year = case_.Day.Year,
                             Month = case_.Day.Month,
                             Day = case_.Day.Day,
-                        };
+                        });
+
                     }
                 }
             });

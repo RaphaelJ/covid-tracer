@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,6 +16,31 @@ namespace CovidTracer.Services
             "https://covid-tracer-backend.herokuapp.com";
 
         public static readonly HttpClient Client = new HttpClient();
+
+        /** Requests the current cases from the backend. */
+        public static async Task<IList<Case>> Cases()
+        {
+            var resp = await Client.GetStringAsync($"{ROOT}/cases.json");
+
+            var json = JsonValue.Parse(resp);
+
+            var cases = new List<Case>();
+            for (int i = 0; i < json["cases"].Count; ++i) {
+                var jsonCase = json["cases"][i];
+
+                var date = Date.ParseISO(jsonCase["date"]);
+                var key = new DailyTracerKey(jsonCase["key"]);
+
+                var type_ =
+                      jsonCase["type"] == "positive"
+                    ? CaseType.Positive
+                    : CaseType.Symptomatic;
+
+                cases.Add(new Case(key, type_, date));
+            }
+
+            return cases;
+        }
 
         /** Notifies the backend service of a potential Covid-19 infection. */
         public static async Task<HttpResponseMessage> Notify(
@@ -33,7 +59,7 @@ namespace CovidTracer.Services
                 const int SYMPTOMS_TO_VIRUS_NEGATIVE = 11;
 
                 var begin = symptomsOnset.AddDays(-INCUBATION_PERIOD);
-                var end = symptomsOnset.AddDays(-SYMPTOMS_TO_VIRUS_NEGATIVE);
+                var end = symptomsOnset.AddDays(SYMPTOMS_TO_VIRUS_NEGATIVE);
 
                 var masterKey = TracerKey.CurrentAppInstance();
 
@@ -51,17 +77,17 @@ namespace CovidTracer.Services
 
             var queryParams = new List<KeyValuePair<String, String>> {
                 new KeyValuePair<string, string>(
-                    "is_tested", isTested ? "yes" : "no"
+                    "is_tested", isTested ? "true" : "false"
                 ),
                 new KeyValuePair<string, string>("comment", comment),
             };
 
-            foreach (var key in keys) {
+            for (int i = 0; i < keys.Count; ++i) {
                 queryParams.Add(new KeyValuePair<string, string>(
-                    "keys[].date", key.Item1.ToString()
+                    $"keys-{i}-date", keys[i].Item1.ToString()
                 ));
                 queryParams.Add(new KeyValuePair<string, string>(
-                    "keys[].value", key.Item2.ToString()
+                    $"keys-{i}-value", keys[i].Item2.ToString()
                 ));
             }
 

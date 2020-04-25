@@ -48,6 +48,14 @@ namespace CovidTracer.Models.Time
             return $"{Year:D4}-{Month:D2}-{Day:D2}";
         }
 
+        public static Date ParseISO(string value)
+        {
+            var year = int.Parse(value.Substring(0, 4));
+            var month = int.Parse(value.Substring(5, 2));
+            var day = int.Parse(value.Substring(8, 2));
+            return new Date(year, month, day);
+        }
+
         public int CompareTo(Date other)
         {
             if (Year == other.Year) {

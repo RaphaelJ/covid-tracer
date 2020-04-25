@@ -14,10 +14,10 @@
                 <TextCell Text="Current hour key"
                           Detail="{Binding CurrentHourKey}"/>
 
-                <TextCell Text="Contact count"
+                <TextCell Text="Contact key count"
                           Detail="{Binding ContactCount}"/>
 
-                <TextCell Text="Case count"
+                <TextCell Text="Case key count"
                           Detail="{Binding CaseCount}"/>
             </TableSection>
 

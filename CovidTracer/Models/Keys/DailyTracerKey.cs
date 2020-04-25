@@ -23,6 +23,11 @@ namespace CovidTracer.Models.Keys
             Value = key;
         }
 
+        public DailyTracerKey(string value)
+            : this(Misc.Hex.FromString(value))
+        {
+        }
+
         public HourlyTracerKey DerivateHourlyKey(DateHour date)
         {
             using (var hmac = new HMACSHA256(Value)) {
