@@ -10,6 +10,7 @@ using Plugin.BLE.Abstractions.Contracts;
 using CovidTracer.Models.Keys;
 using CovidTracer.Models.Time;
 using System.Linq;
+using Plugin.BLE.Abstractions.EventArgs;
 
 namespace CovidTracer.Services
 {
@@ -110,34 +111,41 @@ namespace CovidTracer.Services
 
             // Will contain the devices discovered during the asynchonous scan.
             var lastScanDevices = new List<IDevice>();
-            adapter.DeviceDiscovered += (s, e) => {
+            EventHandler<DeviceEventArgs> deviceDiscoveredHandler = (s, e) => {
                 lastScanDevices.Add(e.Device);
             };
 
             // Will ignore the devices that have already been discovered less
             // than `DISCOVERY_COOLDOWN` ago.
-            var discoveredDevices = new Dictionary<Guid, DateTime>();
+            var cooldownDevices = new Dictionary<Guid, DateTime>();
 
             for (; ; ) {
                 try {
                     if (ble.IsOn) {
                         Logger.Info("Initiate new BLE scan");
 
+                        adapter.DeviceDiscovered += deviceDiscoveredHandler;
+
                         await adapter.StartScanningForDevicesAsync();
                         await adapter.StopScanningForDevicesAsync();
+
+                        // Removes the handler as we don't want the
+                        // `lastScanDevices` to change while we are processing
+                        // it.
+                        adapter.DeviceDiscovered -= deviceDiscoveredHandler;
 
                         var now = DateTime.UtcNow;
 
                         // Removes devices that have been discovered more than
-                        // `DISCOVERY_COOLDOWN` ago from `discoveredDevices`.
+                        // `DISCOVERY_COOLDOWN` ago from `cooldownDevices`.
                         {
                             var expirationDate = now
                                 .AddMilliseconds(-DISCOVERY_COOLDOWN);
-                            var expired = discoveredDevices
+                            var expired = cooldownDevices
                                 .Where(d => d.Value < expirationDate);
 
                             foreach (var d in expired) {
-                                discoveredDevices.Remove(d.Key);
+                                cooldownDevices.Remove(d.Key);
                             }
                         }
 
@@ -153,20 +161,20 @@ namespace CovidTracer.Services
                                     continue;
                                 }
 
-                                if (discoveredDevices.ContainsKey(device.Id)) {
+                                if (cooldownDevices.ContainsKey(device.Id)) {
                                     ++ignored;
                                     continue;
                                 }
 
                                 await DiscoverDevice(adapter, device);
 
-                                discoveredDevices.Add(device.Id, now);
+                                cooldownDevices.Add(device.Id, now);
                             }
 
                             Logger.Info(
                                 $"Scan finished, found " +
-                                $"{lastScanDevices.Count} devices " +
-                                $"(of which {ignored} were ignored)."
+                                $"{lastScanDevices.Count} device(s) " +
+                                $"(of which {ignored} was/ere ignored)."
                             );
 
                             lastScanDevices.Clear();
