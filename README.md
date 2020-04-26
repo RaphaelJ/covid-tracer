@@ -6,7 +6,9 @@ CovidTracer notifies users of any close contact with another user later diagnose
 
 ![Android](screenshots/screenshot-android.png) ![iOS](screenshots/screenshot-ios.png)
 
-CovidTracer uses Bluetooth and cryptographic techniques to protect privacy. App users do not share personal data. GPS location is never recorded. CovidTracer is a free and open-source software (GPLv3).
+CovidTracer uses Bluetooth and cryptographic techniques to protect user privacy. App users do not share personal data. GPS location is never recorded. CovidTracer is a free and open-source software (GPLv3).
+
+CovidTracer follows the [contact tracing recommendations](https://www.eff.org/deeplinks/2020/04/challenge-proximity-apps-covid-19-contact-tracing) of the Electronic Frontier Foundation.
 
 ## Download and installation
 
@@ -25,7 +27,7 @@ CovidTracer uses cryptographic techniques similar to those used by e-commerce an
 For maximum efficiency, opens the app or let it run in background when you interact with people external to your household (transports, office, grocery stores, outdoor activities...).
 
 - **What to do when the app detects a high-risk contact?**
-Please inform your general practitioner as soon as possible about the high-risk contact the app detected. 
+Please inform your general practitioner as soon as possible about the high-risk contact the app detected. The app does not notify any health or governmental organization on positive match.
 
 - **How can I remove any data recorded by the app?**
 Un-installing the application from your smartphone will delete all data the app recorded. If you ever reported yourself as a positive case, some (anonymous) data associated to your infectious perdiod will still be availaible to other app users.
