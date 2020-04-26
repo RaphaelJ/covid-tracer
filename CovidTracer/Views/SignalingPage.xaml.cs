@@ -22,7 +22,6 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 
 using CovidTracer.ViewModels;
-using System.Threading.Tasks;
 
 namespace CovidTracer.Views
 {

@@ -154,4 +154,48 @@
     <data name="SignalingFormSubmit" xml:space="preserve">
         <value>Envoyer</value>
     </data>
+    
+    <data name="SignalingFormConfirmTitle" xml:space="preserve">
+        <value>Continuer ?</value>
+    </data>
+        
+    <data name="SignalingFormConfirmText" xml:space="preserve">
+        <value>Cette opération ne pourra être annulée.</value>
+    </data>
+        
+    <data name="SignalingFormConfirmYes" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+        
+    <data name="SignalingFormConfirmNo" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    
+    <data name="SignalingSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    
+    <data name="SignalingSuccessText" xml:space="preserve">
+        <value>Votre infection a été signalée avec succès</value>
+    </data>
+    
+    <data name="SignalingSuccessContinue" xml:space="preserve">
+        <value>Continuer</value>
+    </data>
+    
+    <data name="SignalingFailureTitle" xml:space="preserve">
+        <value>Echec</value>
+    </data>
+    
+    <data name="SignalingFailureText" xml:space="preserve">
+        <value>Echec de l'operation, veuillez réessayer plus tard.</value>
+    </data>
+    
+    <data name="SignalingFailureContinue" xml:space="preserve">
+        <value>Continuer</value>
+    </data>
+    
+    <data name="SignalingAlreadyDoneText" xml:space="preserve">
+        <value>Votre infection a déjà été signalée.</value>
+    </data>    
 </root>

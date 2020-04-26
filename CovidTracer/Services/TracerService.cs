@@ -172,7 +172,10 @@ namespace CovidTracer.Services
                             // `scannedDevices` list.
                             IList<IDevice> lastScanDevices;
                             lock (scannedDevices) {
-                                lastScanDevices = scannedDevices.ToList();
+                                lastScanDevices = scannedDevices
+                                    .OrderBy(d => d.Rssi)
+                                    .Reverse()
+                                    .ToList();
                                 scannedDevices.Clear();
                             }
 
@@ -187,9 +190,12 @@ namespace CovidTracer.Services
                                     continue;
                                 }
 
-                                await DiscoverDevice(adapter, device);
+                                var success =
+                                    await DiscoverDevice(adapter, device);
 
-                                cooldownDevices.Add(device.Id, now);
+                                if (success) {
+                                    cooldownDevices.Add(device.Id, now);
+                                }
                             }
 
                             Logger.Info(
@@ -215,8 +221,11 @@ namespace CovidTracer.Services
         /** Processes a discovery response of a Bluetooth device.
          *
          * Adds the device to the persistent data-store when required.
+         *
+         * Returns `false` if the discovery failed with a Bluetooth exception.
          */
-        protected async Task DiscoverDevice(IAdapter adapter, IDevice device)
+        protected async Task<bool> DiscoverDevice(
+            IAdapter adapter, IDevice device)
         {
             var deviceIdStr = FormatDeviceId(device.Id);
 
@@ -245,7 +254,7 @@ namespace CovidTracer.Services
 
                 if (device.State != DeviceState.Connected) {
                     Logger.Warning($"Failed to connect to {deviceIdStr}");
-                    return;
+                    return false;
                 }
 
                 var service = await device.GetServiceAsync(SERVICE_NAME, token);
@@ -254,7 +263,7 @@ namespace CovidTracer.Services
                     Logger.Info(
                         $"Device {deviceIdStr} does not have CovidTracer " +
                         "service");
-                    return;
+                    return true;
                 }
 
                 var characteristic =
@@ -264,7 +273,7 @@ namespace CovidTracer.Services
                     Logger.Info(
                         $"Device {deviceIdStr} does not support CovidTracer " +
                         "characteristic.");
-                    return;
+                    return false;
                 }
 
                 var keyBytes = await characteristic.ReadAsync(token);
@@ -273,7 +282,7 @@ namespace CovidTracer.Services
                     Logger.Error(
                         $"Device {deviceIdStr} characteristic can not be read."
                     );
-                    return;
+                    return false;
                 }
 
                 var key = new HourlyTracerKey(keyBytes);
@@ -281,8 +290,11 @@ namespace CovidTracer.Services
                 // Logs the successful encounter
 
                 Contacts.NewContact(key);
+
+                return true;
             } catch (Exception e) {
                 Logger.Error($"Bluetooth exception: '{e.Message}'.");
+                return false;
             } finally {
                 tokenSource.Dispose();
                 device.Dispose();

@@ -136,7 +136,7 @@
     </data>
     
     <data name="SignalingNotice" xml:space="preserve">
-        <value>By completing this form, CovidTracer users with whom you may have interacted during your infectious period will be notified anonymously.</value>
+        <value>By filling this form, CovidTracer users with whom you may have interacted during your infectious period will be notified anonymously.</value>
     </data>
     
     <data name="SignalingFormSymptomOnset" xml:space="preserve">
