@@ -45,7 +45,10 @@ namespace CovidTracer.Models.SQLite
         static public void CreateIndex(SQLiteConnection conn)
         {
             conn.CreateIndex("contacts",
-                new string[] { "key", "month", "day", "hour", }, true);
+                new string[] { "key", "year", "month", "day", "hour", }, true);
+
+            conn.CreateIndex("contacts",
+                new string[] { "year", "month", "day", "hour", }, true);
         }
     }
 }

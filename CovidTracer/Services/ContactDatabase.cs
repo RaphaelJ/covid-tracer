@@ -61,8 +61,11 @@ namespace CovidTracer.Services
 
         const string DB_FILENAME = "covid_tracer.sqlite3";
 
-        // Will refresh the case database every 6 hours.
-        const int CASES_REFRESH_DELAY = 6 * 3600 * 1000;
+        // Will refresh the case database every 12 hours.
+        const int CASES_REFRESH_DELAY = 12 * 3600 * 1000;
+
+        // Will remove contacts that are older than that (in days).
+        const int CONTACT_EXPIRATION = 15;
 
         readonly SQLiteConnection db;
 
@@ -107,15 +110,45 @@ namespace CovidTracer.Services
 
             ComputeMatches();
 
-            var _ = RefreshCases(); // Refresh cases asynchronously now
+            // Removes expired contacts and (asynchronously) refresh cases now.
+            CleanupContacts();
+            var _ = RefreshCases();
+
+            // Removes expired contacts every day.
+            {
+                var one_day = 24 * 3600 * 1000;
+                var timer = new System.Timers.Timer(one_day);
+                timer.Elapsed += (o, e) => { CleanupContacts(); };
+                timer.AutoReset = true;
+                timer.Start();
+            }
 
             // Refresh cases every CASES_REFRESH_DELAY.
-            var caseRefreshTimer = new System.Timers.Timer(CASES_REFRESH_DELAY);
-            caseRefreshTimer.Elapsed += async (o, e) => {
-                await RefreshCases();
-            };
-            caseRefreshTimer.AutoReset = true;
-            caseRefreshTimer.Enabled = true;
+            {
+                var timer = new System.Timers.Timer(CASES_REFRESH_DELAY);
+                timer.Elapsed += async (o, e) => { await RefreshCases(); };
+                timer.AutoReset = true;
+                timer.Start();
+            }
+        }
+
+        /** Removes contacts that expired. */
+        public void CleanupContacts()
+        {
+            var exp = new Date(DateTime.Today.AddDays(-CONTACT_EXPIRATION));
+
+            db.Execute(
+                $"delete from contacts                                      " +
+                $"where year < {exp.Year}                                   " +
+                $"  or (year == {exp.Year}                                  " +
+                $"      and (month < {exp.Month}                            " +
+                $"          or (month == {exp.Month} and day < {exp.Day})   " +
+                $"          )                                               " +
+                $"      )                                                   " +
+                $";"
+            );
+
+            Logger.Info($"Expired contacts removed.");
         }
 
         /** Replaces the current case database with the latest backend list. */
@@ -175,11 +208,11 @@ namespace CovidTracer.Services
 
             db.RunInTransaction(() => {
                 var exists = db.Find<Contact>(c =>
-                    c.Year == time.Year
+                    c.Key == key.Value
+                    && c.Year == time.Year
                     && c.Month == time.Month
                     && c.Day == time.Day
                     && c.Hour == time.Hour
-                    && c.Key == key.Value
                 ) != null;
 
                 if (!exists) {

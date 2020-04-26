@@ -71,6 +71,7 @@ If a user reports her/himself positive to SARS-CoV-2, all the generated daily id
 
 Additional measures have been taken to increase privacy:
 
+- Contact tracing keys are automatically removed from the phone after 15 days;
 - Backend returns daily keys in alphabetical order, and only publishes them every 12 hours. This makes it harder to associate multiple daily keys with a single user (user tracking);
 - Backend does not publish daily keys of future dates, and the apps only match contacts that occured on the day associated with the key. This prevents user impersonification; 
 - Bluetooth signal quality is used to evaluate proximity of nearby devices. The algorithm is calibrated to only record identifiers of devices located in the same room;
