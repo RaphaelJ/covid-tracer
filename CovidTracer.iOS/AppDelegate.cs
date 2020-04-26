@@ -15,8 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with CovidTracer. If not, see<https://www.gnu.org/licenses/>.
 
+using System;
+
 using Foundation;
 using UIKit;
+
+using CovidTracer.Services;
 
 namespace CovidTracer.iOS
 {
@@ -35,8 +39,12 @@ namespace CovidTracer.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            var tracerService = new TracerService(new IOSBLEServer());
+
+            Action tracerServiceStart = () => { tracerService.Start(); };
+
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(tracerService, tracerServiceStart));
 
             return base.FinishedLaunching(app, options);
         }
