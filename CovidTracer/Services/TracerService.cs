@@ -253,7 +253,7 @@ namespace CovidTracer.Services
                 }
 
                 if (device.State != DeviceState.Connected) {
-                    Logger.Warning($"Failed to connect to {deviceIdStr}");
+                    Logger.Error($"Failed to connect to {deviceIdStr}");
                     return false;
                 }
 
@@ -270,7 +270,7 @@ namespace CovidTracer.Services
                     await service.GetCharacteristicAsync(CHARACTERISTIC_NAME);
 
                 if (characteristic == null) {
-                    Logger.Info(
+                    Logger.Error(
                         $"Device {deviceIdStr} does not support CovidTracer " +
                         "characteristic.");
                     return false;
