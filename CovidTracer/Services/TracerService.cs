@@ -127,9 +127,11 @@ namespace CovidTracer.Services
             adapter.ScanMode = ScanMode.LowPower;
 
             // Will contain the devices discovered during the asynchonous scan.
-            var lastScanDevices = new List<IDevice>();
-            EventHandler<DeviceEventArgs> deviceDiscoveredHandler = (s, e) => {
-                lastScanDevices.Add(e.Device);
+            var scannedDevices = new List<IDevice>();
+            adapter.DeviceDiscovered += (s, e) => {
+                lock (scannedDevices) {
+                    scannedDevices.Add(e.Device);
+                }
             };
 
             // Will ignore the devices that have already been discovered less
@@ -141,15 +143,8 @@ namespace CovidTracer.Services
                     if (ble.IsOn) {
                         Logger.Info("Initiate new BLE scan");
 
-                        adapter.DeviceDiscovered += deviceDiscoveredHandler;
-
                         await adapter.StartScanningForDevicesAsync();
                         await adapter.StopScanningForDevicesAsync();
-
-                        // Removes the handler as we don't want the
-                        // `lastScanDevices` to change while we are processing
-                        // it.
-                        adapter.DeviceDiscovered -= deviceDiscoveredHandler;
 
                         var now = DateTime.UtcNow;
 
@@ -171,6 +166,15 @@ namespace CovidTracer.Services
 
                         {
                             int ignored = 0;
+
+                            // We might still scan new devices while retreiving
+                            // the tracer code IDs, so we have to copy the
+                            // `scannedDevices` list.
+                            IList<IDevice> lastScanDevices;
+                            lock (scannedDevices) {
+                                lastScanDevices = scannedDevices.ToList();
+                                scannedDevices.Clear();
+                            }
 
                             foreach (var device in lastScanDevices) {
                                 if (device.Rssi < MIN_RSSI) {
