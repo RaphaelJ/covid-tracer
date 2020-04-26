@@ -23,7 +23,7 @@
                         <StackLayout
                             Margin="10">
                             <Label
-                                Text="{x:Static resources:Localization.SignalingFormSymptomsOnset}"/>
+                                Text="{x:Static resources:Localization.SignalingFormSymptomOnset}"/>
 
                             <DatePicker
                                 MinimumDate="02/01/2020"
@@ -32,7 +32,7 @@
                         </StackLayout>
                     </ViewCell>
 
-                    <ViewCell Tapped="TestedViewVellTapped">
+                    <ViewCell Tapped="TestedViewCellTapped">
                         <StackLayout
                             Margin="10"
                             Orientation="Horizontal">

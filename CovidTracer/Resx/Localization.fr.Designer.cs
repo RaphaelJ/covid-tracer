@@ -221,9 +221,9 @@ namespace CovidTracer.Resx {
             }
         }
         
-        public static string SignalingFormSymptomsOnset {
+        public static string SignalingFormSymptomOnset {
             get {
-                return ResourceManager.GetString("SignalingFormSymptomsOnset", resourceCulture);
+                return ResourceManager.GetString("SignalingFormSymptomOnset", resourceCulture);
             }
         }
         

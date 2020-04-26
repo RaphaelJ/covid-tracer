@@ -139,7 +139,7 @@
         <value>En remplissant ce formulaire, les utilisateurs de CovidTracer avec qui vous auriez pu interagir au cours de votre période infectueuse seront notifiés anonymement.</value>
     </data>
     
-    <data name="SignalingFormSymptomsOnset" xml:space="preserve">
+    <data name="SignalingFormSymptomOnset" xml:space="preserve">
         <value>Date d'apparition des premiers symptomes</value>
     </data>
     

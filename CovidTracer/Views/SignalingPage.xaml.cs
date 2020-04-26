@@ -18,15 +18,19 @@
 using System;
 using System.ComponentModel;
 
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 using CovidTracer.ViewModels;
+using System.Threading.Tasks;
 
 namespace CovidTracer.Views
 {
     [DesignTimeVisible(false)]
     public partial class SignalingPage : ContentPage
     {
+        const string SIGNALING_DONE_PREFERENCE_KEY = "signaling_done";
+
         public SignalingPage()
         {
             BindingContext = new SignalingViewModel();
@@ -34,7 +38,7 @@ namespace CovidTracer.Views
             InitializeComponent();
         }
 
-        void TestedViewVellTapped(object sender, EventArgs e)
+        void TestedViewCellTapped(object sender, EventArgs e)
         {
             var model = (SignalingViewModel)BindingContext;
             model.IsTested = !model.IsTested;
@@ -45,12 +49,51 @@ namespace CovidTracer.Views
             var button = (Button)sender;
             button.IsEnabled = false;
 
-            var model = (SignalingViewModel)BindingContext;
+            if (Preferences.Get(SIGNALING_DONE_PREFERENCE_KEY, false)) {
+                // Prevents the user to send two reports.
+                await DisplayAlert(
+                    Resx.Localization.SignalingFailureTitle,
+                    Resx.Localization.SignalingAlreadyDoneText,
+                    Resx.Localization.SignalingFailureContinue);
+            } else {
+                // Request user confirmation before submitting
+                bool confirm = await DisplayAlert(
+                    Resx.Localization.SignalingFormConfirmTitle,
+                    Resx.Localization.SignalingFormConfirmText,
+                    Resx.Localization.SignalingFormConfirmYes,
+                    Resx.Localization.SignalingFormConfirmNo);
 
-            var result = Services.RestService.Notify(
-                model.SymptomsOnset, model.IsTested, model.Comment);
+                if (confirm) {
+                    var vm = (SignalingViewModel)BindingContext;
 
-            Logger.Info(result.ToString());
+                    var result = await Services.RestService.Notify(
+                        vm.SymptomsOnset, vm.IsTested, vm.Comment);
+
+                    if (result.IsSuccessStatusCode) {
+                        await DisplayAlert(
+                            Resx.Localization.SignalingSuccessTitle,
+                            Resx.Localization.SignalingSuccessText,
+                            Resx.Localization.SignalingSuccessContinue);
+
+                        Logger.Info(
+                            $"Case signaling succeeded with status code " +
+                            $"'{result.StatusCode}'.");
+
+                        Preferences.Set(SIGNALING_DONE_PREFERENCE_KEY, true);
+
+                        await Navigation.PopAsync();
+                    } else {
+                        Logger.Error(
+                            $"Case signaling failed with status code " +
+                            $"'{result.StatusCode}'.");
+
+                        await DisplayAlert(
+                            Resx.Localization.SignalingFailureTitle,
+                            Resx.Localization.SignalingFailureText,
+                            Resx.Localization.SignalingFailureContinue);
+                    }
+                }
+            }
 
             button.IsEnabled = true;
         }

@@ -2,13 +2,15 @@
 
 CovidTracer is a heavily **decentralized** and **anonymous** contact tracing application designed for the ongoing COVID-19 pandemic.
 
-CovidTracer notifies users of any close contact with another user later diagnosed to COVID-19. 
+CovidTracer notifies users of any close contact with another user diagnosed to COVID-19. 
 
 ![Android](screenshots/screenshot-android.png) ![iOS](screenshots/screenshot-ios.png)
 
-CovidTracer uses Bluetooth and cryptographic techniques to protect user privacy. App users do not share personal data. GPS location is never recorded. CovidTracer is a free and open-source software (GPLv3).
+CovidTracer uses Bluetooth and cryptographic techniques to protect user privacy. App users do not share personal data. GPS location is never recorded.
 
 CovidTracer follows the [contact tracing recommendations](https://www.eff.org/deeplinks/2020/04/challenge-proximity-apps-covid-19-contact-tracing) of the Electronic Frontier Foundation.
+
+CovidTracer is a free and open-source software (GPLv3).
 
 ## Download and installation
 
@@ -16,7 +18,7 @@ Google and Apple are [currently not allowing](https://www.theverge.com/2020/3/5/
 
 On **Android**, an installable APK can be downloaded [here](releases/android/covidtracer.apk).
 
-On **iOS**, only registered Apple developpers can build, sign and install the app on their iPhones. This can be done by cloning this repository and by using [Visual Studio for macOS](https://visualstudio.microsoft.com/vs/mac/). Not all features are supported yet on iOS. 
+On **iOS**, only registered Apple developpers can build, sign and install the app on their iPhones. This can be done by cloning this repository and by using [Visual Studio for macOS](https://visualstudio.microsoft.com/vs/mac/). The iOS app does not support all features yet. 
 
 ## Frequently asked questions
 

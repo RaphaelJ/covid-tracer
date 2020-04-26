@@ -139,7 +139,7 @@
         <value>By completing this form, CovidTracer users with whom you may have interacted during your infectious period will be notified anonymously.</value>
     </data>
     
-    <data name="SignalingFormSymptomsOnset" xml:space="preserve">
+    <data name="SignalingFormSymptomOnset" xml:space="preserve">
         <value>Symptom onset</value>
     </data>
     
@@ -154,4 +154,48 @@
     <data name="SignalingFormSubmit" xml:space="preserve">
         <value>Submit</value>
     </data>
+    
+    <data name="SignalingFormConfirmTitle" xml:space="preserve">
+        <value>Continue?</value>
+    </data>
+        
+    <data name="SignalingFormConfirmText" xml:space="preserve">
+        <value>This operation can not be reverted.</value>
+    </data>
+        
+    <data name="SignalingFormConfirmYes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+        
+    <data name="SignalingFormConfirmNo" xml:space="preserve">
+        <value>No</value>
+    </data>
+    
+    <data name="SignalingSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    
+    <data name="SignalingSuccessText" xml:space="preserve">
+        <value>Your infection has been successfully reported.</value>
+    </data>
+    
+    <data name="SignalingSuccessContinue" xml:space="preserve">
+        <value>Continue</value>
+    </data>
+    
+    <data name="SignalingFailureTitle" xml:space="preserve">
+        <value>Failure</value>
+    </data>
+    
+    <data name="SignalingFailureText" xml:space="preserve">
+        <value>Operation failed, please try again later.</value>
+    </data>
+    
+    <data name="SignalingFailureContinue" xml:space="preserve">
+        <value>Continue</value>
+    </data>
+    
+    <data name="SignalingAlreadyDoneText" xml:space="preserve">
+        <value>Your infection has already been successfully signalled.</value>
+    </data>    
 </root>

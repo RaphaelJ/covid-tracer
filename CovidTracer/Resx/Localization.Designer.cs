@@ -221,9 +221,9 @@ namespace CovidTracer.Resx {
             }
         }
         
-        public static string SignalingFormSymptomsOnset {
+        public static string SignalingFormSymptomOnset {
             get {
-                return ResourceManager.GetString("SignalingFormSymptomsOnset", resourceCulture);
+                return ResourceManager.GetString("SignalingFormSymptomOnset", resourceCulture);
             }
         }
         
@@ -242,6 +242,72 @@ namespace CovidTracer.Resx {
         public static string SignalingFormSubmit {
             get {
                 return ResourceManager.GetString("SignalingFormSubmit", resourceCulture);
+            }
+        }
+        
+        public static string SignalingFormConfirmTitle {
+            get {
+                return ResourceManager.GetString("SignalingFormConfirmTitle", resourceCulture);
+            }
+        }
+        
+        public static string SignalingFormConfirmText {
+            get {
+                return ResourceManager.GetString("SignalingFormConfirmText", resourceCulture);
+            }
+        }
+        
+        public static string SignalingFormConfirmYes {
+            get {
+                return ResourceManager.GetString("SignalingFormConfirmYes", resourceCulture);
+            }
+        }
+        
+        public static string SignalingFormConfirmNo {
+            get {
+                return ResourceManager.GetString("SignalingFormConfirmNo", resourceCulture);
+            }
+        }
+        
+        public static string SignalingSuccessTitle {
+            get {
+                return ResourceManager.GetString("SignalingSuccessTitle", resourceCulture);
+            }
+        }
+        
+        public static string SignalingSuccessText {
+            get {
+                return ResourceManager.GetString("SignalingSuccessText", resourceCulture);
+            }
+        }
+        
+        public static string SignalingSuccessContinue {
+            get {
+                return ResourceManager.GetString("SignalingSuccessContinue", resourceCulture);
+            }
+        }
+        
+        public static string SignalingFailureTitle {
+            get {
+                return ResourceManager.GetString("SignalingFailureTitle", resourceCulture);
+            }
+        }
+        
+        public static string SignalingFailureText {
+            get {
+                return ResourceManager.GetString("SignalingFailureText", resourceCulture);
+            }
+        }
+        
+        public static string SignalingFailureContinue {
+            get {
+                return ResourceManager.GetString("SignalingFailureContinue", resourceCulture);
+            }
+        }
+        
+        public static string SignalingAlreadyDoneText {
+            get {
+                return ResourceManager.GetString("SignalingAlreadyDoneText", resourceCulture);
             }
         }
     }
