@@ -47,8 +47,6 @@ namespace CovidTracer.ViewModels
 
         public MainViewModel(ContactDatabase contacts)
         {
-            Title = "CovidTracer";
-
             OnInfectionStatusChange(this, contacts.CurrentInfectionStatus);
             contacts.CurrentInfectionStatusChange += OnInfectionStatusChange;
         }
@@ -60,24 +58,20 @@ namespace CovidTracer.ViewModels
 
             switch (newStatus) {
             case ContactDatabase.InfectionStatus.Safe:
-                StatusTitle = "Rien à signaler";
-                StatusText = "Aucune interaction avec une personne " +
-                             "infectée n'a été détectée.";
+                StatusTitle = Resx.Localization.MainStatusSafeTitle;
+                StatusText = Resx.Localization.MainStatusSafeText;
                 StatusTextColor = "#313a33";
                 StatusBackgroundColor = "#d4edda";
                 break;
             case ContactDatabase.InfectionStatus.Symptomatic:
-                StatusTitle = "Risque modéré";
-                StatusText = "Vous avez été en contact rapproché avec " +
-                             "un ou plusieurs cas suspectés d'infection " +
-                             "au COVID-19.";
+                StatusTitle = Resx.Localization.MainStatusSymptomaticTitle;
+                StatusText = Resx.Localization.MainStatusSymptomaticText;
                 StatusTextColor = "#856404";
                 StatusBackgroundColor = "#fff3cd";
                 break;
             case ContactDatabase.InfectionStatus.Positive:
-                StatusTitle = "Risque important";
-                StatusText = "Vous avez été en contact avec un ou plusieurs " +
-                             "cas COVID-19 déclarés.";
+                StatusTitle = Resx.Localization.MainStatusPositiveTitle;
+                StatusText = Resx.Localization.MainStatusPositiveText;
                 StatusTextColor = "#721c24";
                 StatusBackgroundColor = "#f8d7da";
                 break;

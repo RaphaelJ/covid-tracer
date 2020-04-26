@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CovidTracer.Views.MainPage">
+             x:Class="CovidTracer.Views.MainPage"
+             xmlns:resources="clr-namespace:CovidTracer.Resx"
+             Title="{x:Static resources:Localization.MainTitle}">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <Label HorizontalOptions="StartAndExpand"
                    VerticalTextAlignment="Center"
-                   Text="{Binding Title}"
+                   Text="{x:Static resources:Localization.MainTitle}"
                    FontSize="Title"
                    TextColor="White"/>
 
             <Button HorizontalOptions="End"
-                    Text="̀Informations"
+                    Text="{x:Static resources:Localization.MainAboutButton}"
                     TextColor="White"
                     BackgroundColor="Transparent"
                     Clicked="AboutClicked"/>
@@ -31,7 +33,8 @@
             BackgroundColor="{Binding StatusBackgroundColor}"
             Padding="15">
 
-            <StackLayout>
+            <StackLayout
+                HorizontalOptions="FillAndExpand">
                 <Label TextColor="{Binding StatusTextColor}"
                        FontAttributes="Bold"
                        FontSize="Body"
@@ -41,8 +44,7 @@
                        Text="{Binding StatusText}"/>
             </StackLayout>
 
-            <Button Text="Details"
-                    VerticalOptions="Center"
+            <Button Text="{x:Static resources:Localization.MainDetailsButton}"
                     Clicked="StatusDetailsClicked"/>
         </StackLayout>
 
@@ -54,7 +56,7 @@
 
         <Button
             VerticalOptions="EndAndExpand"
-            Text="Signaler mon infection au coronavirus"
+            Text="{x:Static resources:Localization.MainSignalingButton}"
             BackgroundColor="#E50058"
             TextColor="White"
             Clicked="SignalingClicked"/>
@@ -63,7 +65,7 @@
             VerticalOptions="EndAndExpand"
             HorizontalTextAlignment="Center"
             FontSize="Caption"
-            Text="CovidTracer respecte votre vie privée et ne transmet aucune donnée personelle sur Internet. Respectez autant que possible les mesures de distanciation sociale recommandées par votre gouvernement."
+            Text="{x:Static resources:Localization.MainPrivacyDetails}"
             />
     </StackLayout>
 </ContentPage>

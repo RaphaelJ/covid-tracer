@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CovidTracer.Views.SignalingPage"
-             Title="{Binding Title}">
+             xmlns:resources="clr-namespace:CovidTracer.Resx"
+             Title="{x:Static resources:Localization.SignalingTitle}">
 
     <StackLayout>
         <Label
@@ -11,8 +12,7 @@
             TextColor="#856404"
             BackgroundColor="#fff3cd"
             FontSize="Small"
-            Text="En remplissant ce formulaire, les utilisateurs de CovidTracer avec qui vous auriez pu interagir au cours de votre période infectueuse seront notifiés anonymement."
-            />
+            Text="{x:Static resources:Localization.SignalingNotice}"/>
 
         <TableView
             Intent="Form"
@@ -23,8 +23,7 @@
                         <StackLayout
                             Margin="10">
                             <Label
-                                Text="Date d'apparition des premiers symptomes"
-                                />
+                                Text="{x:Static resources:Localization.SignalingFormSymptomsOnset}"/>
 
                             <DatePicker
                                 MinimumDate="02/01/2020"
@@ -41,7 +40,7 @@
 
                             <Label
                                 VerticalTextAlignment="Center"
-                                Text="J'ai été testé positif au COVID-19"/>
+                                Text="{x:Static resources:Localization.SignalingFormIsTested}"/>
                         </StackLayout>
                     </ViewCell>
 
@@ -49,7 +48,7 @@
                         <StackLayout
                             Margin="10">
                             <Label
-                                Text="Commentaire (optionnel)"
+                                Text="{x:Static resources:Localization.SignalingFormComment}"
                                 />
 
                             <Editor
@@ -67,7 +66,7 @@
             Margin="0"
             BackgroundColor="#E50058"
             TextColor="White"
-            Text="Envoyer"
+            Text="{x:Static resources:Localization.SignalingFormSubmit}"
             Clicked="SendButtonClicked"/>
     </StackLayout>
 </ContentPage>

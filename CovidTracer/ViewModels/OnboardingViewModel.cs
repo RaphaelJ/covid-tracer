@@ -41,23 +41,15 @@ namespace CovidTracer.ViewModels
             Panes = new List<OnboardingPane> {
                 new OnboardingPane(
                     "bluetooth.png",
-                    "CovidTracer utilise la technologie Bluetooth pour vous " +
-                    "notifier anonymement des interactions que vous auriez " +
-                    "pu avoir avec des personnes infectées au coronavirus."
+                    Resx.Localization.OnboardingBluetooth
                 ),
                 new OnboardingPane(
                     "shield.png",
-                    "CovidTracer est totalement anonyme et ne collecte " +
-                    "ni vos données personelles, ni votre localisation. " +
-                    "CovidTracer respecte ainsi votre vie privée."
+                    Resx.Localization.OnboardingPrivacy
                 ),
                 new OnboardingPane(
                     "recommended_uses.png",
-                    "Pour une efficacité optimale, laissez l'application " +
-                    "ouverte ou en arrière plan lorsque vous interagissez " +
-                    "avec des personnes extérieures à votre foyer " +
-                    "(transports en commun, travail, supermarchés, sorties " +
-                    "extérieures ...)"
+                    Resx.Localization.OnboardingRecommendedUses
                 ),
             };
 

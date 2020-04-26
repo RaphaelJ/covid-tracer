@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    
+    <!-- About page -->
+    
+    <data name="AboutTitle" xml:space="preserve">
+        <value>Informations</value>
+    </data>
+    
+    <data name="AboutTracerKey" xml:space="preserve">
+        <value>Identifiant CovidTracer</value>
+    </data>
+    
+    <data name="AboutDetails" xml:space="preserve">
+        <value>Ce code unique vous identifie anonymement auprès des autres utilisateurs de l'application. Pour une efficacité optimale, laissez l'application ouverte ou en arrière plan lorsque vous interagissez avec des personnes extérieures à votre foyer.</value>
+    </data>
+        
+    <data name="AboutIcons" xml:space="preserve">
+        <value>Icones par Freepik de Flaticon.</value>
+    </data>
+    
+    <data name="AboutFreeSoftware" xml:space="preserve">
+        <value>CovidTracer est une application libre.</value>
+    </data>
+    
+    <!-- Details page -->
+    
+    <data name="DetailsTitle" xml:space="preserve">
+        <value>Détails</value>
+    </data>
+    
+    <data name="DetailsNoInteraction" xml:space="preserve">
+        <value>Aucune interaction à risque détectée.</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveTitle" xml:space="preserve">
+        <value>Interaction avec un cas positif</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveDetails" xml:space="preserve">
+        <value>Vous avez été à proximité d'une ou plusieurs personnes testées positive au nouveau coronavirus.</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticTitle" xml:space="preserve">
+        <value>Interaction suspecte</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticDetails" xml:space="preserve">
+        <value>Vous avez été à proximité d'une ou plusieurs personnes ayant des symptomes similaires au nouveau coronavirus.</value>
+    </data>
+    
+    <data name="DetailsInteractionHistoryDate" xml:space="preserve">
+        <value>Le {0} à {1}.</value>
+    </data>
+    
+    <!-- Main page -->
+    
+    <data name="MainTitle" xml:space="preserve">
+        <value>CovidTracer</value>
+    </data>
+    
+    <data name="MainAboutButton" xml:space="preserve">
+        <value>Informations</value>
+    </data>
+    
+    <data name="MainDetailsButton" xml:space="preserve">
+        <value>Détails</value>
+    </data>
+    
+    <data name="MainNotifyButton" xml:space="preserve">
+        <value>Signaler mon infection au coronavirus</value>
+    </data>
+    
+    <data name="MainPrivacyDetails" xml:space="preserve">
+        <value>CovidTracer respecte votre vie privée et ne transmet aucune donnée personelle sur Internet. Respectez autant que possible les mesures de distanciation sociale recommandées par votre gouvernement.</value>
+    </data>
+    
+    <data name="MainStatusSafeTitle" xml:space="preserve">
+        <value>Rien à signaler</value>
+    </data>
+    
+    <data name="MainStatusSafeText" xml:space="preserve">
+        <value>Aucune interaction avec une personne infectée n'a été détectée.</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticTitle" xml:space="preserve">
+        <value>Risque modéré</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticText" xml:space="preserve">
+        <value>Vous avez été en contact avec un ou plusieurs cas symptomatiques au COVID-19.</value>
+    </data>
+    
+    <data name="MainStatusPositiveTitle" xml:space="preserve">
+        <value>Risque important</value>
+    </data>
+    
+    <data name="MainStatusPositiveText" xml:space="preserve">
+        <value>Vous avez été en contact avec un ou plusieurs cas COVID-19.</value>
+    </data>
+    
+    <!-- Onboarding pages -->
+    
+    <data name="OnboardingContinue" xml:space="preserve">
+        <value>Continuer</value>
+    </data>
+    
+    <data name="OnboardingBluetooth" xml:space="preserve">
+        <value>CovidTracer utilise la technologie Bluetooth pour vous notifier anonymement des interactions que vous auriez pu avoir avec des personnes infectées au coronavirus.</value>
+    </data>
+    
+    <data name="OnboardingPrivacy" xml:space="preserve">
+        <value>CovidTracer est totalement anonyme et ne collecte ni vos données personelles, ni votre localisation. CovidTracer respecte ainsi votre vie privée.</value>
+    </data>
+    
+    <data name="OnboardingRecommendedUses" xml:space="preserve">
+        <value>Pour une efficacité optimale, laissez l'application ouverte ou en arrière plan lorsque vous interagissez avec des personnes extérieures à votre foyer (transports en commun, travail, supermarchés, sorties extérieures ...).</value>
+    </data>
+    
+    <!-- Signaling page -->
+    
+    <data name="SignalingTitle" xml:space="preserve">
+        <value>Me signaler</value>
+    </data>
+    
+    <data name="SignalingNotice" xml:space="preserve">
+        <value>En remplissant ce formulaire, les utilisateurs de CovidTracer avec qui vous auriez pu interagir au cours de votre période infectueuse seront notifiés anonymement.</value>
+    </data>
+    
+    <data name="SignalingFormSymptomsOnset" xml:space="preserve">
+        <value>Date d'apparition des premiers symptomes</value>
+    </data>
+    
+    <data name="SignalingFormIsTested" xml:space="preserve">
+        <value>J'ai été testé positif au SARS-CoV-2</value>
+    </data>
+    
+    <data name="SignalingFormComment" xml:space="preserve">
+        <value>Commentaire (optionnel)</value>
+    </data>
+    
+    <data name="SignalingFormSubmit" xml:space="preserve">
+        <value>Envoyer</value>
+    </data>
+</root>

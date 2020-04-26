@@ -26,10 +26,12 @@ namespace CovidTracer.ViewModels
                 foreach (var encounter in Encounters) {
                     var dt = encounter.AsDateTime().ToLocalTime();
 
-                    entries.Add(
-                        $"Le {dt.ToLongDateString()} à " +
-                        $"{dt.ToShortTimeString()}."
+                    var text = string.Format(
+                        Resx.Localization.DetailsInteractionHistoryDate,
+                        dt.ToLongDateString(), dt.ToShortTimeString()
                     );
+
+                    entries.Add(text);
                 }
 
                 return string.Join("<br>", entries);
@@ -78,8 +80,6 @@ namespace CovidTracer.ViewModels
 
         public DetailsViewModel(ContactDatabase contacts)
         {
-            Title = $"Details";
-
             OnMatchesChange(this, contacts.Matches);
             contacts.MatchesChange += OnMatchesChange;
         }
@@ -93,19 +93,18 @@ namespace CovidTracer.ViewModels
 
                 if (matches.Positives.Count > 0) {
                     items.Add(new ContactItem(
-                        "#f8d7da", "#721c24", "Interaction avec un cas positif",
-                        "Vous avez été à proximité d'une ou plusieurs " +
-                        "personnes testées positive au nouveau coronavirus.",
+                        "#f8d7da", "#721c24",
+                        Resx.Localization.DetailsInteractionPositiveTitle,
+                        Resx.Localization.DetailsInteractionPositiveDetails,
                         matches.Positives
                     ));
                 }
 
                 if (matches.Symptomatics.Count > 0) {
                     items.Add(new ContactItem(
-                        "#fff3cd", "#856404", "Interaction suspecte",
-                        "Vous avez été à proximité d'une ou plusieurs " +
-                        "personnes ayant des symptomes similaires au " +
-                        "nouveau coronavirus.",
+                        "#fff3cd", "#856404",
+                        Resx.Localization.DetailsInteractionSymptomaticTitle,
+                        Resx.Localization.DetailsInteractionSymptomaticDetails,
                         matches.Symptomatics
                     ));
                 }

@@ -27,4 +27,26 @@
   <ItemGroup>
     <Compile Remove="Views\AboutPage %28copy%29.xaml.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Resx\Localization.bak" />
+    <EmbeddedResource Remove="Resx\Localization.frbac" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resx\Localization.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resx\Localization.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resx\Localization.Designer.cs">
+      <DependentUpon>Localization.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resx\Localization.fr.Designer.cs">
+      <DependentUpon>Localization.fr.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

@@ -38,8 +38,6 @@ namespace CovidTracer.ViewModels
 
         public SignalingViewModel()
         {
-            Title = "Me signaler";
-
             CurrentDate = DateTime.Now;
 
             SymptomsOnset = CurrentDate;
