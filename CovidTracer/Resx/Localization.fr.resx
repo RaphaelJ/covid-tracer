@@ -79,7 +79,7 @@
         <value>Détails</value>
     </data>
     
-    <data name="MainNotifyButton" xml:space="preserve">
+    <data name="MainSignalingButton" xml:space="preserve">
         <value>Signaler mon infection au coronavirus</value>
     </data>
     

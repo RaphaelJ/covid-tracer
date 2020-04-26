@@ -137,9 +137,9 @@ namespace CovidTracer.Resx {
             }
         }
         
-        public static string MainNotifyButton {
+        public static string MainSignalingButton {
             get {
-                return ResourceManager.GetString("MainNotifyButton", resourceCulture);
+                return ResourceManager.GetString("MainSignalingButton", resourceCulture);
             }
         }
         
