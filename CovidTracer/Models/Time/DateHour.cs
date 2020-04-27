@@ -104,6 +104,11 @@ namespace CovidTracer.Models.Time
             }
         }
 
+        public override int GetHashCode()
+        {
+            return ToString().GetHashCode();
+        }
+
         public static bool operator ==(DateHour lhs, DateHour rhs)
         {
             return lhs.Equals(rhs);

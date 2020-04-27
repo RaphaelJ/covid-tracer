@@ -203,8 +203,6 @@ namespace CovidTracer.Services
                                 $"{lastScanDevices.Count} device(s) " +
                                 $"(of which {ignored} was/ere ignored)."
                             );
-
-                            lastScanDevices.Clear();
                         }
                     } else {
                         Logger.Warning("Bluetooth is OFF, skip scan");
@@ -212,6 +210,8 @@ namespace CovidTracer.Services
                 } catch (Exception e) {
                     Logger.Error(
                         $"BLE scan device exception: '{e.Message}'.");
+                    Logger.Error(e.StackTrace);
+                    Logger.Error(e.ToString());
                 }
 
                 Thread.Sleep(SCAN_REPEAT);

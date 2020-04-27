@@ -90,8 +90,6 @@ namespace CovidTracer.ViewModels
             set { SetProperty(ref items, value); }
         }
 
-        private readonly bool isDebug;
-
         public DetailsViewModel(ContactDatabase contacts)
         {
             OnMatchesChange(this, contacts.Matches);
