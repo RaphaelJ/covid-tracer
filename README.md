@@ -16,7 +16,7 @@ CovidTracer is a free and open-source software (GPLv3).
 
 Google and Apple are [currently not allowing](https://www.theverge.com/2020/3/5/21167102/apple-google-coronavirus-iphone-apps-android-misinformation-reject-ban) any coronavirus-related app that are not from recognized health organizations or governments on their stores. The app can still be installed using alternative channels:
 
-On **Android**, an installable APK can be downloaded [here](releases/android/covidtracer.apk).
+On **Android**, an installable APK can be downloaded [here](releases/android/covidtracer_0.1.apk).
 
 On **iOS**, only registered Apple developpers can build, sign and install the app on their iPhones. This can be done by cloning this repository and by using [Visual Studio for macOS](https://visualstudio.microsoft.com/vs/mac/). The iOS app does not support all features yet. 
 
