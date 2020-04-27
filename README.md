@@ -2,7 +2,7 @@
 
 CovidTracer is a heavily **decentralized** and **anonymous** contact tracing application designed for the ongoing COVID-19 pandemic.
 
-CovidTracer notifies users of any close contact with another user diagnosed to COVID-19. 
+CovidTracer notifies users of any close contact with other users diagnosed to COVID-19. 
 
 ![Android](screenshots/screenshot-android.png) ![iOS](screenshots/screenshot-ios.png)
 
@@ -23,7 +23,7 @@ On **iOS**, only registered Apple developpers can build, sign and install the ap
 ## Frequently asked questions
 
 - **What are the privacy features of CovidTracer?**
-CovidTracer uses cryptographic techniques similar to those used by e-commerce and crypto currencies. These provide an high degree of privacy that prevents anyone to safely associate your usage of the app with any of your personal data (location, names, illness...).
+CovidTracer uses cryptographic techniques similar to those used by e-commerce and crypto currencies. These provide an high degree of privacy that prevents anyone to associate the use of the app with any of your personal data (location, name...).
 
 - **When should I use CovidTracer?**
 For maximum efficiency, opens the app or let it run in background when you interact with people external to your household (transports, office, grocery stores, outdoor activities...).
@@ -38,9 +38,9 @@ Android app must [request the location permission](https://developer.android.com
 Un-installing the application from your smartphone will delete all data the app recorded. If you ever reported yourself as a positive case, some (anonymous) data associated to your infectious perdiod will still be availaible to other app users.
 
 - **I like the project, how can I help?** 
-I am developping the app as a side-project with few resources. I would very much welcome any help.
+I am developping the app as a personal side-project with few resources. I would very much welcome any help.
     - If you speak a foreign language, you can help by translating [one of the localization files](CovidTracer/Resx/);
-    - If you have some skills in computer science and/or cryptography, do not hesitate to read the technical details and to provide any feedback;
+    - If you have some skills in computer science and/or cryptography, do not hesitate to read the technical details and to provide feedback;
     - If you are a graphic and/or UX designer, you can help by improving some of the UI components of the application (onboarding, icons...);
     - Creating an anonymous and (moslty) distributed contact-tracing application is possible. Please pressure your local gouvernment to take privacy into account if they are developing their own contact tracing systems.
 
@@ -54,13 +54,13 @@ If the user ever reports her/himself as positive to SARS-CoV-2, the hourly-gener
 
 ### Details
 
-When the app is started for the first time, a [256 bits identifier is generated](CovidTracer/Models/Keys/TracerKey.cs#L54) using a cryptographic random number generator:
+When the app is started for the first time, a [256 bits key is generated](CovidTracer/Models/Keys/TracerKey.cs#L54) using a cryptographic random number generator:
 
     TracerKey = RNG()
 
-This identifier will not be shared with other app users but will be used to derivate daily and hourly identifiers.
+This key will not be shared with other app users but will be used to derivate daily and hourly keys.
 
-Every (UTC) day, [a new 256 bits identifier is derived](CovidTracer/Models/Keys/TracerKey.cs#L80) using a *SHA-256 HMAC* function, together with the current date as an ISO 8601 string:
+Every (UTC) day, [a new 256 bits key is derived](CovidTracer/Models/Keys/TracerKey.cs#L80) from the `TracerKey` using a *SHA-256 HMAC* function, together with the current date (as an ISO 8601 string):
 
     DailyKey = HMAC-SHA256(TracerKey, CurrentDate('YYYY-MM-DD'))
     
@@ -75,11 +75,11 @@ If a user reports her/himself positive to SARS-CoV-2, all the generated daily id
 Additional measures have been taken to increase privacy:
 
 - Contact tracing keys are automatically removed from the phone after 15 days;
-- Backend returns daily keys in alphabetical order, and only publishes them every 12 hours. This makes it harder to associate multiple daily keys with a single user (user tracking);
-- Backend does not publish daily keys of future dates, and the apps only match contacts that occured on the day associated with the key. This prevents user impersonification; 
+- The backend returns daily keys in alphabetical order, and only publishes them every 12 hours. This makes it harder to associate multiple daily keys with a single user;
+- The backend does not publish daily keys of future dates, and the apps only match contacts that occured on the day associated with the key. This prevents user impersonification; 
 - Bluetooth signal quality is used to evaluate proximity of nearby devices. The algorithm is calibrated to only record identifiers of devices located in the same room;
-- Backend implements strict rate-limiting on reporting;
+- The backend implements strict rate-limiting on reporting;
 - All communication with the backend is done over HTTPS;
-- Backend [is availaible](https://github.com/RaphaelJ/covid-tracer-backend) as a free and opensource software.
+- The backend [is availaible](https://github.com/RaphaelJ/covid-tracer-backend) as a free and opensource software.
 
-More advanced diagnostic and debugging information can be obtained in the application by tapping 10 times on the tracer key ID on the *About* page.
+More advanced diagnostic and debugging information can be obtained directly in the application by tapping 10 times on the tracer key ID on the *About* page.
