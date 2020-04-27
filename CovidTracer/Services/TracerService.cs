@@ -154,7 +154,8 @@ namespace CovidTracer.Services
                             var expirationDate = now
                                 .AddMilliseconds(-DISCOVERY_COOLDOWN);
                             var expired = cooldownDevices
-                                .Where(d => d.Value < expirationDate);
+                                .Where(d => d.Value < expirationDate)
+                                .ToList();
 
                             foreach (var d in expired) {
                                 cooldownDevices.Remove(d.Key);
@@ -210,8 +211,6 @@ namespace CovidTracer.Services
                 } catch (Exception e) {
                     Logger.Error(
                         $"BLE scan device exception: '{e.Message}'.");
-                    Logger.Error(e.StackTrace);
-                    Logger.Error(e.ToString());
                 }
 
                 Thread.Sleep(SCAN_REPEAT);
