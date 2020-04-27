@@ -31,6 +31,9 @@ For maximum efficiency, opens the app or let it run in background when you inter
 - **What to do when the app detects a high-risk contact?**
 Please inform your general practitioner as soon as possible about the high-risk contact the app detected. The app does not notify any health or governmental organization on positive match.
 
+- **Why is the Android application requesting access to my location?**
+Android app must [request the location permission](https://developer.android.com/guide/topics/connectivity/bluetooth#Permissions) to access some Bluetooth features, such as scanning. CovidTracer does not use or record your location.
+
 - **How can I remove any data recorded by the app?**
 Un-installing the application from your smartphone will delete all data the app recorded. If you ever reported yourself as a positive case, some (anonymous) data associated to your infectious perdiod will still be availaible to other app users.
 
