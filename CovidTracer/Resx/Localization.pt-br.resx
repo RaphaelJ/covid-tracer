@@ -24,17 +24,14 @@
     </data>
     
     <data name="AboutDetails" xml:space="preserve">
-        <value>This unique code identifies you to other CovidTracer users.</value>
         <value>Este código identifica você a outros usuários do CovidTracer.</value>
     </data>
         
     <data name="AboutIcons" xml:space="preserve">
-        <value>Icons by Freepik of Flaticon.</value>
         <value>Ícones por Freepik of Flaticon.</value>
     </data>
     
     <data name="AboutFreeSoftware" xml:space="preserve">
-        <value>CovidTracer is a free and opensource software.</value>
         <value>CovidTracer é um software grátis e opensource.</value>
     </data>
     
@@ -45,17 +42,14 @@
     </data>
     
     <data name="DetailsNoInteraction" xml:space="preserve">
-        <value>No dangerous interaction detected.</value>
         <value>Nenhuma interação perigosa detectada.</value>
     </data>
     
     <data name="DetailsInteractionPositiveTitle" xml:space="preserve">
-        <value>Interaction with a positive case</value>
         <value>Interação com um caso positico</value>
     </data>
     
     <data name="DetailsInteractionPositiveDetails" xml:space="preserve">
-        <value>You have been in close contact with one or several positive cases to the new coronavirus.</value>
         <value>Você esteve em contato próximo com um ou mais casos positivos do novo corona vírus.</value>
     </data>
     
