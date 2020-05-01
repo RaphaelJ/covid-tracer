@@ -16,7 +16,7 @@ CovidTracer is a free and open-source software (GPLv3).
 
 Google and Apple are [currently not allowing](https://www.theverge.com/2020/3/5/21167102/apple-google-coronavirus-iphone-apps-android-misinformation-reject-ban) any coronavirus-related app that are not from recognized health organizations or governments on their stores. The app can still be installed using alternative channels:
 
-On **Android**, an installable APK can be downloaded [here](releases/android/covidtracer_0.1.apk?raw=true).
+On **Android**, an installable APK can be downloaded [here](https://github.com/RaphaelJ/covid-tracer/releases/download/v0.1.1/covidtracer_0.1.1.apk).
 
 On **iOS**, only registered Apple developpers can build, sign and install the app on their iPhones. This can be done by cloning this repository and by using [Visual Studio for macOS](https://visualstudio.microsoft.com/vs/mac/). The iOS app does not support all features yet. 
 
@@ -83,3 +83,12 @@ Additional measures have been taken to increase privacy:
 - The backend [is availaible](https://github.com/RaphaelJ/covid-tracer-backend) as a free and opensource software.
 
 More advanced diagnostic and debugging information can be obtained directly in the application by tapping 10 times on the tracer key ID on the *About* page.
+
+## Special thanks
+
+These users provided the translation in the following languages:
+
+- Croatian/Hrvatski: [micimacahaca](https://old.reddit.com/user/micimacahaca);
+- Dutch: [vlammuh](https://www.reddit.com/user/vlammuh) and [bavoceulemans](https://github.com/bavoceulemans);
+- Brazilian/Portuguese: [Raphael Salomao](https://github.com/raphaelsalomao3);
+- Spanish: [Barraguesh](https://github.com/Barraguesh).
