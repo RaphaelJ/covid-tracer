@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+     
+    <!-- About page -->
+    
+    <data name="AboutTitle" xml:space="preserve">
+        <value>Sobre</value>
+    </data>
+    
+    <data name="AboutTracerKey" xml:space="preserve">
+        <value>CovidTracer ID</value>
+    </data>
+    
+    <data name="AboutDetails" xml:space="preserve">
+        <value>Este código identifica você a outros usuários do CovidTracer.</value>
+    </data>
+        
+    <data name="AboutIcons" xml:space="preserve">
+        <value>Ícones por Freepik of Flaticon.</value>
+    </data>
+    
+    <data name="AboutFreeSoftware" xml:space="preserve">
+        <value>CovidTracer é um software grátis e opensource.</value>
+    </data>
+    
+    <!-- Details page -->
+    
+    <data name="DetailsTitle" xml:space="preserve">
+        <value>Detalhes</value>
+    </data>
+    
+    <data name="DetailsNoInteraction" xml:space="preserve">
+        <value>Nenhuma interação perigosa detectada.</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveTitle" xml:space="preserve">
+        <value>Interação com um caso positico</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveDetails" xml:space="preserve">
+        <value>Você esteve em contato próximo com um ou mais casos positivos do novo corona vírus.</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticTitle" xml:space="preserve">
+        <value>Interação suspeita.</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticDetails" xml:space="preserve">
+        <value>Você esteve em contato próximo com uma ou mais pessoas com sintomas similares ao do novo corona vírus.</value>
+    </data>
+    
+    <data name="DetailsInteractionHistoryDate" xml:space="preserve">
+        <value>{0} at {1}.</value>
+    </data>
+    
+    <!-- Main page -->
+    
+    <data name="MainTitle" xml:space="preserve">
+        <value>CovidTracer</value>
+    </data>
+    
+    <data name="MainAboutButton" xml:space="preserve">
+        <value>Sobre</value>
+    </data>
+    
+    <data name="MainDetailsButton" xml:space="preserve">
+        <value>Detalhes</value>
+    </data>
+    
+    <data name="MainSignalingButton" xml:space="preserve">
+        <value>Reportar minha infecção de corona vírus</value>
+    </data>
+    
+    <data name="MainPrivacyDetails" xml:space="preserve">
+        <value>CovidTracer respeita sua privacidade e não transmite dados pessoais pela Internet. Respeite o máximo possível as medidas de distanciamento social recomendadas pelo seu governo local.</value>
+    </data>
+    
+    <data name="MainStatusSafeTitle" xml:space="preserve">
+        <value>All clear</value>
+        <value>Tudo seguro</value>
+    </data>
+    
+    <data name="MainStatusSafeText" xml:space="preserve">
+        <value>No interaction with a positive case detected.</value>
+        <value>Nenhuma interação com casos positivos detectada.</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticTitle" xml:space="preserve">
+        <value>Risco moderado.</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticText" xml:space="preserve">
+        <value>Você esteve em contato com um ou mais casos sintomáticos de COVID-19.</value>
+    </data>
+    
+    <data name="MainStatusPositiveTitle" xml:space="preserve">
+        <value>Alto risco</value>
+    </data>
+    
+    <data name="MainStatusPositiveText" xml:space="preserve">
+        <value>Você esteve em contato com um ou mais casos positivos de COVID-19.</value>
+    </data>
+    
+    <!-- Onboarding pages -->
+    
+    <data name="OnboardingContinue" xml:space="preserve">
+        <value>Continuar</value>
+    </data>
+    
+    <data name="OnboardingBluetooth" xml:space="preserve">
+        <value>CovidTracer usa Bluetooth para notificá-lo de qualquer contato que você possa ter tido com pessoas infectadas pelo corona vírus.</value>
+    </data>
+    
+    <data name="OnboardingPrivacy" xml:space="preserve">
+        <value>CovidTracer é totalmente anônimo e não coleta seus dados pessoais ou localização. CovidTracer respeita sua privacidade.</value>
+    </data>
+    
+    <data name="OnboardingRecommendedUses" xml:space="preserve">
+        <value>Para máxima eficiência, abra o aplicativo ou deixe rodando em plano de fundo quando você precisar interagir com pessoas externas à sua casa (transporte, escritório, mercado, atividades ao ar livre...).</value>
+    </data>
+    
+    <!-- Signaling page -->
+    
+    <data name="SignalingTitle" xml:space="preserve">
+        <value>Reportar</value>
+    </data>
+    
+    <data name="SignalingNotice" xml:space="preserve">
+        <value>Ao preencher este formulário, usuários do CovidTracer com quem você pode ter interagido durante seu período infeccioso serão notificados anonimamente.</value>
+    </data>
+    
+    <data name="SignalingFormSymptomOnset" xml:space="preserve">
+        <value>Início do sintoma</value>
+    </data>
+    
+    <data name="SignalingFormIsTested" xml:space="preserve">
+        <value>Eu testei positivo para o SARS-CoV-2.</value>
+    </data>
+    
+    <data name="SignalingFormComment" xml:space="preserve">
+        <value>Comentário (opcional)</value>
+    </data>
+    
+    <data name="SignalingFormSubmit" xml:space="preserve">
+        <value>Enviar</value>
+    </data>
+    
+    <data name="SignalingFormConfirmTitle" xml:space="preserve">
+        <value>Continuar?</value>
+    </data>
+        
+    <data name="SignalingFormConfirmText" xml:space="preserve">
+        <value>Esta operação não pode ser revertida.</value>
+    </data>
+        
+    <data name="SignalingFormConfirmYes" xml:space="preserve">
+        <value>Sim</value>
+    </data>
+        
+    <data name="SignalingFormConfirmNo" xml:space="preserve">
+        <value>Não</value>
+    </data>
+    
+    <data name="SignalingSuccessTitle" xml:space="preserve">
+        <value>Sucesso</value>
+    </data>
+    
+    <data name="SignalingSuccessText" xml:space="preserve">
+        <value>Sua infecção foi reportada com sucesso.</value>
+    </data>
+    
+    <data name="SignalingSuccessContinue" xml:space="preserve">
+        <value>Continuar</value>
+    </data>
+    
+    <data name="SignalingFailureTitle" xml:space="preserve">
+        <value>Falha</value>
+    </data>
+    
+    <data name="SignalingFailureText" xml:space="preserve">
+        <value>Operação falhou, por favor tente novamente mais tarde.</value>
+    </data>
+    
+    <data name="SignalingFailureContinue" xml:space="preserve">
+        <value>Continuar</value>
+    </data>
+    
+    <data name="SignalingAlreadyDoneText" xml:space="preserve">
+        <value>Your infection has already been successfully signalled.</value>
+        <value>Sua infecção já foi sinalizada com sucesso.</value>
+    </data>    
+</root>
