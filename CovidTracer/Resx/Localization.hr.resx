@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+     
+    <!-- About page -->
+    
+    <data name="AboutTitle" xml:space="preserve">
+        <value>O aplikaciji</value>
+    </data>
+    
+    <data name="AboutTracerKey" xml:space="preserve">
+        <value>CovidTracer ID</value>
+    </data>
+    
+    <data name="AboutDetails" xml:space="preserve">
+        <value>Ovaj jedinstveni kod identificira te s ostalim CovidTracer korisnicima.</value>
+    </data>
+        
+    <data name="AboutIcons" xml:space="preserve">
+        <value>Ikone izradio Freepik of Flaticon.</value>
+    </data>
+    
+    <data name="AboutFreeSoftware" xml:space="preserve">
+        <value>CovidTracer je besplatan i open source softver.</value>
+    </data>
+    
+    <!-- Details page -->
+    
+    <data name="DetailsTitle" xml:space="preserve">
+        <value>Detalji</value>
+    </data>
+    
+    <data name="DetailsNoInteraction" xml:space="preserve">
+        <value>Nije otkrivena opasna interakcija.</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveTitle" xml:space="preserve">
+        <value>Interakcija s pozitivnim slučajem</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveDetails" xml:space="preserve">
+        <value>Bili ste u bliskom kontaktu s jednim ili više pozitivnih slučajeva novog koronavirusa.</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticTitle" xml:space="preserve">
+        <value>Sumnjiva interakcija</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticDetails" xml:space="preserve">
+        <value>Bili ste u bliskom kontaktu s jednom ili više osoba sa simptomima sličnim onima novog koronavirusa.</value>
+    </data>
+    
+    <data name="DetailsInteractionHistoryDate" xml:space="preserve">
+        <value>{0} na {1}.</value>
+    </data>
+    
+    <!-- Main page -->
+    
+    <data name="MainTitle" xml:space="preserve">
+        <value>CovidTracer</value>
+    </data>
+    
+    <data name="MainAboutButton" xml:space="preserve">
+        <value>O aplikaciji</value>
+    </data>
+    
+    <data name="MainDetailsButton" xml:space="preserve">
+        <value>Detalji</value>
+    </data>
+    
+    <data name="MainSignalingButton" xml:space="preserve">
+        <value>Prijavite moju infekciju koronavirusom</value>
+    </data>
+    
+    <data name="MainPrivacyDetails" xml:space="preserve">
+        <value>CovidTracer poštuje vašu privatnost i ne prenosi osobne podatke putem interneta. Poštujte što više mjera socijalnog distanciranja koje preporučuje vaša lokalna uprava.</value>
+    </data>
+    
+    <data name="MainStatusSafeTitle" xml:space="preserve">
+        <value>Sve čisto</value>
+    </data>
+    
+    <data name="MainStatusSafeText" xml:space="preserve">
+        <value>Nije otkrivena interakcija s pozitivnim slučajem.</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticTitle" xml:space="preserve">
+        <value>Umjereni rizik</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticText" xml:space="preserve">
+        <value>Bili ste u kontaktu s jednim ili više simptomatskih slučajeva sličnih COVID-19.</value>
+    </data>
+    
+    <data name="MainStatusPositiveTitle" xml:space="preserve">
+        <value>Visok rizik</value>
+    </data>
+    
+    <data name="MainStatusPositiveText" xml:space="preserve">
+        <value>Bili ste u kontaktu s jednim ili više pozitivnih slučajeva na COVID-19.</value>
+    </data>
+    
+    <!-- Onboarding pages -->
+    
+    <data name="OnboardingContinue" xml:space="preserve">
+        <value>Nastavi</value>
+    </data>
+    
+    <data name="OnboardingBluetooth" xml:space="preserve">
+        <value>CovidTracer koristi Bluetooth kako bi vas anonimno obavijestio o bilo kojem kontaktu koji ste imali s osobama zaraženim coronavirusom.</value>
+    </data>
+    
+    <data name="OnboardingPrivacy" xml:space="preserve">
+        <value>CovidTracer je potpuno anoniman i ne prikuplja vaše osobne podatke ili lokaciju. CovidTracer poštuje vašu privatnost.</value>
+    </data>
+    
+    <data name="OnboardingRecommendedUses" xml:space="preserve">
+        <value>Za maksimalnu učinkovitost, otvorite aplikaciju ili pustite da radi u pozadini kada komunicirate s ljudima izvan vašeg domaćinstva (kod prijevoza, u uredu, u trgovini prehrambenih proizvoda, kod aktivnosti na otvorenom ...).</value>
+    </data>
+    
+    <!-- Signaling page -->
+    
+    <data name="SignalingTitle" xml:space="preserve">
+        <value>Prijavi</value>
+    </data>
+    
+    <data name="SignalingNotice" xml:space="preserve">
+        <value>Ispunjavanjem ovog obrasca anonimno će se obavijestiti korisnici CovidTracera s kojima ste mogli komunicirati tijekom zaraznog razdoblja.</value>
+    </data>
+    
+    <data name="SignalingFormSymptomOnset" xml:space="preserve">
+        <value>Pojava simptoma</value>
+    </data>
+    
+    <data name="SignalingFormIsTested" xml:space="preserve">
+        <value>Testiran/a sam pozitivno na SARS-CoV-2.</value>
+    </data>
+    
+    <data name="SignalingFormComment" xml:space="preserve">
+        <value>Komentar (neobavezno)</value>
+    </data>
+    
+    <data name="SignalingFormSubmit" xml:space="preserve">
+        <value>Pošalji</value>
+    </data>
+    
+    <data name="SignalingFormConfirmTitle" xml:space="preserve">
+        <value>Nastavi?</value>
+    </data>
+        
+    <data name="SignalingFormConfirmText" xml:space="preserve">
+        <value>Ovu operaciju nije moguće vratiti.</value>
+    </data>
+        
+    <data name="SignalingFormConfirmYes" xml:space="preserve">
+        <value>Da</value>
+    </data>
+        
+    <data name="SignalingFormConfirmNo" xml:space="preserve">
+        <value>Ne</value>
+    </data>
+    
+    <data name="SignalingSuccessTitle" xml:space="preserve">
+        <value>Uspjeh</value>
+    </data>
+    
+    <data name="SignalingSuccessText" xml:space="preserve">
+        <value>Vaša infekcija je uspješno prijavljena.</value>
+    </data>
+    
+    <data name="SignalingSuccessContinue" xml:space="preserve">
+        <value>Nastavi</value>
+    </data>
+    
+    <data name="SignalingFailureTitle" xml:space="preserve">
+        <value>Neuspjeh</value>
+    </data>
+    
+    <data name="SignalingFailureText" xml:space="preserve">
+        <value>Operacija nije uspjela. Pokušajte ponovo kasnije.</value>
+    </data>
+    
+    <data name="SignalingFailureContinue" xml:space="preserve">
+        <value>Nastavi</value>
+    </data>
+    
+    <data name="SignalingAlreadyDoneText" xml:space="preserve">
+        <value>Vaša infekcija već je uspješno prijavljena.</value>
+    </data>    
+</root>

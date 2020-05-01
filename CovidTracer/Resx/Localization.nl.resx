@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+     
+    <!-- About page -->
+    
+    <data name="AboutTitle" xml:space="preserve">
+        <value>Over</value>
+    </data>
+    
+    <data name="AboutTracerKey" xml:space="preserve">
+        <value>CovidTracer ID</value>
+    </data>
+    
+    <data name="AboutDetails" xml:space="preserve">
+        <value>Deze unieke code identificeert u met andere CovidTracer-gebruikers.</value>
+    </data>
+        
+    <data name="AboutIcons" xml:space="preserve">
+        <value>Icons door Freepik van Flaticon.</value>
+    </data>
+    
+    <data name="AboutFreeSoftware" xml:space="preserve">
+        <value>CovidTracer is opensource software.</value>
+    </data>
+    
+    <!-- Details page -->
+    
+    <data name="DetailsTitle" xml:space="preserve">
+        <value>Details</value>
+    </data>
+    
+    <data name="DetailsNoInteraction" xml:space="preserve">
+        <value>Geen gevaarlijk contact gedetecteerd.</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveTitle" xml:space="preserve">
+        <value>Contact met een positief geval</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveDetails" xml:space="preserve">
+        <value>U bent in nauw contact geweest met een of meerdere personen die positief hebben getest op het coronavirus</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticTitle" xml:space="preserve">
+        <value>Verdachte interactie</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticDetails" xml:space="preserve">
+        <value>U bent in nauw contact geweest met een of meerdere personen die symptomen vertonen die gelijkaardig zijn aan die van het coronavirus.</value>
+    </data>
+    
+    <data name="DetailsInteractionHistoryDate" xml:space="preserve">
+        <value>{0} om {1}.</value>
+    </data>
+    
+    <!-- Main page -->
+    
+    <data name="MainTitle" xml:space="preserve">
+        <value>CovidTracer</value>
+    </data>
+    
+    <data name="MainAboutButton" xml:space="preserve">
+        <value>Over</value>
+    </data>
+    
+    <data name="MainDetailsButton" xml:space="preserve">
+        <value>Details</value>
+    </data>
+    
+    <data name="MainSignalingButton" xml:space="preserve">
+        <value>Mijn coronabesmetting melden</value>
+    </data>
+    
+    <data name="MainPrivacyDetails" xml:space="preserve">
+        <value>CovidTracer respecteert je privacy en stuurt geen persoonlijke gegevens door over het internet. Respecteer zelf de social distincing normen en volg het advies op van je locale overheden.</value>
+    </data>
+    
+    <data name="MainStatusSafeTitle" xml:space="preserve">
+        <value>Alles ok</value>
+    </data>
+    
+    <data name="MainStatusSafeText" xml:space="preserve">
+        <value>Geen interactie met een positief geval gevonden.</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticTitle" xml:space="preserve">
+        <value>Gemiddeld risico</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticText" xml:space="preserve">
+        <value>Je bent in contact gekomen met mogelijks besmette personen</value>
+    </data>
+    
+    <data name="MainStatusPositiveTitle" xml:space="preserve">
+        <value>Hoog risico</value>
+    </data>
+    
+    <data name="MainStatusPositiveText" xml:space="preserve">
+        <value>Je bent in contact gekomen met bevestigde gevallen</value>
+    </data>
+    
+    <!-- Onboarding pages -->
+    
+    <data name="OnboardingContinue" xml:space="preserve">
+        <value>Ga verder</value>
+    </data>
+    
+    <data name="OnboardingBluetooth" xml:space="preserve">
+        <value>CovidTracer gebruikt Bluetooth om je anoniem te waarschuwen als je mogelijks contact hebt gehad met een drager van het nieuwe Coronavirus.</value>
+    </data>
+    
+    <data name="OnboardingPrivacy" xml:space="preserve">
+        <value>CovidTracer is volledig anoniem en verzameld geen persoonlijke- en/of locatiegegevens. CovidTracer respecteert je privacy.</value>
+    </data>
+    
+    <data name="OnboardingRecommendedUses" xml:space="preserve">
+        <value>Om een maximale werking te garanderen open je best de app (of laat je hem in de achtergrond opstaan) wanneer je interacties hebt met niet-huisgenoten zoals op openbaar vervoer, kantoor, winkels, openbare activiteiten...</value>
+    </data>
+    
+    <!-- Signaling page -->
+    
+    <data name="SignalingTitle" xml:space="preserve">
+        <value>Melden</value>
+    </data>
+    
+    <data name="SignalingNotice" xml:space="preserve">
+        <value>Door dit formulier in te vullen zal CovidTracer andere gebruikers waarmee je recent in contact bent gekomen anoniem waarschuwen.</value>
+    </data>
+    
+    <data name="SignalingFormSymptomOnset" xml:space="preserve">
+        <value>Eerste symptomen</value>
+    </data>
+    
+    <data name="SignalingFormIsTested" xml:space="preserve">
+        <value>Ik ben positief getest op SARS-CoV-2.</value>
+    </data>
+    
+    <data name="SignalingFormComment" xml:space="preserve">
+        <value>Opmerking (optioneel)</value>
+    </data>
+    
+    <data name="SignalingFormSubmit" xml:space="preserve">
+        <value>Verzenden</value>
+    </data>
+    
+    <data name="SignalingFormConfirmTitle" xml:space="preserve">
+        <value>Verder gaan?</value>
+    </data>
+        
+    <data name="SignalingFormConfirmText" xml:space="preserve">
+        <value>De actie kan niet ongedaan gemaakt worden</value>
+    </data>
+        
+    <data name="SignalingFormConfirmYes" xml:space="preserve">
+        <value>Ja</value>
+    </data>
+        
+    <data name="SignalingFormConfirmNo" xml:space="preserve">
+        <value>Nee</value>
+    </data>
+    
+    <data name="SignalingSuccessTitle" xml:space="preserve">
+        <value>Succes</value>
+    </data>
+    
+    <data name="SignalingSuccessText" xml:space="preserve">
+        <value>Je besmetting is succesvol anoniem doorgegeven aan andere gebruikers.</value>
+    </data>
+    
+    <data name="SignalingSuccessContinue" xml:space="preserve">
+        <value>Doorgaan</value>
+    </data>
+    
+    <data name="SignalingFailureTitle" xml:space="preserve">
+        <value>Fout</value>
+    </data>
+    
+    <data name="SignalingFailureText" xml:space="preserve">
+        <value>Er ging iets fout. Probeer het later nog eens aub.</value>
+    </data>
+    
+    <data name="SignalingFailureContinue" xml:space="preserve">
+        <value>Doorgaan</value>
+    </data>
+    
+    <data name="SignalingAlreadyDoneText" xml:space="preserve">
+        <value>Je besmetting is al anoniem doorgegeven aan andere gebruikers.</value>
+    </data>    
+</root>
