@@ -88,12 +88,10 @@
     </data>
     
     <data name="MainStatusSafeTitle" xml:space="preserve">
-        <value>All clear</value>
         <value>Tudo seguro</value>
     </data>
     
     <data name="MainStatusSafeText" xml:space="preserve">
-        <value>No interaction with a positive case detected.</value>
         <value>Nenhuma interação com casos positivos detectada.</value>
     </data>
     
@@ -198,7 +196,6 @@
     </data>
     
     <data name="SignalingAlreadyDoneText" xml:space="preserve">
-        <value>Your infection has already been successfully signalled.</value>
         <value>Sua infecção já foi sinalizada com sucesso.</value>
     </data>    
 </root>
