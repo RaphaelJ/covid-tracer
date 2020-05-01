@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+     
+    <!-- About page -->
+
+    <data name="AboutTitle" xml:space="preserve">
+        <value>Acerca de</value>
+    </data>
+
+    <!-- This is the order it should be in Spanish, even tho in a way it's in English, but makes sense for any Spanish user -->
+    <data name="AboutTracerKey" xml:space="preserve">
+        <value>ID CovidTracer</value>
+    </data>
+
+    <data name="AboutDetails" xml:space="preserve">
+        <value>Este código único te identifica con otros usuarios de CovidTracer.</value>
+    </data>
+        
+    <data name="AboutIcons" xml:space="preserve">
+        <value>Iconos de Freepik en Flaticon.</value>
+    </data>
+
+    <data name="AboutFreeSoftware" xml:space="preserve">
+        <value>CovidTracer es software gratuito y opensource.</value>
+    </data>
+
+    <!-- Details page -->
+
+    <data name="DetailsTitle" xml:space="preserve">
+        <value>Detalles</value>
+    </data>
+
+    <data name="DetailsNoInteraction" xml:space="preserve">
+        <value>No se ha detectado ninguna interacción de riesgo.</value>
+    </data>
+
+    <!-- I can't overlook that this phrase in English didn't have a final full stop, added one just in case -->
+    <data name="DetailsInteractionPositiveTitle" xml:space="preserve">
+        <value>Interacción con un positivo.</value>
+    </data>
+
+    <!-- Doesn't make much sense in Spanish at least to say "to the new coronavirus" so it just says "coronavirus" -->
+    <data name="DetailsInteractionPositiveDetails" xml:space="preserve">
+        <value>Has estado en contacto cercano con uno o más casos positivos de coronavirus.</value>
+    </data>
+
+    <!-- I can't overlook that this phrase in English didn't have a final full stop, added one just in case -->
+    <data name="DetailsInteractionSymptomaticTitle" xml:space="preserve">
+        <value>Interaccion sospechosa.</value>
+    </data>
+
+    <!-- Doesn't make much sense in Spanish at least to say "to the new coronavirus" so it just says "coronavirus" -->
+    <data name="DetailsInteractionSymptomaticDetails" xml:space="preserve">
+        <value>Has estado en contacto cercano con una o varias personas con síntomas parecidos a los del coronavirus.</value>
+    </data>
+    
+    <data name="DetailsInteractionHistoryDate" xml:space="preserve">
+        <value>{0} a las {1}.</value>
+    </data>
+
+    <!-- Main page -->
+
+    <data name="MainTitle" xml:space="preserve">
+        <value>CovidTracer</value>
+    </data>
+
+    <data name="MainAboutButton" xml:space="preserve">
+        <value>Acerca de</value>
+    </data>
+
+    <data name="MainDetailsButton" xml:space="preserve">
+        <value>Detalles</value>
+    </data>
+
+    <data name="MainSignalingButton" xml:space="preserve">
+        <value>Reportar mi infección de coronavirus</value>
+    </data>
+
+    <data name="MainPrivacyDetails" xml:space="preserve">
+        <value>CovidTracer respeta tu privacidad y no transmite datos personales por Internet. Respeta tanto como te sea posible la distancia de seguridad recomendada por tu gobierno local.</value>
+    </data>
+
+    <data name="MainStatusSafeTitle" xml:space="preserve">
+        <value>Todo correcto</value>
+    </data>
+
+    <data name="MainStatusSafeText" xml:space="preserve">
+        <value>No se ha detectado una interaccion con un caso positivo.</value>
+    </data>
+
+    <data name="MainStatusSymptomaticTitle" xml:space="preserve">
+        <value>Riesgo moderado</value>
+    </data>
+
+    <data name="MainStatusSymptomaticText" xml:space="preserve">
+        <value>Has estado en contacto con uno o varios casos sintomáticos a COVID-19.</value>
+    </data>
+
+    <data name="MainStatusPositiveTitle" xml:space="preserve">
+        <value>High risk</value>
+    </data>
+
+    <data name="MainStatusPositiveText" xml:space="preserve">
+        <value>YHas estado en contacto con uno o varios casos positivos de COVID-19.</value>
+    </data>
+
+    <!-- Onboarding pages -->
+
+    <data name="OnboardingContinue" xml:space="preserve">
+        <value>Continuar</value>
+    </data>
+
+    <data name="OnboardingBluetooth" xml:space="preserve">
+        <value>CovidTracer usa Bluetooth para notificarte anónimamente de cualquier contacto que hayas podido tener con personas infectadas con coronavirus.</value>
+    </data>
+
+    <data name="OnboardingPrivacy" xml:space="preserve">
+        <value>CovidTracer es totalmente anónimo y no almacena tu información personal o localización. CovidTracer respeta tu privacidad.</value>
+    </data>
+    
+    <data name="OnboardingRecommendedUses" xml:space="preserve">
+        <value>Para una máxima eficacia, abre la app o déjala en segundo plano mientras interactúas con personas de fuera de tu casa (transportes, oficina, supermercados, actividades de exterior...).</value>
+    </data>
+
+    <!-- Signaling page -->
+
+    <data name="SignalingTitle" xml:space="preserve">
+        <value>Reporte</value>
+    </data>
+
+    <data name="SignalingNotice" xml:space="preserve">
+        <value>Al rellenar este formulario, los usuarios de CovidTracer con los que hayas podido interactuar durante tu periodo infeccioso serán notificados anónimamente.</value>
+    </data>
+
+    <data name="SignalingFormSymptomOnset" xml:space="preserve">
+        <value>Inicio de los síntomas</value>
+    </data>
+
+    <data name="SignalingFormIsTested" xml:space="preserve">
+        <value>He dado positivo en el test de SARS-CoV-2.</value>
+    </data>
+
+    <data name="SignalingFormComment" xml:space="preserve">
+        <value>Comentario (opcional)</value>
+    </data>
+
+    <data name="SignalingFormSubmit" xml:space="preserve">
+        <value>Enviar</value>
+    </data>
+
+    <data name="SignalingFormConfirmTitle" xml:space="preserve">
+        <value>¿Continuar?</value>
+    </data>
+        
+    <data name="SignalingFormConfirmText" xml:space="preserve">
+        <value>Esta operación no podrá ser revertida.</value>
+    </data>
+        
+    <data name="SignalingFormConfirmYes" xml:space="preserve">
+        <value>Si</value>
+    </data>
+        
+    <data name="SignalingFormConfirmNo" xml:space="preserve">
+        <value>No</value>
+    </data>
+
+    <!-- Completed is what makes more sense, success by itself means little in Spanish -->
+    <data name="SignalingSuccessTitle" xml:space="preserve">
+        <value>Completado</value>
+    </data>
+
+    <data name="SignalingSuccessText" xml:space="preserve">
+        <value>Tu infección ha sido notificada anónimamente.</value>
+    </data>
+
+    <data name="SignalingSuccessContinue" xml:space="preserve">
+        <value>Continuar</value>
+    </data>
+
+    <!-- Error would make more sense in Spanish, but if you want to stick to literal Failled it's "Fallo" -->
+    <data name="SignalingFailureTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+
+    <data name="SignalingFailureText" xml:space="preserve">
+        <value>Operación fallida, por favor, inténtalo de nuevo más tarde.</value>
+    </data>
+
+    <data name="SignalingFailureContinue" xml:space="preserve">
+        <value>Continuar</value>
+    </data>
+
+    <data name="SignalingAlreadyDoneText" xml:space="preserve">
+        <value>Tu infección ha sido señalada con éxito.</value>
+    </data>
+</root>

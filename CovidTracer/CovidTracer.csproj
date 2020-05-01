@@ -40,6 +40,22 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Localization.fr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resx\Localization.pt.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.pt.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resx\Localization.hr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.hr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resx\Localization.nl.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.nl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resx\Localization.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resx\Localization.Designer.cs">
@@ -47,6 +63,18 @@
     </Compile>
     <Compile Update="Resx\Localization.fr.Designer.cs">
       <DependentUpon>Localization.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resx\Localization.pt.Designer.cs">
+      <DependentUpon>Localization.pt.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resx\Localization.hr.Designer.cs">
+      <DependentUpon>Localization.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resx\Localization.nl.Designer.cs">
+      <DependentUpon>Localization.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resx\Localization.es.Designer.cs">
+      <DependentUpon>Localization.es.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
