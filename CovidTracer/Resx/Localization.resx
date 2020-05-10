@@ -32,7 +32,7 @@
     </data>
     
     <data name="AboutFreeSoftware" xml:space="preserve">
-        <value>CovidTracer is a free and opensource software.</value>
+        <value>CovidTracer is a free and open-source software.</value>
     </data>
     
     <!-- Details page -->
@@ -84,7 +84,7 @@
     </data>
     
     <data name="MainPrivacyDetails" xml:space="preserve">
-        <value>CovidTracer respects your privacy and does not transmit personal data over the Internet. Respect as much as possible social distancing measures recommended by your local gouvernment.</value>
+        <value>CovidTracer respects your privacy and does not transmit personal data over the Internet. Respect as much as possible social distancing measures recommended by your local government.</value>
     </data>
     
     <data name="MainStatusSafeTitle" xml:space="preserve">
