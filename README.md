@@ -92,4 +92,4 @@ These users provided the translation in the following languages:
 - Dutch: [vlammuh](https://www.reddit.com/user/vlammuh) and [bavoceulemans](https://github.com/bavoceulemans);
 - Brazilian/Portuguese: [Raphael Salomao](https://github.com/raphaelsalomao3);
 - Spanish: [Barraguesh](https://github.com/Barraguesh).
-- Estonian: [jtagcat](https://github.com/jtagcat) and an anonymous teacher.
+- Estonian: [jtagcat](https://github.com/jtagcat), [mahfiaz](https://github.com/mahfiaz) and an anonymous teacher.

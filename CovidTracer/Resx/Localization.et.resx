@@ -32,7 +32,7 @@
     </data>
     
     <data name="AboutFreeSoftware" xml:space="preserve">
-        <value>Koroonajälgija on vaba lähtekoodtarkvara.</value>
+        <value>Koroonajälgija on vaba avatud lähtekoodiga tarkvara.</value>
     </data>
     
     <!-- Details page -->
@@ -42,7 +42,7 @@
     </data>
     
     <data name="DetailsNoInteraction" xml:space="preserve">
-        <value>Ohtlikke kokkupuuteid ei ole tuvastatud. No dangerous interaction detected.</value>
+        <value>Ohtlikke kokkupuuteid ei ole tuvastatud.</value>
     </data>
     
     <data name="DetailsInteractionPositiveTitle" xml:space="preserve">
@@ -54,7 +54,7 @@
     </data>
     
     <data name="DetailsInteractionSymptomaticTitle" xml:space="preserve">
-        <value>Kahtlane kokkupuude | Suspicious interaction</value>
+        <value>Kahtlane kokkupuude</value>
     </data>
     
     <data name="DetailsInteractionSymptomaticDetails" xml:space="preserve">
@@ -126,7 +126,7 @@
     </data>
     
     <data name="OnboardingRecommendedUses" xml:space="preserve">
-        <value>Parimaks töövõimeks avage äpp ning jäta taustal lahti, eriti kui puutute kokku teiste isikutega (autos, ühistranspordis, poes, õues, tööl ja mujal).</value>
+        <value>Äpi parimaks toimiseks avage see ning jätke taustal lahti, eriti kui puutute kokku teiste isikutega (autos, ühistranspordis, poes, õues, tööl ja mujal).</value>
     </data>
     
     <!-- Signaling page -->
@@ -168,7 +168,7 @@
     </data>
         
     <data name="SignalingFormConfirmNo" xml:space="preserve">
-        <value>No</value>
+        <value>Ei</value>
     </data>
     
     <data name="SignalingSuccessTitle" xml:space="preserve">
@@ -176,7 +176,7 @@
     </data>
     
     <data name="SignalingSuccessText" xml:space="preserve">
-        <value>Esitatud informatsiooun on edukalt saadetud. Täname!</value>
+        <value>Esitatud informatsioon on edukalt saadetud. Täname!</value>
     </data>
     
     <data name="SignalingSuccessContinue" xml:space="preserve">
