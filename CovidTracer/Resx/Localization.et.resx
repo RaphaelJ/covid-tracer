@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+     
+    <!-- About page -->
+    
+    <data name="AboutTitle" xml:space="preserve">
+        <value>Teave</value>
+    </data>
+    
+    <data name="AboutTracerKey" xml:space="preserve">
+        <value>Koroonajälgija ID</value>
+    </data>
+    
+    <data name="AboutDetails" xml:space="preserve">
+        <value>See unikaalne kood tuvastab teid teistele Koroonajälgija kasutajatele.</value>
+    </data>
+        
+    <data name="AboutIcons" xml:space="preserve">
+        <value>Ikoonid Freepik'ilt ja Flaticon'ilt.</value>
+    </data>
+    
+    <data name="AboutFreeSoftware" xml:space="preserve">
+        <value>Koroonajälgija on vaba lähtekoodtarkvara.</value>
+    </data>
+    
+    <!-- Details page -->
+    
+    <data name="DetailsTitle" xml:space="preserve">
+        <value>Üksikasjad</value>
+    </data>
+    
+    <data name="DetailsNoInteraction" xml:space="preserve">
+        <value>Ohtlikke kokkupuuteid ei ole tuvastatud. No dangerous interaction detected.</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveTitle" xml:space="preserve">
+        <value>Kokkupuude kinnitatud haigusjuhtumiga</value>
+    </data>
+    
+    <data name="DetailsInteractionPositiveDetails" xml:space="preserve">
+        <value>Te olete lähedalt kokku puutunud ühe või mitme kinnitatud COVID-19 nakatanuga. Palun helistage kohe perearstile või 1247! Püsige kodus ja vältige kontakti teiste inimestega!</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticTitle" xml:space="preserve">
+        <value>Kahtlane kokkupuude | Suspicious interaction</value>
+    </data>
+    
+    <data name="DetailsInteractionSymptomaticDetails" xml:space="preserve">
+        <value>Te olete lähdalt kokku puutunud ühe või mitme COVID-19 sümptomitega isikuga. Püsige kodus ja vältige kontakti! Rohkem infot: kriis.ee ja 1247</value>
+    </data>
+    
+    <data name="DetailsInteractionHistoryDate" xml:space="preserve">
+        <value>{0} kell {1}.</value>
+    </data>
+    
+    <!-- Main page -->
+    
+    <data name="MainTitle" xml:space="preserve">
+        <value>Koroonajälgija</value>
+    </data>
+    
+    <data name="MainAboutButton" xml:space="preserve">
+        <value>Teave</value>
+    </data>
+    
+    <data name="MainDetailsButton" xml:space="preserve">
+        <value>Üksikasjad</value>
+    </data>
+    
+    <data name="MainSignalingButton" xml:space="preserve">
+        <value>Teavita enda nakatumisest</value>
+    </data>
+    
+    <data name="MainPrivacyDetails" xml:space="preserve">
+        <value>Koroonajälgija peab lugu teie privaatsusest ning ei edasta teie isiklikke andmeid. Pidage kinni eriolukorra reeglitest! Eriolukorra ajal tohib avalikus kohas viibida üksi või kahekesi, teistest olge 2 meetri kaugusel. Püsige kodus ja vältige kontakti teiste inimestega! Rohkem infot: kriis.ee ja 1247</value>
+    </data>
+    
+    <data name="MainStatusSafeTitle" xml:space="preserve">
+        <value>Kõik korras</value>
+    </data>
+    
+    <data name="MainStatusSafeText" xml:space="preserve">
+        <value>Ühtegi kokkupuudet COVID-19 juhtumitega pole tuvastatud.</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticTitle" xml:space="preserve">
+        <value>Mõõdukas risk</value>
+    </data>
+    
+    <data name="MainStatusSymptomaticText" xml:space="preserve">
+        <value>Te olete kokku puutunud ühe või mitme COVID-19 sümptomitega isikuga.</value>
+    </data>
+    
+    <data name="MainStatusPositiveTitle" xml:space="preserve">
+        <value>Kõrge risk</value>
+    </data>
+    
+    <data name="MainStatusPositiveText" xml:space="preserve">
+        <value>Te olete kokku puutunud ühe või mitme kinnitatud COVID-19 nakatunuga.</value>
+    </data>
+    
+    <!-- Onboarding pages -->
+    
+    <data name="OnboardingContinue" xml:space="preserve">
+        <value>Jätka</value>
+    </data>
+    
+    <data name="OnboardingBluetooth" xml:space="preserve">
+        <value>Koroonajälgija kasutab Bluetooth'i, et teavitada teid anonüümselt igasugusest kokkupuutest COVID-19 nakatunutega.</value>
+    </data>
+    
+    <data name="OnboardingPrivacy" xml:space="preserve">
+        <value>Koroonajälgija on täielikult anonüümne ning ei kogu teie isiklikke andmeid ega asukohta. Koroonajälgija peab lugu teie privaatsusest.</value>
+    </data>
+    
+    <data name="OnboardingRecommendedUses" xml:space="preserve">
+        <value>Parimaks töövõimeks avage äpp ning jäta taustal lahti, eriti kui puutute kokku teiste isikutega (autos, ühistranspordis, poes, õues, tööl ja mujal).</value>
+    </data>
+    
+    <!-- Signaling page -->
+    
+    <data name="SignalingTitle" xml:space="preserve">
+        <value>Teavita</value>
+    </data>
+    
+    <data name="SignalingNotice" xml:space="preserve">
+        <value>Selle ankeedi täitmisega saadate Koroonajälgija kasutajatele, kellega olete 14 päeva jooksul kokku puutunud.<br>See EI teavita valitsust! Helistage enne perearstile või 1247.</value>
+    </data>
+    
+    <data name="SignalingFormSymptomOnset" xml:space="preserve">
+        <value>Sümptomite algus</value>
+    </data>
+    
+    <data name="SignalingFormIsTested" xml:space="preserve">
+        <value>Olete testitud COVID-19 suhtes positiivselt.</value>
+    </data>
+    
+    <data name="SignalingFormComment" xml:space="preserve">
+        <value>Kommentaar (valikuvaba)</value>
+    </data>
+    
+    <data name="SignalingFormSubmit" xml:space="preserve">
+        <value>Saada</value>
+    </data>
+    
+    <data name="SignalingFormConfirmTitle" xml:space="preserve">
+        <value>Olete kindel, et soovite saata?</value>
+    </data>
+        
+    <data name="SignalingFormConfirmText" xml:space="preserve">
+        <value>Seda tegevust ei saa tagasi võtta.</value>
+    </data>
+        
+    <data name="SignalingFormConfirmYes" xml:space="preserve">
+        <value>Jah</value>
+    </data>
+        
+    <data name="SignalingFormConfirmNo" xml:space="preserve">
+        <value>No</value>
+    </data>
+    
+    <data name="SignalingSuccessTitle" xml:space="preserve">
+        <value>Saadetud</value>
+    </data>
+    
+    <data name="SignalingSuccessText" xml:space="preserve">
+        <value>Esitatud informatsiooun on edukalt saadetud. Täname!</value>
+    </data>
+    
+    <data name="SignalingSuccessContinue" xml:space="preserve">
+        <value>Edasi</value>
+    </data>
+    
+    <data name="SignalingFailureTitle" xml:space="preserve">
+        <value>Saatmine ebaõnnestus</value>
+    </data>
+    
+    <data name="SignalingFailureText" xml:space="preserve">
+        <value>Palun proovige hiljem uuesti.</value>
+    </data>
+    
+    <data name="SignalingFailureContinue" xml:space="preserve">
+        <value>Edasi</value>
+    </data>
+    
+    <data name="SignalingAlreadyDoneText" xml:space="preserve">
+        <value>Te olete juba oma juhtumist teavitanud.</value>
+    </data>    
+</root>
