@@ -8,7 +8,7 @@ CovidTracer le notifica al usuario de cualquier contacto cercano con otros usuar
 
 CovidTracer usa Bluetooth y tecnicas criptograficas para proteger la privacidad del usuario. Los usuarios de la app no comparten informacion personal. Jamas se mantiene ningun registro de la ubicacion GPS.
 
-CovidTracer sigue las [recomendaciones de rastreo de contacto](https://www.eff.org/deeplinks/2020/04/challenge-proximity-apps-covid-19-contact-tracing) de la Electronic Frontier Foundation.
+CovidTracer sigue las [recomendaciones de rastreo de contacto](https://www.eff.org/deeplinks/2020/04/challenge-proximity-apps-covid-19-contacto-tracing) de la Electronic Frontier Foundation.
 
 CovidTracer is a software libre y gratuito(GPLv3).
 
@@ -20,31 +20,31 @@ En **Android**, se puede descargar un APK instalable [aqui](https://github.com/R
 
 En **iOS**, solo los desarrolladores registrados de Apple pueden compilar, firmar e instalar la app en sus iPhones. Esto se puede realizar mediante la clonacion del repositorio y mediante el uso de [Visual Studio para macOS](https://visualstudio.microsoft.com/vs/mac/). La app de iOS no soporta todas las caracteristicas aun. 
 
-## Frequently asked questions
+## Preguntas Frecuentes
 
-- **What are the privacy features of CovidTracer?**
-CovidTracer uses cryptographic techniques similar to those used by e-commerce and crypto currencies. These provide an high degree of privacy that prevents anyone to associate the use of the app with any of your personal data (location, name...).
+- **Cuales son las capacidades de privacidad en CovidTracer?**
+CovidTracer usa tecnicas criptograficas similares a las usadas por e-commerce y crypto-monedas. Estas proveen altos niveles de privacidad que evitan que cualquiera asocie el uso de esta app con cualquiera de tus datos personales (ubicacion, nombre...).
 
-- **When should I use CovidTracer?**
-For maximum efficiency, opens the app or let it run in background when you interact with people external to your household (transports, office, grocery stores, outdoor activities...).
+- **Cuando deberia usar CovidTracer?**
+Para eficiencia maxima, abre la app y dejala ejecutarse en 2do plano cuando interactuas con personas ajenas a tu hogas (transportes, officina, tiendas, actividades en el exterior...).
 
-- **What to do when the app detects a high-risk contact?**
-Please inform your general practitioner as soon as possible about the high-risk contact the app detected. The app does not notify any health or governmental organization on positive match.
+- **Que hago cuando la aplicacion detecta un contacto de alto riesgo?**
+Por favor informa a la autoridad competente tan pronto como se detecte el contacto de alto-riesgo. La app no notifica a ninguna organizacion gubernamental ni de la salud sobre el caso positivo.
 
-- **Why is the Android application requesting access to my location?**
-Android app must [request the location permission](https://developer.android.com/guide/topics/connectivity/bluetooth#Permissions) to access some Bluetooth features, such as scanning. CovidTracer does not use or record your location.
+- **Por que pide acceso a la ubicacion la aplicacion de Android?**
+La aplicacion de Android debe [pedir el permiso de ubicacion](https://developer.android.com/guide/topics/connectivity/bluetooth#Permissions) para acceder a algunas capacidades bluetooth, como el escaneo. CovidTracer no utiliza ni registra.
 
-- **How can I remove any data recorded by the app?**
-Un-installing the application from your smartphone will delete all data the app recorded. If you ever reported yourself as a positive case, some (anonymous) data associated to your infectious perdiod will still be availaible to other app users.
+- **Como puedo remover cualquier informacion recolectada por la app?**
+Des-instalar la aplicacion de tu smartphone va a borrar toda la informacion que recolecto la aplicacion. Si alguna vez te reportaste a ti mismo como un caso positivo, algunos datos (anonimos) asociados a tu periodo infeccioso aun van a estar disponibles a otros usuarios de la app.
 
-- **I like the project, how can I help?** 
-I am developping the app as a personal side-project with few resources. I would very much welcome any help.
-    - If you speak a foreign language, you can help by translating [one of the localization files](CovidTracer/Resx/);
-    - If you have some skills in computer science and/or cryptography, do not hesitate to read the technical details and to provide feedback;
-    - If you are a graphic and/or UX designer, you can help by improving some of the UI components of the application (onboarding, icons...);
-    - Creating an anonymous and (moslty) distributed contact-tracing application is possible. Please pressure your local gouvernment to take privacy into account if they are developing their own contact tracing systems.
+- **Me gusta el proyecto. Como puedo ayudar?** 
+Estoy desarrollando la aplicacion como un proyecto personalcon pocos recorsos. Recibiria con mucho gusto cualquier ayuda.
+    - Si hablas un lenguaje extrangero, puedes ayudar traduciendo [uno de los archivos de localizacion](CovidTracer/Resx/);
+    - Si tienes habilidades en ciencia computacional y/o cryptografia, no dudes en leer los detalles tecnicos y en proveer feedback;
+    - Si eres un diseñador grafico o de UX, puedes ayudar a mejorar algunos de los componentes de la UI de la aplicacion (onboarding, iconos...);
+    - Crear una applicacion (mayormente) distribuida de rastreo de contacto es posible. Por favor presiona a tu gobierno local a tener la privacidad en cuenta si estan desarrollando sus propios sistemas de rastreo de contactos.
 
-## Technical details
+## Detalles tecnicos
 
 ### Overview
 
@@ -70,11 +70,11 @@ The actual indentifier broadcasted over Bluetooth [is derived](CovidTracer/Model
 
     CurrentKey = TRUNCATE(HMAC-SHA256(DailyKey, CurrentTime('YYYY-MM-DDTHH'))
 
-If a user reports her/himself positive to SARS-CoV-2, all the generated daily identifiers used/to be used during the infectious period will be [shared with a central server](https://covid-tracer-backend.herokuapp.com/cases.json) (from 5 days before the symptoms onset, up to 11 days after). Other application instances can then derivate all hourly generated keys during the infectious period, and potentially match then with any contact they previously had. 
+If a user reports her/himself positive to SARS-CoV-2, all the generated daily identifiers used/to be used during the infectious period will be [shared with a central server](https://covid-tracer-backend.herokuapp.com/cases.json) (from 5 days before the symptoms onset, up to 11 days after). Other application instances can then derivate all hourly generated keys during the infectious period, and potentially match then with any contacto they previously had. 
 
 Additional measures have been taken to increase privacy:
 
-- Contact tracing keys are automatically removed from the phone after 15 days;
+- contacto tracing keys are automatically removed from the phone after 15 days;
 - The backend returns daily keys in alphabetical order, and only publishes them every 12 hours. This makes it harder to associate multiple daily keys with a single user;
 - The backend does not publish daily keys of future dates, and the apps only match contacts that occured on the day associated with the key. This prevents user impersonification; 
 - Bluetooth signal quality is used to evaluate proximity of nearby devices. The algorithm is calibrated to only record identifiers of devices located in the same room;
