@@ -52,21 +52,21 @@ The app constantly broadcasts a unique 20 bytes identifier over Bluetooth Low En
 
 If the user ever reports her/himself as positive to SARS-CoV-2, the hourly-generated identifiers coresponding to the infectious period (16 days) are anonymously published on a central server. Other app users can then compare these identifiers with the ones they recorded over the past few days.
 
-### Details
+### Detalles
 
-When the app is started for the first time, a [256 bits key is generated](CovidTracer/Models/Keys/TracerKey.cs#L54) using a cryptographic random number generator:
+Cuando la app se abre por primera vez, se [genera una llave de 256 bits](CovidTracer/Models/Keys/TracerKey.cs#L54) usando un generador de numeros criptograficos aleatorios:
 
     TracerKey = RNG()
 
-This key will not be shared with other app users but will be used to derivate daily and hourly keys.
+Esta llave no va a ser compartida con ningun otro usuario de la app, pero sera usada para crear llaves diarias y horales.
 
-Every (UTC) day, [a new 256 bits key is derived](CovidTracer/Models/Keys/TracerKey.cs#L80) from the `TracerKey` using a *SHA-256 HMAC* function, together with the current date (as an ISO 8601 string):
+Cada dia (UTC), [se deriva una nueva llave de 256 bits](CovidTracer/Models/Keys/TracerKey.cs#L80) de la `TracerKey` usando una funcion *SHA-256 HMAC*, en conjunto con la fecha actual (como una cadena de caracteres ISO 8601):
 
     DailyKey = HMAC-SHA256(TracerKey, CurrentDate('YYYY-MM-DD'))
     
-The original `TracerKey` can not be derived back from the `DailyKey`. 
+La `TracerKey` original no puede ser derivada desde la `DailyKey`. 
 
-The actual indentifier broadcasted over Bluetooth [is derived](CovidTracer/Models/Keys/DailyTracerKey.cs#L49) every (UTC) hour from the current day' key and current time. As Bluetooth Low Energy characteristics are limited to 20 bytes, this key is also truncated:
+El identificador actual enviado por bluetooth [es derivado](CovidTracer/Models/Keys/DailyTracerKey.cs#L49) cada hora (UTC) de la llave del dia actual' y la hora actual. ya que las caracteristicas de BLE estan limitadas a 20 bytes, esta llave tambien es truncada:
 
     CurrentKey = TRUNCATE(HMAC-SHA256(DailyKey, CurrentTime('YYYY-MM-DDTHH'))
 
