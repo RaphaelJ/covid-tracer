@@ -1,5 +1,7 @@
 ﻿# CovidTracer
 
+![Click aqui para leer la version en ESPAÑOL](README_ESP.md)
+
 CovidTracer is a heavily **decentralized** and **anonymous** contact tracing application designed for the ongoing COVID-19 pandemic.
 
 CovidTracer notifies users of any close contact with other users diagnosed with COVID-19. 
