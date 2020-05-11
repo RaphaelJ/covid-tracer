@@ -1,5 +1,7 @@
 ﻿# CovidTracer
 
+![Click aqui para leer la version en ESPAÑOL](README_ESP.md)
+
 CovidTracer is a heavily **decentralized** and **anonymous** contact tracing application designed for the ongoing COVID-19 pandemic.
 
 CovidTracer notifies users of any close contact with other users diagnosed with COVID-19. 
@@ -91,4 +93,4 @@ These users provided the translation in the following languages:
 - Croatian/Hrvatski: [micimacahaca](https://old.reddit.com/user/micimacahaca);
 - Dutch: [vlammuh](https://www.reddit.com/user/vlammuh) and [bavoceulemans](https://github.com/bavoceulemans);
 - Brazilian/Portuguese: [Raphael Salomao](https://github.com/raphaelsalomao3);
-- Spanish: [Barraguesh](https://github.com/Barraguesh).
+- Spanish: [Barraguesh](https://github.com/Barraguesh) and [PinkDev1](https://github.com/PinkDev1).
