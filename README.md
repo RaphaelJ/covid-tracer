@@ -93,4 +93,4 @@ These users provided the translation in the following languages:
 - Croatian/Hrvatski: [micimacahaca](https://old.reddit.com/user/micimacahaca);
 - Dutch: [vlammuh](https://www.reddit.com/user/vlammuh) and [bavoceulemans](https://github.com/bavoceulemans);
 - Brazilian/Portuguese: [Raphael Salomao](https://github.com/raphaelsalomao3);
-- Spanish: [Barraguesh](https://github.com/Barraguesh).
+- Spanish: [Barraguesh](https://github.com/Barraguesh) and [PinkDev1](https://github.com/PinkDev1).
