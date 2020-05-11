@@ -70,25 +70,25 @@ El identificador actual enviado por bluetooth [es derivado](CovidTracer/Models/K
 
     CurrentKey = TRUNCATE(HMAC-SHA256(DailyKey, CurrentTime('YYYY-MM-DDTHH'))
 
-If a user reports her/himself positive to SARS-CoV-2, all the generated daily identifiers used/to be used during the infectious period will be [shared with a central server](https://covid-tracer-backend.herokuapp.com/cases.json) (from 5 days before the symptoms onset, up to 11 days after). Other application instances can then derivate all hourly generated keys during the infectious period, and potentially match then with any contacto they previously had. 
+Si un usuario se reporta a si mismo como positivo para SARS-CoV-2, todos los identificadores diarios usados/a ser usados durante el periodo infeccioso van a ser [compartidos con un servidor central](https://covid-tracer-backend.herokuapp.com/cases.json) (desde 5 dias antes de que aparescan los simtomas, hasta 11 dias despues). Otras instancias de la aplicacion pueden despues derivar llaves generadas horalmente durante el periodo infeccioso, y potencialmente coincidir con cualquier contacto que allan tenido previamente. 
 
-Additional measures have been taken to increase privacy:
+Medidas adicionales para mejorar la privacidad:
 
-- contacto tracing keys are automatically removed from the phone after 15 days;
-- The backend returns daily keys in alphabetical order, and only publishes them every 12 hours. This makes it harder to associate multiple daily keys with a single user;
-- The backend does not publish daily keys of future dates, and the apps only match contacts that occured on the day associated with the key. This prevents user impersonification; 
-- Bluetooth signal quality is used to evaluate proximity of nearby devices. The algorithm is calibrated to only record identifiers of devices located in the same room;
-- The backend implements strict rate-limiting on reporting;
-- All communication with the backend is done over HTTPS;
-- The backend [is availaible](https://github.com/RaphaelJ/covid-tracer-backend) as a free and opensource software.
+- Las llaves de rastreo de contactos son automaticamente removidas del dispositivo luego de 15 dias;
+- El backend retorna llaves diarias en orden alfabetico, y solo las publica cada 12 horas. Esto hace que sea mas dificil asociar multiples llaves diarias con un solo usuario;
+- El backend no publica llaves diarias de fechas futuras, y las aplicacionessolo coinciden contactos que ocurrieron en el dia asociado con la llave. Esto evita la impersonificacion del usuario; 
+- La calidad de la señal Bluetooth es usada para evaluar la proximidad de dispositivos cercanos. El algoritmo solo para registrar identificadores de dispositivos ubicados en la misma habitacion;
+- El backend implementa limites de ratio estrictos en el reportaje;
+- Toda la communicacion con el backend se hace mediante HTTPS;
+- El backend [esta disponible](https://github.com/RaphaelJ/covid-tracer-backend) como software libre y gratuito.
 
-More advanced diagnostic and debugging information can be obtained directly in the application by tapping 10 times on the tracer key ID on the *About* page.
+Opciones mas avanzadas de diagnostico e informacion de debugging se puede obtener diractamente desde la aplicacion haciendo click 10 veces en la "tracer key ID" en la pagina de *Acerca de*.
 
-## Special thanks
+## Agradecimientos especiales
 
-These users provided the translation in the following languages:
+Estos usuarios proveyeron la traduccion en los siguientes lenguajes:
 
 - Croatian/Hrvatski: [micimacahaca](https://old.reddit.com/user/micimacahaca);
-- Dutch: [vlammuh](https://www.reddit.com/user/vlammuh) and [bavoceulemans](https://github.com/bavoceulemans);
-- Brazilian/Portuguese: [Raphael Salomao](https://github.com/raphaelsalomao3);
-- Spanish: [Barraguesh](https://github.com/Barraguesh).
+- Holandés: [vlammuh](https://www.reddit.com/user/vlammuh) y [bavoceulemans](https://github.com/bavoceulemans);
+- Brazileño/Portugues: [Raphael Salomao](https://github.com/raphaelsalomao3);
+- Español: [Barraguesh](https://github.com/Barraguesh) y [PinkDev1](https://github.com/PinkDev1)
